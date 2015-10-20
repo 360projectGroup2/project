@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import model.Patient;
+import model.Doctor;
 
 
 public class TableController implements DBQuery{
@@ -21,12 +22,60 @@ public class TableController implements DBQuery{
 	public Connection connectDatabase() {
 		Connection connection = null;
 		try {
-			connection = MySQLConnector.connectDatabase("primafacie.cidse.dhcp.asu.edu", "IPIMS", "dbuser", "temp4now");
+		//	connection = MySQLConnector.connectDatabase("primafacie.cidse.dhcp.asu.edu", "IPIMS", "dbuser", "temp4now");
+			connection = MySQLConnector.connectDatabase("localhost", "ipims", "root", "kks@asu");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return connection;
 	}
+	
+	public ArrayList<Doctor> getDoctor(int patientId, String where) throws SQLException{
+		Connection connection = this.connectDatabase();
+		if(connection == null){
+			throw new SQLException("Cannot connect database");
+		}
+		if(patientId > 0){
+			if(where == null){
+				where = "patientId=" + patientId;
+			}else{
+				where = "patientId=" + patientId + " and "+ where;
+			}
+		}else{
+			if(where == null){
+				where = "1=1";
+			}
+		}
+		String sql = "select * from doctor where "+where;
+		PreparedStatement statement = connection.prepareStatement(sql);
+		
+		ResultSet resultSet = statement.executeQuery();
+		ArrayList<Doctor> doctors = new ArrayList<Doctor>();
+		while(resultSet.next()){
+			Doctor doctor = new Doctor();
+			doctor.setDoctor(resultSet.getString("first_name"), resultSet.getString("last_name"), resultSet.getString("speciality"), resultSet.getInt("doctorId"));
+			
+			sql = "select * from business_hours where doctorId="+resultSet.getInt("doctorId");
+			PreparedStatement stmt = connection.prepareStatement(sql);
+			
+			ResultSet hours = stmt.executeQuery();
+			String weekday ="";
+			while(hours.next()){
+				String [] weekDays = {"Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"};
+				for(int i=0; i < weekDays.length; i++){
+					if(hours.getString(weekDays[i]) == "Available"){
+						weekday = weekday+weekDays[i]+";";
+					}
+					
+				}
+				doctor.setHours(weekday, hours.getString("start"), hours.getString("end"));
+			}
+			
+			doctors.add(doctor);
+		} 
+		return doctors;
+	}
+	
 	public ArrayList<ArrayList<String>> get() throws SQLException {
 		
 		ArrayList<ArrayList<String>> result = new ArrayList<>();

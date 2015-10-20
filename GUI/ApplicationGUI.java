@@ -70,7 +70,7 @@ public class ApplicationGUI extends JFrame {
 	 * Launch the application.
 	 */
 
-	public ApplicationGUI() {
+	public ApplicationGUI() throws SQLException{
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 

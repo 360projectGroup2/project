@@ -1,5 +1,9 @@
 package model;
+import java.sql.SQLException;
 import java.text.*;
+import java.util.ArrayList;
+
+import controller.TableController;
 
 public class Doctor {
 	public String firstName;
@@ -7,7 +11,7 @@ public class Doctor {
 	public String userName;
     private int docId;
 	public BusinessHours availble;
-	String specialty;
+	public String specialty;
 	
    public Doctor()// initialize first
    {
@@ -32,8 +36,8 @@ public class Doctor {
         docId = id;
 	}*/
 	
-	public void setHours(int weekday, int startHour, int endHour){
-		availble = new BusinessHours(weekday,startHour,endHour);
+	public void setHours(String weekday, String startHour, String endHour){
+		this.availble = new BusinessHours(weekday,startHour,endHour);
 	}
 	
 	public Patient searchPatient(Patient[] p, String name){
@@ -80,11 +84,22 @@ public class Doctor {
    {
     return docId;
    }
+  
+  public void setID(int doctorId){
+	  this.docId = doctorId;
+  }
    
    public String getUserName()
    {
     return userName;
    }
-
-    
+   
+   /*This method takes doctor ID as input and gets all 
+    * 
+    */
+    public ArrayList<Doctor> getDoctor(int patientId) throws SQLException{
+    	TableController dbController = new TableController();
+    	ArrayList<Doctor> doctors = dbController.getDoctor(patientId, null);
+    	return doctors;
+    }
 }

@@ -1,6 +1,7 @@
 package GUI;
 
 import javax.swing.JPanel;
+
 import javax.swing.JLabel;
 
 import java.awt.GridLayout;
@@ -16,6 +17,16 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import java.awt.Component;
+import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.StringTokenizer;
+
+import java.util.Date;
+
+import model.Doctor;
 
 public class PAT_ScAp extends JPanel implements ActionListener{
 	// INSTANCE VARIABLES	
@@ -27,15 +38,23 @@ public class PAT_ScAp extends JPanel implements ActionListener{
 	private JButton apply; 
 	String storeName, storeAddress, storeSsn,storeDoctor, storeHealthRank,storeConcerns, storeDate;
 
+	ArrayList<Doctor> doctorList = new Doctor().getDoctor(0);
 
 
-
-	public PAT_ScAp(int width, int height) {
+	public PAT_ScAp(int width, int height) throws SQLException{
 		this.width  = width;
 		this.height = height;
-		String [] doctors = {"Select Doctor","Dr. Frances H. Petersen","Dr. Kathryn	Price","Dr. Colin B. Todd",
-				"Dr. Paul Gonzalez","Dr. Karen Brown"};
+	//	String [] doctors = {"Select Doctor","Dr. Frances H. Petersen","Dr. Kathryn	Price","Dr. Colin B. Todd",
+	//			"Dr. Paul Gonzalez","Dr. Karen Brown"};
 
+		
+		ArrayList<String> doctorNames= new ArrayList<String>();
+		for(int i=0; i < doctorList.size(); i++){
+			System.out.println(doctorList.get(i).getID());
+			doctorNames.add("Dr. "+doctorList.get(i).getFirstName() +" "+doctorList.get(i).getLastName() + " - " + doctorList.get(i).specialty);
+		}
+		String[] doctors = doctorNames.toArray(new String[doctorNames.size()]);
+		
 		String [] problems = {"1","2","3","4","5","6","7","8","9","10"};
 		//CREATE PANELS	
 		JPanel wholePanel = new JPanel();
@@ -128,6 +147,55 @@ public class PAT_ScAp extends JPanel implements ActionListener{
 		{
 			JComboBox cb = (JComboBox)e.getSource();
 			storeDoctor  = (String)cb.getSelectedItem();
+			storeDoctor = storeDoctor.substring(storeDoctor.indexOf("Dr. ")+1);
+			String speciality = storeDoctor.substring(storeDoctor.lastIndexOf("- ")+1);
+			String lName = storeDoctor.substring(storeDoctor.lastIndexOf(" ")+1);
+			String fName = storeDoctor.substring(0,storeDoctor.indexOf(" ")-1);
+			
+			String[] days = new String[] {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
+			
+			
+			for(int i=0; i<doctorList.size();i++){
+				if(doctorList.get(i).lastName.equals(lName) && doctorList.get(i).firstName.equals(fName) && doctorList.get(i).specialty.equals(speciality)){
+					
+					StringTokenizer availDays = new StringTokenizer(doctorList.get(i).availble.getWeekday(), ";");
+					ArrayList<String> timings=new ArrayList<String>();
+					
+					Calendar cal = Calendar.getInstance();
+					
+					for(int j=0; j<3; j++){
+						
+						cal.add(Calendar.DATE, 1);
+						
+						String day = days[cal.DAY_OF_WEEK - 1];
+						if(doctorList.get(i).availble.getWeekday().contains(day)){
+								String start_hour = doctorList.get(i).availble.getStartHour();
+								int start_mins = Integer.parseInt(start_hour.substring(start_hour.indexOf(":")+1));
+								int start_hours = Integer.parseInt(start_hour.substring(0,start_hour.indexOf(":")-1));
+								
+								String end_hour = doctorList.get(i).availble.getEndHour();
+								int end_mins = Integer.parseInt(end_hour.substring(end_hour.indexOf(":")+1));
+								int end_hours = Integer.parseInt(end_hour.substring(0,end_hour.indexOf(":")-1));
+								
+								cal.set(Calendar.HOUR_OF_DAY, end_hours);
+								cal.set(Calendar.MINUTE, end_mins);
+								Date endTime = cal.getTime();
+								
+								cal.set(Calendar.HOUR_OF_DAY, start_hours);
+								cal.set(Calendar.MINUTE, start_mins);
+								Date startTime = cal.getTime();
+								while(startTime.before(endTime)){
+									String time = new SimpleDateFormat("yyyy-MM-dd HH:mm").format(startTime);
+									timings.add(time);
+									
+									cal.set(Calendar.HOUR_OF_DAY, ++start_hours);
+									startTime = cal.getTime();
+								}
+								
+						}
+					}
+				}
+			}
 		}
 		else if (source == apply)
 		{
