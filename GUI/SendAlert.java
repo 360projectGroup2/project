@@ -63,11 +63,11 @@ public class SendAlert extends JPanel {
 	add(textFieldLName);
 	
 	concernLabel = new JLabel("Concern:");
-	concernLabel.setBounds(10, 563, 100, 20);
+	concernLabel.setBounds(49, 563, 100, 20);
 	add(concernLabel);
 	
 	textConcern = new TextArea();
-	textConcern.setBounds(104, 563, 380, 75);
+	textConcern.setBounds(124, 563, 380, 75);
 	add(textConcern);
 	
 	
