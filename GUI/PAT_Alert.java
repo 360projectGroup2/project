@@ -11,18 +11,24 @@ public class PAT_Alert extends JPanel {
 	public JButton closeButton;
 
 	/**
-	 * Create the panel.
+	 * Create an alert notification window.
+	 * Parameters:
+	 * ActionListener b - Listener for the close button
+	 * String pName - Full name of patient
+	 * String pCond - The condition that triggered the alert
 	 */
 	public PAT_Alert(ActionListener b, String pName, String pCond) {
 		
 		setLayout(null);
 		setSize(300,300);
 		
-		this.patientName = new JLabel(pName);
+		String nameString = "Patient: " + pName;
+		this.patientName = new JLabel(nameString);
 		this.patientName.setBounds(95, 11, 128, 14);
 		add(this.patientName);
 		
-		this.condition = new JLabel(pCond);
+		String condString = "Condition: " + pCond;
+		this.condition = new JLabel(condString);
 		this.condition.setBounds(10, 39, 118, 14);
 		add(this.condition);
 		
