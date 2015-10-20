@@ -26,7 +26,7 @@ public class PAT_Alert extends JPanel {
 		this.condition.setBounds(10, 39, 118, 14);
 		add(this.condition);
 		
-		closeButton = new JButton("Update");
+		closeButton = new JButton("Close");
 		closeButton.setBounds(245, 259, 89, 23);
 		add(closeButton );
 		closeButton.addActionListener(b);
