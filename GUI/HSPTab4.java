@@ -2,11 +2,6 @@ package GUI;
 
 import javax.swing.JPanel;
 import javax.swing.JTable;
-import javax.swing.JPasswordField;
-import javax.swing.JPopupMenu;
-import java.awt.Component;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import javax.swing.JLabel;
 
 public class HSPTab4 extends JPanel {
