@@ -73,6 +73,6 @@ public class SendAlert extends JPanel {
 
 	public void actionPerformed(ActionEvent ae)
 	{
-		// to be completed
+		
 	}
 }
