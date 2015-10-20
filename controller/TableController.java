@@ -95,8 +95,8 @@ public ArrayList<ArrayList<String>> searchUpdateHealthConditions(Patient p) thro
 				record.add(resultset.getString(i));		
 			result.add(record);
 		}
-		p.healthCondition = result.get(0).get(0);
-		p.allergies = result.get(0).get(1);
+		p.healthCondition = result.get(1).get(0);
+		p.allergies = result.get(1).get(1);
 		resultset.close();
 		statement.close();
 		
@@ -152,6 +152,70 @@ public ArrayList<ArrayList<String>> registerPatient(Patient p) throws SQLExcepti
 	// NEVER FORGET TO RELEASE THE CONNECTION!
 	connection.close();
 	return result;
+}
+
+public String sendAlert(Patient p) throws SQLException {
+	
+	ArrayList<ArrayList<String>> result = new ArrayList<>();
+	Connection connection = this.connectDatabase();
+	if(connection == null) {
+		// You can use other approaches for the connection issue.
+		// As the connection error generally comes from network errors or 
+		// user permissions, it should be taken care of individually
+		throw new SQLException("cannot connect database");
+	}
+	
+	String sql;
+	String Gkey;
+	ResultSet resultset;
+	PreparedStatement statement;
+	
+	sql = "select Gkey from Patient where FirstName = '" + p.firstName + "' and LastName = '" + p.lastName + "'";
+	statement = connection.prepareStatement(sql);
+	resultset = statement.executeQuery();
+	while(resultset.next()) {
+		ArrayList<String> record = new ArrayList<>();
+		for (int i = 1; i <= resultset.getMetaData().getColumnCount(); i++)
+			record.add(resultset.getString(i));		
+		result.add(record);
+	}
+	
+	Gkey = result.get(0).get(0);
+	
+	sql = "select HCID, Severity from HealthConditions where HealthCondition = '" + p.healthCondition + "'";
+	statement = connection.prepareStatement(sql);
+	resultset = statement.executeQuery();
+	while(resultset.next()) {
+		ArrayList<String> record = new ArrayList<>();
+		for (int i = 1; i <= resultset.getMetaData().getColumnCount(); i++)
+			record.add(resultset.getString(i));		
+		result.add(record);
+	}
+	if (result.size() == 0) {
+		resultset.close();
+		statement.close();
+		
+		// NEVER FORGET TO RELEASE THE CONNECTION!
+		connection.close();
+		return "Error: HealthCondition is not well-defined.";
+	}
+	String HCID = result.get(1).get(0);
+	String severityStr = result.get(1).get(1);
+	int severity = Integer.parseInt(result.get(1).get(1));
+	
+	sql = "INSERT INTO `HasCondition`(`HCID`, `Gkey`) VALUES ("+HCID+","+Gkey+")";
+	statement = connection.prepareStatement(sql);
+	statement.executeUpdate();
+	
+	activePatient = p;
+	activePatient.severity = severity;
+	
+	resultset.close();
+	statement.close();
+	
+	// NEVER FORGET TO RELEASE THE CONNECTION!
+	connection.close();
+	return "Success";
 }
 
 }
