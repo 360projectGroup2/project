@@ -65,6 +65,14 @@ public class ApplicationGUI extends JFrame {
 	Reg_MH reg_MH;
 	Reg_LI reg_LI;
 	
+	//add in the tabs
+	HSPBase h_Base;
+	
+	HSPTab1 H_tab1;
+	HSPTab2 H_tab2;
+	HSPTab3 H_tab3;
+	HSPTab4 H_tab4;
+	
 
 
 	/**
@@ -92,6 +100,14 @@ public class ApplicationGUI extends JFrame {
 		reg_LI = new Reg_LI(b);
 		reg_CI = new Reg_CI(b);
 		reg_MH = new Reg_MH(b);
+		
+		H_tab1 = new HSPTab1();
+		H_tab2 = new HSPTab2(e);
+		H_tab3 = new HSPTab3(b);
+		H_tab4 = new HSPTab4();
+		
+		h_Base = new HSPBase(H_tab1, H_tab2, H_tab3, H_tab4, -1);
+		
 
 		contentPane = new JPanel();
 		//contentPane.setLayout(null);
@@ -135,6 +151,11 @@ public class ApplicationGUI extends JFrame {
 			
 			if(event.getSource() == start.sendAlertBtn){
 				updateStart(sendAlert);
+			}
+			
+			if(event.getSource() == start.docPanBtn){
+				updateStart(h_Base);
+				setSize(700,1000);
 			}
 			
 			//----
