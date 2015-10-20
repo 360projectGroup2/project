@@ -15,6 +15,7 @@ public class PAT_HCU extends JPanel {
 	public TextArea textAreaMedicalHistory;
 	public TextArea textAreaAllergies;
 	public JButton updateButton;
+	
 
 	/**
 	 * Create the panel.
@@ -108,5 +109,7 @@ public class PAT_HCU extends JPanel {
 		updateButton.setBounds(545, 559, 89, 23);
 		add(updateButton );
 		updateButton.addActionListener(b);
+		
+	
 	}
 }

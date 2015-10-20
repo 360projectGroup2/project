@@ -52,6 +52,7 @@ public class ApplicationGUI extends JFrame {
 	PAT_ScAp pat_ScAp;
 	//patient update health condition
 	PAT_HCU pat_HCU;
+	SendAlert sendAlert;
 	Patient pat;
 
 	TestPatient_Registration1 RegistrationBase;
@@ -82,6 +83,7 @@ public class ApplicationGUI extends JFrame {
 		//pat_SeAl = new PAT_SeAl();
 		pat_ScAp = new PAT_ScAp(500,500);
 		pat_HCU = new PAT_HCU(b);
+		sendAlert = new SendAlert(b);
 
 		RegistrationBase = new TestPatient_Registration1(e, b);
 		reg_PI = new Reg_PI(b);
@@ -118,18 +120,22 @@ public class ApplicationGUI extends JFrame {
 		public void actionPerformed (ActionEvent event){
 
 			//---
-			if(event.getSource() == start.b1){
+			if(event.getSource() == start.savebutton){
 				updateStart(RegistrationBase);
 				pat = new Patient(true);
 			}
-			if(event.getSource() == start.b2){
+			if(event.getSource() == start.ScheduleAppBtn){
 				updateStart(pat_ScAp);
 
 			}
-			if(event.getSource() == start.b3){
+			if(event.getSource() == start.UpdateHealthCondBtn){
 				updateStart(pat_HCU);
 			}
-
+			
+			if(event.getSource() == start.sendAlertBtn){
+				updateStart(sendAlert);
+			}
+			
 			//----
 			if (event.getSource() == RegistrationBase.b1){
 				update(RegistrationBase.panel, reg_PI);
