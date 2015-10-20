@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
@@ -206,6 +207,38 @@ public class ApplicationGUI extends JFrame {
 					tc.activePatient.sex="F";
 			}
 			
+			if (event.getSource() == sendAlert.updateButton) {
+				tc.activePatient = new Patient();
+				tc.activePatient.firstName = sendAlert.textFieldFName.getText();
+				tc.activePatient.lastName = sendAlert.textFieldLName.getText();
+				tc.activePatient.healthCondition = sendAlert.textConcern.getText();
+				try {
+					String response = tc.sendAlert(tc.activePatient);
+					// System.out.println(tc.activePatient.severity);
+					// tc.activePatient now contains the object populated with database response
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				sendAlert.concernLabel.setText("Concern: Recorded!");
+				if (tc.activePatient.severity < 7) {
+					JOptionPane.showMessageDialog(null, "Your concerns have been registered.\nYou will be contacted shortly.");
+				}
+				else {
+					JOptionPane.showMessageDialog(null,
+						    "Alert sent\nSeek immediate medical attention.",
+						    "High severity warning",
+						    JOptionPane.WARNING_MESSAGE);
+				}
+				/*
+				PAT_Alert alertWindow = new PAT_Alert(new Bridge(), tc.activePatient.firstName.concat(" ").concat(tc.activePatient.lastName), tc.activePatient.healthCondition);
+				alertWindow.setSize(700,500);
+				alertWindow.setVisible(true);
+				*/
+				
+				
+			}
+			
 			if(event.getSource() == pat_HCU.updateButton) //this is just for health condition and Allergies update
 			{
 				Patient somePatient = new Patient();
@@ -231,21 +264,7 @@ public class ApplicationGUI extends JFrame {
 			*/
 			}
 
-				
-			if (event.getSource() == reg_PI.save){
-				if (tc.activePatient == null)
-					tc.activePatient = new Patient();
-				tc.activePatient.ssn = reg_PI.ssnTextField.getText();
-				tc.activePatient.birthdate = reg_PI.birthDateTextField.getText();
-				tc.activePatient.lastName = reg_PI.lastNameTextField.getText();
-				tc.activePatient.firstName = reg_PI.firstNameTextField.getText();
-				//sex
-				if(reg_PI.maleCheck.isSelected()){
-					tc.activePatient.sex="M";
-				}
-				else
-					tc.activePatient.sex="F";
-			}
+			
 			if (event.getSource() == reg_II.btnSave){
 				String[] info = new String[3];
 				//Insurance Name

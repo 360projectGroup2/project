@@ -26,6 +26,7 @@ public class Patient
   public String healthCondition;
   public String InsuranceComp;
   public String InsuranceID;
+  public int severity;
   
   public Patient() {}
   
