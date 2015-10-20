@@ -17,11 +17,7 @@ public class SendAlert extends JPanel {
 	public JButton updateButton;
 	
 
-	/**
-	 * Create the panel.
-	 */
-	
-	//layout is not completed 
+	//layout is not completed
 	public SendAlert(ActionListener b) {
 	
 	JLabel lblFirstName = new JLabel("First name:");
