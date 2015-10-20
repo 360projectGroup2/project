@@ -18,7 +18,8 @@ public class PAT_HCU extends JPanel {
 	public TextArea textAreaAllergies;
 	public JButton updateButton;
 	
-
+	
+	
 	/**
 	 * Create the panel.
 	 */

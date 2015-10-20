@@ -10,6 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+
 public class SendAlert extends JPanel {
 	
 	public JTextField textFieldFName;
@@ -67,8 +68,11 @@ public class SendAlert extends JPanel {
 	healthRankDrop.setBounds(545, 559, 100, 23);
 	add(healthRankDrop);
 	healthRankDrop.addActionListener(b);
-	
-	
-	
+
+	}
+
+	public void actionPerformed(ActionEvent ae)
+	{
+		// to be completed
 	}
 }
