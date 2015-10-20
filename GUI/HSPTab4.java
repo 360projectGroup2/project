@@ -1,53 +1,34 @@
 package GUI;
 
 import javax.swing.JPanel;
-import javax.swing.JButton;
-
-import java.awt.BorderLayout;
-import java.awt.GridLayout;
-import java.awt.event.ActionListener;
+import javax.swing.JTable;
+import javax.swing.JPasswordField;
+import javax.swing.JPopupMenu;
+import java.awt.Component;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import javax.swing.JLabel;
 
-public class HSPTab3 extends JPanel {
+public class HSPTab4 extends JPanel {
+	private JTable table;
 
 	/**
 	 * Create the panel.
 	 */
-	public JLabel lblUsername, lblStatus, lblEmail;
-	public JButton chngPass, updateSec;
-	
-	
-	public HSPTab3(ActionListener b) {
-		setLayout(new BorderLayout(0, 0));
+	public HSPTab4() {
+		setLayout(null);
 		
-		JPanel panel_1 = new JPanel();
-		add(panel_1, BorderLayout.CENTER);
-		panel_1.setLayout(null);
+		JLabel lblHowDoU = new JLabel("how do u want this to look i dont really know");
+		lblHowDoU.setBounds(81, 84, 277, 14);
+		add(lblHowDoU);
 		
-		lblUsername = new JLabel("Username:");
-		lblUsername.setBounds(31, 67, 225, 31);
-		panel_1.add(lblUsername);
+		JLabel lblThisIsFor = new JLabel("This is for the listing appointments screen, honestly can be done with a lot of things");
+		lblThisIsFor.setBounds(10, 132, 430, 14);
+		add(lblThisIsFor);
 		
-		lblStatus = new JLabel("Status:");
-		lblStatus.setBounds(31, 135, 225, 31);
-		panel_1.add(lblStatus);
+
 		
-		lblEmail = new JLabel("Email:");
-		lblEmail.setBounds(31, 199, 225, 31);
-		panel_1.add(lblEmail);
-		
-		chngPass = new JButton("Change Password");
-		updateSec = new JButton("Update Security Question");
-		
-		JPanel inner = new JPanel();
-		add(inner, BorderLayout.WEST);
-		inner.setLayout(new GridLayout(4, 1, 0, 0));
-		JPanel i1 = new JPanel();
-		JPanel i2 = new JPanel();
-		inner.add(i1);
-		inner.add(chngPass);
-		inner.add(updateSec);
-		inner.add(i2);
-		
+
 	}
+
 }
