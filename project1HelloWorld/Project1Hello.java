@@ -25,6 +25,7 @@ public class Project1Hello {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			System.out.println("HELlo");
 			/*
 			for (String field : result.get(0)) {
 				System.out.println(field);

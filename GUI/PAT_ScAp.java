@@ -41,7 +41,7 @@ public class PAT_ScAp extends JPanel implements ActionListener{
 		JPanel wholePanel = new JPanel();
 		JPanel labelPanel = new JPanel(); // Left side of whole Panel
 		JPanel textfPanel = new JPanel(); // Right side of whole Panel
-		apply         = new JButton("Apply");
+		apply = new JButton("Apply");
 		apply.addActionListener(this);
 
 		//Text Field Initialization	

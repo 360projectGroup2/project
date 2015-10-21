@@ -63,7 +63,7 @@ public class TestPatient_Registration1 extends JPanel{
 		
 		b6 = new JButton("Submit Information");
 		b6.setBounds(305, 325, 164, 23);
-		b6.addActionListener(e);
+		b6.addActionListener(b);
 		add(b6);
 		
 		
