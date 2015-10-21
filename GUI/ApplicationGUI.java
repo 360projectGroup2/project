@@ -260,29 +260,27 @@ public class ApplicationGUI extends JFrame {
 				
 			}
 			
-			if(event.getSource() == pat_HCU.updateButton) //this is just for health condition and Allergies update
+			if(event.getSource() == pat_HCU.btnSearch) //this is just for health condition and Allergies update
 			{
-				Patient somePatient = new Patient();
-				somePatient.firstName = pat_HCU.textFieldFName.getName();
-				somePatient.lastName = pat_HCU.textFieldLName.getName();
-				somePatient.allergies = pat_HCU.textAreaAllergies.getText();
-				somePatient.healthCondition = pat_HCU.textAreaMedicalHistory.getText();
-			/*  
-			 *          ***Important We will get the new update and Delete the old one****
-			 * 
-			 *  	
+				//somePatient.healthCondition = pat_HCU.textAreaMedicalHistory.getText();
+				
+				tc.activePatient = new Patient();
+				tc.activePatient.firstName = pat_HCU.textFieldFName.getText();
+				tc.activePatient.lastName = pat_HCU.textFieldLName.getText();
 				try {
-					ArrayList<ArrayList<String>> result = (new TableController()). (somePatient);
-			=======
-				try {
-					ArrayList<ArrayList<String>> result = tc.registerPatient(tc.activePatient);
+					tc.searchUpdateHealthConditions(tc.activePatient);
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-					tc.activePatient.sex="F";
-			
-			*/
+				
+				String nameLabel = "Name: ";
+				String addressLabel = "Address: ";
+				
+				pat_HCU.medicalHistoryDisplay.setText(tc.activePatient.healthCondition);
+				pat_HCU.lblName.setText(nameLabel.concat(tc.activePatient.firstName.concat(" ").concat(tc.activePatient.lastName)));
+				pat_HCU.lblAddress.setText(addressLabel.concat("NULL"));
+				
 			}
 
 			

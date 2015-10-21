@@ -66,7 +66,7 @@ public ArrayList<ArrayList<String>> searchUpdateHealthConditions(Patient p) thro
 			throw new SQLException("cannot connect database");
 		}
 		String sql;
-		sql = "select GKey from patient where FirstName=" + p.firstName + " and LastName=" + p.lastName;
+		sql = "select Gkey from Patient where FirstName='" + p.firstName + "' and LastName='" + p.lastName+"'";
 		PreparedStatement statement = connection.prepareStatement(sql);
 		ResultSet resultset = statement.executeQuery();
 		while(resultset.next()) {
@@ -76,6 +76,9 @@ public ArrayList<ArrayList<String>> searchUpdateHealthConditions(Patient p) thro
 			result.add(record);
 		}
 		String GKey = result.get(0).get(0);
+		
+		ArrayList<ArrayList<String>> result2 = new ArrayList<>();
+		
 		sql = "select HCID from HasCondition where GKey=" +GKey;
 		statement = connection.prepareStatement(sql);
 		resultset = statement.executeQuery();
@@ -83,9 +86,11 @@ public ArrayList<ArrayList<String>> searchUpdateHealthConditions(Patient p) thro
 			ArrayList<String> record = new ArrayList<>();
 			for (int i = 1; i <= resultset.getMetaData().getColumnCount(); i++)
 				record.add(resultset.getString(i));		
-			result.add(record);
+			result2.add(record);
 		}
-		String HCID = result.get(0).get(0);
+		String HCID = result2.get(0).get(0);
+		
+		result = new ArrayList<>();
 		sql = "select HealthCondition, Allergies from HealthConditions where HCID=" +HCID;
 		statement = connection.prepareStatement(sql);
 		resultset = statement.executeQuery();
@@ -95,8 +100,9 @@ public ArrayList<ArrayList<String>> searchUpdateHealthConditions(Patient p) thro
 				record.add(resultset.getString(i));		
 			result.add(record);
 		}
-		p.healthCondition = result.get(1).get(0);
-		p.allergies = result.get(1).get(1);
+		p.healthCondition = result.get(0).get(0);
+		p.allergies = result.get(0).get(1);
+		activePatient = p;
 		resultset.close();
 		statement.close();
 		
@@ -180,7 +186,7 @@ public String sendAlert(Patient p) throws SQLException {
 		result.add(record);
 	}
 	
-	Gkey = result.get(0).get(0);
+	Gkey = result.get(1).get(0);
 	
 	sql = "select HCID, Severity from HealthConditions where HealthCondition = '" + p.healthCondition + "'";
 	statement = connection.prepareStatement(sql);
