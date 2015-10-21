@@ -20,7 +20,7 @@ public class PAT_HCU extends JPanel {
 	public JLabel lblName;
 	public JLabel lblAddress;
 	public JButton btnSearch;
-	TextArea medicalHistoryDisplay;
+	public TextArea medicalHistoryDisplay;
 	
 	
 	/**
