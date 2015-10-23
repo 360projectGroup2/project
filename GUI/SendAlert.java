@@ -43,36 +43,39 @@ public class SendAlert extends JPanel {
 	
 	//layout is not completed
 	public SendAlert(ActionListener b) {
-	
+		setLayout(null);
+		setSize(500,300);
+		
+		
 	JLabel lblFirstName = new JLabel("First name:");
-	lblFirstName.setBounds(49, 59, 65, 14);
+	lblFirstName.setBounds(30, 59, 65, 14);
 	add(lblFirstName);
 	
 	textFieldFName = new JTextField();
-	textFieldFName.setBounds(124, 56, 86, 20);
+	textFieldFName.setBounds(98, 56, 86, 20);
 	add(textFieldFName);
 	textFieldFName.setColumns(10);
 	
 	JLabel lblLastName = new JLabel("Last name:");
-	lblLastName.setBounds(49, 90, 65, 14);
+	lblLastName.setBounds(30, 90, 65, 14);
 	add(lblLastName);
 	
 	textFieldLName = new JTextField();
 	textFieldLName.setColumns(10);
-	textFieldLName.setBounds(124, 87, 86, 20);
+	textFieldLName.setBounds(98, 87, 86, 20);
 	add(textFieldLName);
 	
 	concernLabel = new JLabel("Concern:");
-	concernLabel.setBounds(10, 563, 100, 20);
+	concernLabel.setBounds(30, 150, 60, 20);
 	add(concernLabel);
 	
 	textConcern = new TextArea();
-	textConcern.setBounds(104, 563, 380, 75);
+	textConcern.setBounds(100, 150, 300, 75);
 	add(textConcern);
 	
 	
-	updateButton = new JButton("Update");
-	updateButton.setBounds(545, 559, 89, 23);
+	updateButton = new JButton("Send Alert");
+	updateButton.setBounds(300, 250, 100, 23);
 	add(updateButton );
 	updateButton.addActionListener(b);
 	

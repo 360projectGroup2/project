@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
@@ -64,13 +65,21 @@ public class ApplicationGUI extends JFrame {
 	Reg_MH reg_MH;
 	Reg_LI reg_LI;
 	
+	//add in the tabs
+	HSPBase h_Base;
+	
+	HSPTab1 H_tab1;
+	HSPTab2 H_tab2;
+	HSPTab3 H_tab3;
+	HSPTab4 H_tab4;
+	
 
 
 	/**
 	 * Launch the application.
 	 */
 
-	public ApplicationGUI() throws SQLException{
+	public ApplicationGUI() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 
@@ -91,6 +100,14 @@ public class ApplicationGUI extends JFrame {
 		reg_LI = new Reg_LI(b);
 		reg_CI = new Reg_CI(b);
 		reg_MH = new Reg_MH(b);
+		
+		H_tab1 = new HSPTab1(b);
+		H_tab2 = new HSPTab2(e);
+		H_tab3 = new HSPTab3(b);
+		H_tab4 = new HSPTab4();
+		
+		h_Base = new HSPBase(H_tab1, H_tab2, H_tab3, H_tab4, -1);
+		
 
 		contentPane = new JPanel();
 		//contentPane.setLayout(null);
@@ -134,6 +151,11 @@ public class ApplicationGUI extends JFrame {
 			
 			if(event.getSource() == start.sendAlertBtn){
 				updateStart(sendAlert);
+			}
+			
+			if(event.getSource() == start.docPanBtn){
+				updateStart(h_Base);
+				setSize(700,1000);
 			}
 			
 			//----
@@ -206,46 +228,61 @@ public class ApplicationGUI extends JFrame {
 					tc.activePatient.sex="F";
 			}
 			
-			if(event.getSource() == pat_HCU.updateButton) //this is just for health condition and Allergies update
-			{
-				Patient somePatient = new Patient();
-				somePatient.firstName = pat_HCU.textFieldFName.getName();
-				somePatient.lastName = pat_HCU.textFieldLName.getName();
-				somePatient.allergies = pat_HCU.textAreaAllergies.getText();
-				somePatient.healthCondition = pat_HCU.textAreaMedicalHistory.getText();
-			/*  
-			 *          ***Important We will get the new update and Delete the old one****
-			 * 
-			 *  	
+			if (event.getSource() == sendAlert.updateButton) {
+				tc.activePatient = new Patient();
+				tc.activePatient.firstName = sendAlert.textFieldFName.getText();
+				tc.activePatient.lastName = sendAlert.textFieldLName.getText();
+				tc.activePatient.healthCondition = sendAlert.textConcern.getText();
 				try {
-					ArrayList<ArrayList<String>> result = (new TableController()). (somePatient);
-			=======
-				try {
-					ArrayList<ArrayList<String>> result = tc.registerPatient(tc.activePatient);
+					String response = tc.sendAlert(tc.activePatient);
+					// System.out.println(tc.activePatient.severity);
+					// tc.activePatient now contains the object populated with database response
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-					tc.activePatient.sex="F";
+				sendAlert.concernLabel.setText("Concern: Recorded!");
+				if (tc.activePatient.severity < 7) {
+					JOptionPane.showMessageDialog(null, "Your concerns have been registered.\nYou will be contacted shortly.");
+				}
+				else {
+					JOptionPane.showMessageDialog(null,
+						    "Alert sent\nSeek immediate medical attention.",
+						    "High severity warning",
+						    JOptionPane.WARNING_MESSAGE);
+				}
+				/*
+				PAT_Alert alertWindow = new PAT_Alert(new Bridge(), tc.activePatient.firstName.concat(" ").concat(tc.activePatient.lastName), tc.activePatient.healthCondition);
+				alertWindow.setSize(700,500);
+				alertWindow.setVisible(true);
+				*/
+				
+				
+			}
 			
-			*/
+			if(event.getSource() == pat_HCU.btnSearch) //this is just for health condition and Allergies update
+			{
+				//somePatient.healthCondition = pat_HCU.textAreaMedicalHistory.getText();
+				
+				tc.activePatient = new Patient();
+				tc.activePatient.firstName = pat_HCU.textFieldFName.getText();
+				tc.activePatient.lastName = pat_HCU.textFieldLName.getText();
+				try {
+					tc.searchUpdateHealthConditions(tc.activePatient);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				String nameLabel = "Name: ";
+				String addressLabel = "Address: ";
+				
+				pat_HCU.medicalHistoryDisplay.setText(tc.activePatient.healthCondition);
+				pat_HCU.lblName.setText(nameLabel.concat(tc.activePatient.firstName.concat(" ").concat(tc.activePatient.lastName)));
+				pat_HCU.lblAddress.setText(addressLabel.concat("NULL"));
+				
 			}
 
-				
-			if (event.getSource() == reg_PI.save){
-				if (tc.activePatient == null)
-					tc.activePatient = new Patient();
-				tc.activePatient.ssn = reg_PI.ssnTextField.getText();
-				tc.activePatient.birthdate = reg_PI.birthDateTextField.getText();
-				tc.activePatient.lastName = reg_PI.lastNameTextField.getText();
-				tc.activePatient.firstName = reg_PI.firstNameTextField.getText();
-				//sex
-				if(reg_PI.maleCheck.isSelected()){
-					tc.activePatient.sex="M";
-				}
-				else
-					tc.activePatient.sex="F";
-			}
 			if (event.getSource() == reg_II.btnSave){
 				String[] info = new String[3];
 				//Insurance Name
