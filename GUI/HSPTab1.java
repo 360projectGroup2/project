@@ -56,6 +56,7 @@ public class HSPTab1 extends JPanel {
 	textFieldLName.setBounds(98, 87, 86, 20);
 	add(textFieldLName);
 	
+	
 	JLabel idNumber= new JLabel("ID: ???");
 	idNumber.setBounds(200, 59, 65, 14);
 	add(idNumber);
