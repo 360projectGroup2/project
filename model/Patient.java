@@ -27,6 +27,7 @@ public class Patient
   public String InsuranceComp;
   public String InsuranceID;
   public int severity;
+  public Lab labRecord = new Lab();						//lab record added
   
   public Patient() {}
   
