@@ -37,7 +37,7 @@ public class Doctor {
 	}*/
 	
 	public void setHours(String weekday, String startHour, String endHour){
-		this.availble = new BusinessHours(weekday,startHour,endHour);
+		availble = new BusinessHours(weekday,startHour,endHour);
 	}
 	
 	public Patient searchPatient(Patient[] p, String name){

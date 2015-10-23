@@ -1,15 +1,12 @@
 package GUI;
 
-import javax.swing.JPanel;
-
-import javax.swing.JLabel;
-
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -17,13 +14,11 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import java.awt.Component;
+
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.HashMap;
-import java.util.StringTokenizer;
-
 import java.util.Date;
 
 import model.Doctor;
@@ -32,9 +27,9 @@ public class PAT_ScAp extends JPanel implements ActionListener{
 	// INSTANCE VARIABLES	
 	private int width, height;
 	private JLabel nameLabel, addressLabel, ssnLabel, doctorLabel,healthRank, healthConcern,dateLabel;
-	private JTextField name, address,ssn, date;
+	private JTextField name, address,ssn;
 	private JTextArea healthConcerns;
-	private JComboBox doctorDrop, healthRankDrop;
+	private JComboBox doctorDrop, healthRankDrop, date;
 	private JButton apply; 
 	String storeName, storeAddress, storeSsn,storeDoctor, storeHealthRank,storeConcerns, storeDate;
 
@@ -50,7 +45,6 @@ public class PAT_ScAp extends JPanel implements ActionListener{
 		
 		ArrayList<String> doctorNames= new ArrayList<String>();
 		for(int i=0; i < doctorList.size(); i++){
-			System.out.println(doctorList.get(i).getID());
 			doctorNames.add("Dr. "+doctorList.get(i).getFirstName() +" "+doctorList.get(i).getLastName() + " - " + doctorList.get(i).specialty);
 		}
 		String[] doctors = doctorNames.toArray(new String[doctorNames.size()]);
@@ -60,24 +54,23 @@ public class PAT_ScAp extends JPanel implements ActionListener{
 		JPanel wholePanel = new JPanel();
 		JPanel labelPanel = new JPanel(); // Left side of whole Panel
 		JPanel textfPanel = new JPanel(); // Right side of whole Panel
-		apply         = new JButton("Apply");
+		apply = new JButton("Apply");
 		apply.addActionListener(this);
 
 		//Text Field Initialization	
 		name    = new JTextField();
 		address = new JTextField();
 		ssn     = new JTextField();
-		date 	= new JTextField();
-
-
 
 
 		//DropDown (combo) Boxes
-		doctorDrop     = new JComboBox(doctors);
+		doctorDrop     = new JComboBox<String>(doctors);
 		doctorDrop.addActionListener(this);
-		healthRankDrop = new JComboBox(problems);
+		healthRankDrop = new JComboBox<String>(problems);
 		healthRankDrop.addActionListener(this);
-
+		date = new JComboBox<String>();
+		
+		
 		// Text Area
 		healthConcerns = new JTextArea();
 		healthConcerns.setColumns(10);
@@ -147,18 +140,20 @@ public class PAT_ScAp extends JPanel implements ActionListener{
 		{
 			JComboBox cb = (JComboBox)e.getSource();
 			storeDoctor  = (String)cb.getSelectedItem();
-			storeDoctor = storeDoctor.substring(storeDoctor.indexOf("Dr. ")+1);
-			String speciality = storeDoctor.substring(storeDoctor.lastIndexOf("- ")+1);
+			
+			storeDoctor = storeDoctor.substring(storeDoctor.indexOf(".")+2);
+			String speciality = storeDoctor.substring(storeDoctor.lastIndexOf("-")+2);
+			storeDoctor = storeDoctor.substring(0, storeDoctor.lastIndexOf(" -"));
 			String lName = storeDoctor.substring(storeDoctor.lastIndexOf(" ")+1);
-			String fName = storeDoctor.substring(0,storeDoctor.indexOf(" ")-1);
+			String fName = storeDoctor.substring(0,storeDoctor.indexOf(" "));
 			
 			String[] days = new String[] {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
 			
 			
 			for(int i=0; i<doctorList.size();i++){
+				
 				if(doctorList.get(i).lastName.equals(lName) && doctorList.get(i).firstName.equals(fName) && doctorList.get(i).specialty.equals(speciality)){
 					
-					StringTokenizer availDays = new StringTokenizer(doctorList.get(i).availble.getWeekday(), ";");
 					ArrayList<String> timings=new ArrayList<String>();
 					
 					Calendar cal = Calendar.getInstance();
@@ -167,15 +162,17 @@ public class PAT_ScAp extends JPanel implements ActionListener{
 						
 						cal.add(Calendar.DATE, 1);
 						
-						String day = days[cal.DAY_OF_WEEK - 1];
+						String day = days[cal.get(Calendar.DAY_OF_WEEK) - 1];
+						
 						if(doctorList.get(i).availble.getWeekday().contains(day)){
 								String start_hour = doctorList.get(i).availble.getStartHour();
 								int start_mins = Integer.parseInt(start_hour.substring(start_hour.indexOf(":")+1));
-								int start_hours = Integer.parseInt(start_hour.substring(0,start_hour.indexOf(":")-1));
+								
+								int start_hours = Integer.parseInt(start_hour.substring(0,start_hour.indexOf(":")));
 								
 								String end_hour = doctorList.get(i).availble.getEndHour();
 								int end_mins = Integer.parseInt(end_hour.substring(end_hour.indexOf(":")+1));
-								int end_hours = Integer.parseInt(end_hour.substring(0,end_hour.indexOf(":")-1));
+								int end_hours = Integer.parseInt(end_hour.substring(0,end_hour.indexOf(":")));
 								
 								cal.set(Calendar.HOUR_OF_DAY, end_hours);
 								cal.set(Calendar.MINUTE, end_mins);
@@ -184,16 +181,19 @@ public class PAT_ScAp extends JPanel implements ActionListener{
 								cal.set(Calendar.HOUR_OF_DAY, start_hours);
 								cal.set(Calendar.MINUTE, start_mins);
 								Date startTime = cal.getTime();
+								
 								while(startTime.before(endTime)){
 									String time = new SimpleDateFormat("yyyy-MM-dd HH:mm").format(startTime);
 									timings.add(time);
-									
+								//	System.out.println("time:"+time);
 									cal.set(Calendar.HOUR_OF_DAY, ++start_hours);
 									startTime = cal.getTime();
 								}
 								
 						}
 					}
+					date.setModel(new DefaultComboBoxModel(timings.toArray()));
+					break;
 				}
 			}
 		}
@@ -203,7 +203,8 @@ public class PAT_ScAp extends JPanel implements ActionListener{
 			storeAddress  = address.getText();
 			storeSsn 	  = ssn.getText();
 			storeConcerns = healthConcerns.getText();
-			storeDate 	  = date.getText();
+			storeDate 	  = (String)date.getSelectedItem();
+			//store these values
 		}
 		else if(source == healthRankDrop)
 		{

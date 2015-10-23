@@ -63,7 +63,7 @@ public class TableController implements DBQuery{
 			while(hours.next()){
 				String [] weekDays = {"Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"};
 				for(int i=0; i < weekDays.length; i++){
-					if(hours.getString(weekDays[i]) == "Available"){
+					if(hours.getString(weekDays[i]).equals("Available")){
 						weekday = weekday+weekDays[i]+";";
 					}
 					

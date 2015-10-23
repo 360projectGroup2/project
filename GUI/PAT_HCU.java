@@ -1,9 +1,11 @@
 package GUI;
 
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+
 import java.awt.TextArea;
 import java.awt.Button;
 import java.awt.event.ActionListener;
@@ -16,10 +18,12 @@ public class PAT_HCU extends JPanel {
 	public TextArea textAreaAllergies;
 	public JButton updateButton;
 	
-
+	
+	
 	/**
 	 * Create the panel.
 	 */
+	@SuppressWarnings("unchecked")
 	public PAT_HCU(ActionListener b) {
 		
 		setLayout(null);
@@ -105,10 +109,13 @@ public class PAT_HCU extends JPanel {
 		textAreaAllergies.setBounds(104, 563, 380, 75);
 		add(textAreaAllergies);
 		
+		
 		updateButton = new JButton("Update");
 		updateButton.setBounds(545, 559, 89, 23);
 		add(updateButton );
 		updateButton.addActionListener(b);
+		
+		
 		
 	
 	}
