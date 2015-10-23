@@ -1,5 +1,4 @@
 package model;
-import java.text.*;
 
 public class Doctor {
 	public String firstName;

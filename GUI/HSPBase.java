@@ -14,7 +14,7 @@ public class HSPBase extends JPanel {
 	public HSPBase(JPanel p1, JPanel p2, JPanel p3, JPanel p4, int secLev) {
 
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.addTab("Search Patient", null, p1, "Searches for the patient and lets you use several functions");
+		tabbedPane.addTab("Patient info", null, p1, "Searches for the patient and lets you use several functions");
 		tabbedPane.setMnemonicAt(0, KeyEvent.VK_1);
 
 		//JComponent panel2 = makeTextPanel("Panel #2");
