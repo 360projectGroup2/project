@@ -101,6 +101,7 @@ public class ApplicationGUI extends JFrame {
 		reg_CI = new Reg_CI(b);
 		reg_MH = new Reg_MH(b);
 		
+	
 		H_tab1 = new HSPTab1(b);
 		H_tab2 = new HSPTab2(e);
 		H_tab3 = new HSPTab3(b);
