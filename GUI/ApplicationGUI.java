@@ -90,7 +90,12 @@ public class ApplicationGUI extends JFrame {
 		
 		//test_app = new Controller(500,500);
 		//pat_SeAl = new PAT_SeAl();
-		pat_ScAp = new PAT_ScAp(500,500);
+		try {
+			pat_ScAp = new PAT_ScAp(500,500);
+		} catch (SQLException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
 		pat_HCU = new PAT_HCU(b);
 		sendAlert = new SendAlert(b);
 
