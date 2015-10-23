@@ -18,12 +18,14 @@ public class HSPTab1 extends JPanel {
 	public TextArea textConcern;
 	public JLabel concernLabel;
 	public JTextField idNumber;
+	public JTextField labInfo;
+	public TextArea labInfoTextArea;
 	public JLabel eprescribeLable;
 	public TextArea e_prescribe;
 	public JButton search;
 	public JButton updateButton;
 	public JButton cancel;
-	
+	public JButton print;
 	//public JComboBox healthRankDrop;
 
 	/**
@@ -54,8 +56,25 @@ public class HSPTab1 extends JPanel {
 	textFieldLName.setBounds(98, 87, 86, 20);
 	add(textFieldLName);
 	
+	JLabel idNumber= new JLabel("ID: ???");
+	idNumber.setBounds(200, 59, 65, 14);
+	add(idNumber);
+	
+	JLabel labInfo= new JLabel("Lab Info: ???");
+	labInfo.setBounds(200, 80, 100, 20);
+	add(labInfo);
+	
+	labInfoTextArea = new TextArea();
+	labInfoTextArea.setBounds(200, 100, 290, 40);
+	add(labInfoTextArea);
+	
 	search = new JButton("Search"); 
 	search.setBounds(98, 120, 86, 20);
+	add(search );
+	search.addActionListener(b);
+	
+	search = new JButton("Print"); 
+	search.setBounds(360, 270, 86, 20);
 	add(search );
 	search.addActionListener(b);
 	
