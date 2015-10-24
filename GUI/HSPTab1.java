@@ -64,44 +64,25 @@ public class HSPTab1 extends JPanel {
 	JLabel labInfo= new JLabel("Lab Info: ???");
 	labInfo.setBounds(200, 80, 100, 20);
 	add(labInfo);
-	
-	labInfoTextArea = new TextArea();
-	labInfoTextArea.setBounds(200, 100, 290, 40);
-	add(labInfoTextArea);
-	
+
 	search = new JButton("Search"); 
 	search.setBounds(98, 120, 86, 20);
 	add(search );
 	search.addActionListener(b);
+
 	
-	search = new JButton("Print"); 
-	search.setBounds(360, 270, 86, 20);
-	add(search );
-	search.addActionListener(b);
-	
-	eprescribeLable = new JLabel("E Prescribe:");
+	eprescribeLable = new JLabel("medicine:");
 	eprescribeLable.setBounds(30, 160, 100, 20);
 	add(eprescribeLable);
 	
-	e_prescribe = new TextArea();
-	e_prescribe.setBounds(30, 190, 300, 100);
-	add(e_prescribe);
 	
-	concernLabel = new JLabel("Update health condition or concern:");
+	concernLabel = new JLabel("Health condition or concern:");
 	concernLabel.setBounds(30, 300, 250, 20);
 	add(concernLabel);
 	
-	textConcern = new TextArea();
-	textConcern.setBounds(30, 340, 300, 100);
-	add(textConcern);
-	
-	updateButton = new JButton("Update"); 
-	updateButton.setBounds(400, 460, 90, 23);
-	add(updateButton );
-	updateButton.addActionListener(b);
 	
 	updateButton = new JButton("Cancel"); 
-	updateButton.setBounds(300, 460, 90, 23);
+	updateButton.setBounds(400, 460, 90, 23);
 	add(updateButton );
 	updateButton.addActionListener(b);
 
