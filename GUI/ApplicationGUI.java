@@ -55,6 +55,8 @@ public class ApplicationGUI extends JFrame {
 	PAT_HCU pat_HCU;
 	SendAlert sendAlert;
 	Patient pat;
+	Lab_Records lab_rec;
+
 
 	TestPatient_Registration1 RegistrationBase;
 	
@@ -98,6 +100,7 @@ public class ApplicationGUI extends JFrame {
 		}
 		pat_HCU = new PAT_HCU(b);
 		sendAlert = new SendAlert(b);
+		lab_rec = new Lab_Records(b);
 
 		RegistrationBase = new TestPatient_Registration1(e, b);
 		reg_PI = new Reg_PI(b);
@@ -163,6 +166,11 @@ public class ApplicationGUI extends JFrame {
 				updateStart(h_Base);
 				setSize(700,1000);
 			}
+			
+			if(event.getSource() == start.labStaffBtn){
+				updateStart(lab_rec);
+				
+			}  
 			
 			//----
 			if (event.getSource() == RegistrationBase.b1){

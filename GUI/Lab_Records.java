@@ -2,11 +2,12 @@ package GUI;
 
 import java.awt.*;
 import java.awt.event.*;
+
 import javax.swing.*;
 
 public class Lab_Records extends JPanel implements ActionListener{
 	// INSTANCE VARIABLES	
-private int width, height;
+
 private JLabel pNameLabel, patientID, consultationID, testID,patientKey;
 private JTextField name, pID,consultID, testIdent,pKey;
 private JButton view, save; 
@@ -14,9 +15,9 @@ public String storeName, storePatientID, storeConsultID,storeTestID, storePkey;
 		
 
 
-	public Lab_Records(int width, int height) {
-		this.width  = width;
-		this.height = height;
+	public Lab_Records(ActionListener b) {
+		setLayout(null);
+		setSize(500,300);
 	
 		//CREATE PANELS	
 		JPanel wholePanel = new JPanel();
