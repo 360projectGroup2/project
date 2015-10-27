@@ -13,7 +13,7 @@ private JTextField name, pID,consultID, testIdent,pKey;
 private JButton view, save; 
 public String storeName, storePatientID, storeConsultID,storeTestID, storePkey;
 		
-//
+//pushing
 
 	public Lab_Records(ActionListener b) {
 		setLayout(null);
