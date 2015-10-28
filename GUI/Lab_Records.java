@@ -1,4 +1,4 @@
-// 10-27-15 1:00 AM UPDATE
+// 10-28-15 12:00 AM UPDATED
 package GUI;
 
 import java.awt.*;
@@ -11,7 +11,7 @@ public class Lab_Records extends JPanel implements ActionListener{
 
 public JLabel pNameLabel, patientID, consultationID, testID,patientKey;
 public JTextField name, pID,consultID, testIdent,pKey;
-public JButton view, save; 
+public JButton view, save,edit; 
 public String storeName, storePatientID, storeConsultID,storeTestID, storePkey;
 		
 
@@ -47,9 +47,15 @@ public String storeName, storePatientID, storeConsultID,storeTestID, storePkey;
 		view 			= new JButton("View");
 		view.setBounds(180, 242, 86, 20);
 		add(view);
+		
+		edit 			= new JButton("Edit");
+		edit.setBounds(180, 273, 86, 20);
+		add(edit);
+		
 		save.addActionListener(this);
 		view.addActionListener(this);
-
+		edit.addActionListener(this);
+		
 		//Text Field Initialization	
 		name = new JTextField();
 		name.setBounds(180, 56, 86, 20);
@@ -99,11 +105,32 @@ public String storeName, storePatientID, storeConsultID,storeTestID, storePkey;
 			if(storeName.equals("hello")) 
 			{
 				pID.setText(storePatientID);
+				pID.setEditable(false);
+				
 				consultID.setText(storeConsultID);
+				consultID.setEditable(false);
+				
 				testIdent.setText(storeTestID);
+				testIdent.setEditable(false);
+				
 				pKey.setText(storePkey);
+				pKey.setEditable(false);
 				
 			}
+		}
+		else if(source == edit)
+		{
+			pID.setText(storePatientID);
+			pID.setEditable(true);
+			
+			consultID.setText(storeConsultID);
+			consultID.setEditable(true);
+			
+			testIdent.setText(storeTestID);
+			testIdent.setEditable(true);
+			
+			pKey.setText(storePkey);
+			pKey.setEditable(true);
 		}
 	} // End ActionListener
 } // End Class
