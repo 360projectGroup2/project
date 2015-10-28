@@ -1,4 +1,4 @@
-package DoctorStuff;
+package GUI;
 
 import java.awt.event.ActionListener;
 
