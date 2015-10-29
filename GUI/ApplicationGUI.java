@@ -56,6 +56,7 @@ public class ApplicationGUI extends JFrame {
 	SendAlert sendAlert;
 	Patient pat;
 	Lab_Records lab_rec;
+	NursePanel nurse_panel;
 
 
 	TestPatient_Registration1 RegistrationBase;
@@ -101,7 +102,8 @@ public class ApplicationGUI extends JFrame {
 		pat_HCU = new PAT_HCU(b);
 		sendAlert = new SendAlert(b);
 		lab_rec = new Lab_Records(b);
-
+		nurse_panel = new NursePanel(b);
+		
 		RegistrationBase = new TestPatient_Registration1(e, b);
 		reg_PI = new Reg_PI(b);
 		reg_II = new Reg_II(b);
@@ -156,6 +158,10 @@ public class ApplicationGUI extends JFrame {
 			}
 			if(event.getSource() == start.UpdateHealthCondBtn){
 				updateStart(pat_HCU);
+			}
+			
+			if(event.getSource() == start.nurseBtn){
+				updateStart(nurse_panel);
 			}
 			
 			if(event.getSource() == start.sendAlertBtn){
