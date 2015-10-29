@@ -66,7 +66,6 @@ public class TestPatient_Registration1 extends JPanel{
 		b6.addActionListener(b);
 		add(b6);
 		
-		
 	}
 
 }

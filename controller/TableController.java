@@ -10,6 +10,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Random;
 
+import model.Doctor;
 import model.Patient;
 import model.Doctor;
 

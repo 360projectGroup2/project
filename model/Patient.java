@@ -28,6 +28,7 @@ public class Patient
   public String InsuranceComp;
   public String InsuranceID;
   public int severity;
+  public Lab labRecord = new Lab();						//lab record added
   
   public Patient() {}
   
@@ -68,6 +69,15 @@ public class Patient
 	  this.ssn = a[2];
 	  this.sex = "" + a[3].charAt(0);
   }
+  
+  
+  //set patients lab record
+  public void setLabRecord(Lab n)
+  {
+    labRecord = n;
+  }
+  
+  
   //set patient insurance information screen
   public void setII(String[] a){
 	  this.InsuranceComp = a[0];

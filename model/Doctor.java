@@ -58,7 +58,10 @@ public class Doctor {
 		
 	}
 	
-	//public Lab getLabRecord()
+	public Lab getLabRecord(Patient[]p, String name){			//get lab record, parameter patient array, and the name of the patient
+		Patient temp = searchPatient(p, name);					//search the name of the patient
+		return temp.labRecord;							//return the lab record of the patient
+	}
 	
 	/*public void e-Prescribe(Patient p, int doctorId, String prescribe)// File prescription as 3rd param??
     {
@@ -67,9 +70,20 @@ public class Doctor {
         //
         return;
     }*/
-    //public Lab assignLabTest()
+	
+	//assign lab test to the patient
+    public void assignLabTest(Patient p, String alergiesTest, String bloodTest, String cancerTest, String drugTest, String HIVTest){
+    	p.labRecord.setAlergy(alergiesTest);
+    	p.labRecord.setBloodtype(bloodTest);
+    	p.labRecord.setCanser(cancerTest);
+    	p.labRecord.setDrug(drugTest);
+    	p.labRecord.setHIV(HIVTest);
+    }
     
-    //public Lab printLabTest()
+    //print out the lab test record
+    public void printLabTest(Patient p){
+    	p.labRecord.print();
+    }
     
    public String getFirstName()
    {
