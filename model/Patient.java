@@ -23,6 +23,7 @@ public class Patient
   public String allergies;
   public String birthdate;
   public String sex;
+  public String ethnicity;
   public String healthCondition;
   public String InsuranceComp;
   public String InsuranceID;

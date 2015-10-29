@@ -13,6 +13,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+
+import controller.TableController;
+
 import java.awt.Component;
 
 import java.sql.SQLException;
@@ -20,6 +23,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 
 import model.Doctor;
 
@@ -193,6 +197,7 @@ public class PAT_ScAp extends JPanel implements ActionListener{
 						}
 					}
 					date.setModel(new DefaultComboBoxModel(timings.toArray()));
+					ApplicationRunner.docId = doctorList.get(i).getID();
 					break;
 				}
 			}
@@ -204,7 +209,24 @@ public class PAT_ScAp extends JPanel implements ActionListener{
 			storeSsn 	  = ssn.getText();
 			storeConcerns = healthConcerns.getText();
 			storeDate 	  = (String)date.getSelectedItem();
+			
 			//store these values
+			TableController tb = new TableController();
+			HashMap attributes = new HashMap();
+			ApplicationRunner.patientId = 518;
+			attributes.put("DoctorGkey", ApplicationRunner.docId);
+			attributes.put("ScheduledOn", storeDate);
+			attributes.put("PatientGkey", ApplicationRunner.patientId);
+		//	attributes.put("address", storeAddress);
+			attributes.put("Concerns", storeConcerns);
+			attributes.put("Status", "Scheduled");
+		//	attributes.put("ssn", storeSsn);
+		//	attributes.put("patientName", storeName);
+			try{
+				tb.set("Appointments", attributes, null, "insert");
+			}catch(Exception exp){
+				exp.printStackTrace();
+			}
 		}
 		else if(source == healthRankDrop)
 		{

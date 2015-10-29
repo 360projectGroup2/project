@@ -25,7 +25,7 @@ public class Nurse {
    
    }
 	
-	public void setHours(int weekday, int startHour, int endHour){
+	public void setHours(String weekday, String startHour, String endHour){
 		availble = new BusinessHours(weekday,startHour,endHour);
 	}
 	

@@ -79,7 +79,7 @@ public class ApplicationGUI extends JFrame {
 	 * Launch the application.
 	 */
 
-	public ApplicationGUI() {
+	public ApplicationGUI() throws SQLException{
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 
@@ -221,6 +221,7 @@ public class ApplicationGUI extends JFrame {
 				tc.activePatient.birthdate = reg_PI.birthDateTextField.getText();
 				tc.activePatient.lastName = reg_PI.lastNameTextField.getText();
 				tc.activePatient.firstName = reg_PI.firstNameTextField.getText();
+				tc.activePatient.ethnicity = reg_PI.raceTextField.getText();
 				//sex
 				if(reg_PI.maleCheck.isSelected()){
 					tc.activePatient.sex="M";
