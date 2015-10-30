@@ -154,10 +154,12 @@ public class BarChartDemo extends ApplicationFrame {
 
       return dataset; 
    }
-   public static void main( String[ ] args ){
+   public static void main( String[ ] args ){ //this should be on the ApplicationGUI
 	   
-	  //String[] statistics = {"Gender", "Ethnicity", "Age"};
-	  String[] statistics = {"trackAdmissions","PatientType", "Age", "Gender", "Ethnicity"};
+	 // String[] statistics = {"Gender", "Ethnicity", "Age"};
+	  //
+	   
+	 String[] statistics = {"trackAdmissions","PatientType", "Age", "Gender", "Ethnicity"};
 	  
 	  for(int i=0; i<statistics.length;i++){
 		  BarChartDemo chart = new BarChartDemo("Patient Statistics", statistics[i]+" Statistics", statistics[i]);
