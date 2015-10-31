@@ -43,7 +43,6 @@ public class Pharmacist{
     //get prescription info of patient
     public void getPrescription(Patient p)
     {
-    
         //TODO
     }
     

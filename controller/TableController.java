@@ -27,7 +27,7 @@ public class TableController implements DBQuery{
 		Connection connection = null;
 		try {
 			connection = MySQLConnector.connectDatabase("primafacie.cidse.dhcp.asu.edu", "IPIMS", "dbuser", "temp4now");
-			//connection = MySQLConnector.connectDatabase("localhost", "ipims", "root", "kks@asu");
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -140,7 +140,7 @@ public ArrayList<ArrayList<String>> searchUpdateHealthConditions(Patient p) thro
 			result.add(record);
 		}
 		String GKey = result.get(0).get(0);
-		
+		p.patientId = GKey;
 		ArrayList<ArrayList<String>> result2 = new ArrayList<>();
 		
 		sql = "select HCID from HasCondition where GKey=" +GKey;
@@ -375,7 +375,7 @@ public ArrayList get(String tableName, String[] attributes, String where) throws
 	}
 	
 	String sql = "select " + selected_cols + " from " + tableName + " where "+ where;
-//System.out.println("sql:"+sql);
+
 	PreparedStatement statement = connection.prepareStatement(sql);
 	ResultSet resultset = statement.executeQuery();
 	while(resultset.next()) {
@@ -391,6 +391,5 @@ public ArrayList get(String tableName, String[] attributes, String where) throws
 	connection.close();
 	return result;
 }
-
 
 }

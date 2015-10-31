@@ -29,6 +29,7 @@ public class HSP {
 	}
 	
 	public Patient searchPatient(Patient[] p, String name){
+        found = false;
 		for(int i = 0; i < p.length; i++){
 			String fullName = p[i].firstName + p[i].lastName;
 			if(name.equals(fullName)){
@@ -43,8 +44,12 @@ public class HSP {
     //only hsp can view patient info
     public void getPatientInfo(Patient p)
     {
-    
-        //TODO
+        Patient temp;
+        temp = searchPatient[p];
+        if(found != false)
+        {
+            return temp;
+        }
     }
     
    public String getFirstName()

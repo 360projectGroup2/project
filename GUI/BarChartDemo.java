@@ -176,6 +176,7 @@ public class BarChartDemo extends ApplicationFrame {
 
       return dataset; 
    }
+
    /*public static void main( String[ ] args ){
 	   
 	  String[] statistics = {"healthOutcomes","trackAdmissions","PatientType", "Age", "Gender", "Ethnicity"};

@@ -63,14 +63,7 @@ public class Doctor {
 		return temp.labRecord;							//return the lab record of the patient
 	}
 	
-	/*public void e-Prescribe(Patient p, int doctorId, String prescribe)// File prescription as 3rd param??
-    {
-        //get Patient id
-        //set Patient.prescription = prescribe;
-        //
-        return;
-    }*/
-	
+ 	
 	//assign lab test to the patient
     public void assignLabTest(Patient p, String alergiesTest, String bloodTest, String cancerTest, String drugTest, String HIVTest){
     	p.labRecord.setAlergy(alergiesTest);
