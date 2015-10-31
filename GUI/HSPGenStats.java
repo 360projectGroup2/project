@@ -1,6 +1,7 @@
 package GUI;
 
 import java.awt.GridLayout;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Scanner;
@@ -18,7 +19,8 @@ public class HSPGenStats extends JPanel implements ActionListener{
 	
 	public JButton genStats;
 	public JLabel generateStats;
-		
+	public ArrayList<BarChartDemo> chart;
+	
 	public HSPGenStats(ActionListener b){
 		
 		generateStats = new JLabel("Press 1 to generate next statistics");
@@ -29,6 +31,8 @@ public class HSPGenStats extends JPanel implements ActionListener{
 		genStats.setBounds(121,124,300,24);
 		genStats.addActionListener(b);
 		this.add(genStats);
+		
+		chart = new ArrayList<BarChartDemo>();
 	}
 	
 	public void actionPerformed(ActionEvent e) {
@@ -37,10 +41,10 @@ public class HSPGenStats extends JPanel implements ActionListener{
 			String[] statistics = {"healthOutcomes","trackAdmissions","PatientType", "Age", "Gender", "Ethnicity"};
 			  
 			for(int i=0; i<statistics.length;i++){
-				BarChartDemo chart = new BarChartDemo("Patient Statistics", statistics[i]+" Statistics", statistics[i]);
-				chart.pack( );        
+				chart.add(new BarChartDemo("Patient Statistics", statistics[i]+" Statistics", statistics[i]));
+				chart.get(i).pack();        
 				RefineryUtilities.centerFrameOnScreen( chart );        
-				chart.setVisible( true );
+				chart.get(i).setVisible( true );
 			  
 				Scanner nextStats = new Scanner(System.in);
 				if(nextStats.nextInt() != 1){
