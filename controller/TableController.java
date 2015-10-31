@@ -140,7 +140,7 @@ public ArrayList<ArrayList<String>> searchUpdateHealthConditions(Patient p) thro
 			result.add(record);
 		}
 		String GKey = result.get(0).get(0);
-		
+		p.patientId = GKey;
 		ArrayList<ArrayList<String>> result2 = new ArrayList<>();
 		
 		sql = "select HCID from HasCondition where GKey=" +GKey;
