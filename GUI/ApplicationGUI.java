@@ -57,7 +57,7 @@ public class ApplicationGUI extends JFrame {
 	Patient pat;
 	Lab_Records lab_rec;
 	NursePanel nurse_panel;
-
+	Pharmacist_Panel pharmacist_panel;
 
 	TestPatient_Registration1 RegistrationBase;
 	
@@ -103,6 +103,7 @@ public class ApplicationGUI extends JFrame {
 		sendAlert = new SendAlert(b);
 		lab_rec = new Lab_Records(b);
 		nurse_panel = new NursePanel(b);
+		pharmacist_panel = new Pharmacist_Panel(b);
 		
 		RegistrationBase = new TestPatient_Registration1(e, b);
 		reg_PI = new Reg_PI(b);
@@ -163,7 +164,7 @@ public class ApplicationGUI extends JFrame {
 			if(event.getSource() == start.nurseBtn){
 				updateStart(nurse_panel);
 			}
-			
+		
 			if(event.getSource() == start.sendAlertBtn){
 				updateStart(sendAlert);
 			}
@@ -177,6 +178,10 @@ public class ApplicationGUI extends JFrame {
 				updateStart(lab_rec);
 				
 			}  
+			if(event.getSource() == start.pharmacistBtn){
+				updateStart(pharmacist_panel);
+				
+			} 
 			
 			//----
 			if (event.getSource() == RegistrationBase.b1){

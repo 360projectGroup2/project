@@ -11,7 +11,7 @@ public class TestP1 extends JPanel {
 	/**
 	 * This panel is for testing the first set of instructions required
 	 */
-	public JButton savebutton,ScheduleAppBtn,UpdateHealthCondBtn, sendAlertBtn, docPanBtn, labStaffBtn, nurseBtn;
+	public JButton savebutton, pharmacistBtn, ScheduleAppBtn,UpdateHealthCondBtn, sendAlertBtn, docPanBtn, labStaffBtn, nurseBtn;
 	
 	public TestP1(ActionListener e) {
 		setLayout(null);
@@ -55,6 +55,12 @@ public class TestP1 extends JPanel {
 		nurseBtn.setBounds(39, 365, 174, 23);
 		nurseBtn.addActionListener(e);
 		add(nurseBtn);
+		
+		
+		pharmacistBtn = new JButton("pharmacist Panel");
+		pharmacistBtn.setBounds(250, 35, 174, 23);
+		pharmacistBtn.addActionListener(e);
+		add(pharmacistBtn);
 
 	}
 
