@@ -23,14 +23,7 @@ public class Prescription {
         prescriptionInfo = new String("");
     }
     
-    public void setPrescription(String info, Doctor d, Patient p)
-    {
-        prescriptionInfo = info;
-        doctorName = d.getLastName;
-        doctorId = d.getID;
-        patientId = p.getID;//need to add this in Patient class
-        patientName = p.getFirstName;//same
-    }
+
     
     public String getInfo()
     {

@@ -14,6 +14,8 @@ import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 
+import org.jfree.ui.RefineryUtilities;
+
 import model.Patient;
 import controller.TableController;
 
@@ -29,19 +31,19 @@ import controller.TableController;
  *HAVE FUN CONNECTING THIS TO THE MAIN STUFF RUNNING BEHIND THE SCENES
  *CHEERS, JOHN SHALLLER
  *PS I USED ABSOLUTE LAYOUT DO NOT GET RID OF THE STATEMENT .setLayout(null); IT IS THERE FOR A REASON
-	
-	
-	
+
+
+
  *ONE OTHER IMPORTANT THING
  *THE HEALTHCARE CONDITION UPDATE AND SCHEDULE APPOINTMENT PANELS ARE NOT DONE AS THEY WERE NOT LABELED IN THE SDD
  *I HAVE NO CLUE HOW THOSE TWO WOULD WORK ANYWAYS DATAWISE SO CANT REALLY DESIGN THEM
  *IF YOU GIVE ME A PICTURE OUR DESCRIBE IT TO ME I CAN HAVE IT DONE BY 1AM 10/10/2015
 
  *
- 
+
  *EXPECT SOME CHANGES TO THIS LAYOUT
- 
- 
+
+
  */
 
 public class ApplicationGUI extends JFrame {
@@ -62,23 +64,23 @@ public class ApplicationGUI extends JFrame {
 	Pharmacist_Panel pharmacist_panel;
 
 	TestPatient_Registration1 RegistrationBase;
-	
+
 	//Controller test_app;
 	Reg_PI reg_PI;
 	Reg_II reg_II;
 	Reg_CI reg_CI;
 	Reg_MH reg_MH;
 	Reg_LI reg_LI;
-	
+
 	//add in the tabs
 	HSPBase h_Base;
-	
+
 	HSPTab1 H_tab1;
 	HSPTab2 H_tab2;
 	HSPTab3 H_tab3;
 	HSPTab4 H_tab4;
-	
-	
+
+
 
 
 	/**
@@ -93,7 +95,7 @@ public class ApplicationGUI extends JFrame {
 		Bridge b = new Bridge();
 
 		start = new TestP1(e);
-		
+
 		//test_app = new Controller(500,500);
 		//pat_SeAl = new PAT_SeAl();
 		try {
@@ -109,23 +111,23 @@ public class ApplicationGUI extends JFrame {
 		hspGenStats = new HSPGenStats(b);
 		pharmacist_panel = new Pharmacist_Panel(b);
 
-		
+
 		RegistrationBase = new TestPatient_Registration1(e, b);
 		reg_PI = new Reg_PI(b);
 		reg_II = new Reg_II(b);
 		reg_LI = new Reg_LI(b);
 		reg_CI = new Reg_CI(b);
 		reg_MH = new Reg_MH(b);
-		
-	
+
+
 		H_tab1 = new HSPTab1(b);
 		H_tab2 = new HSPTab2(b);
 		H_tab3 = new HSPTab3(b);
 		H_tab4 = new HSPTab4();
-		
-		
+
+
 		h_Base = new HSPBase(H_tab1, H_tab2, H_tab3, H_tab4, -1);
-		
+
 
 		contentPane = new JPanel();
 		//contentPane.setLayout(null);
@@ -149,7 +151,7 @@ public class ApplicationGUI extends JFrame {
 		//pack();
 		setVisible(true);
 	}
-	
+
 	private TableController tc = new TableController();
 
 	//TAKES CARE OF CHANGING FROM ONE JPANEL TO ANOTHER
@@ -168,7 +170,7 @@ public class ApplicationGUI extends JFrame {
 			if(event.getSource() == start.UpdateHealthCondBtn){
 				updateStart(pat_HCU);
 			}
-			
+
 			if(event.getSource() == start.nurseBtn){
 				updateStart(nurse_panel);
 			}
@@ -180,21 +182,21 @@ public class ApplicationGUI extends JFrame {
 			if(event.getSource() == start.sendAlertBtn){
 				updateStart(sendAlert);
 			}
-			
+
 			if(event.getSource() == start.docPanBtn){
 				updateStart(h_Base);
 				setSize(700,1000);
 			}
-			
+
 			if(event.getSource() == start.labStaffBtn){
 				updateStart(lab_rec);
-				
+
 			}  
 			if(event.getSource() == start.pharmacistBtn){
 				updateStart(pharmacist_panel);
-				
+
 			} 
-			
+
 			//----
 			if (event.getSource() == RegistrationBase.b1){
 				update(RegistrationBase.panel, reg_PI);
@@ -211,7 +213,7 @@ public class ApplicationGUI extends JFrame {
 			if (event.getSource() == RegistrationBase.b5){
 				update(RegistrationBase.panel, reg_LI);
 			}
-			
+
 
 		}
 
@@ -265,7 +267,7 @@ public class ApplicationGUI extends JFrame {
 				else
 					tc.activePatient.sex="F";
 			}
-			
+
 			if (event.getSource() == sendAlert.updateButton) {
 				tc.activePatient = new Patient();
 				tc.activePatient.firstName = sendAlert.textFieldFName.getText();
@@ -285,23 +287,23 @@ public class ApplicationGUI extends JFrame {
 				}
 				else {
 					JOptionPane.showMessageDialog(null,
-						    "Alert sent\nSeek immediate medical attention.",
-						    "High severity warning",
-						    JOptionPane.WARNING_MESSAGE);
+							"Alert sent\nSeek immediate medical attention.",
+							"High severity warning",
+							JOptionPane.WARNING_MESSAGE);
 				}
 				/*
 				PAT_Alert alertWindow = new PAT_Alert(new Bridge(), tc.activePatient.firstName.concat(" ").concat(tc.activePatient.lastName), tc.activePatient.healthCondition);
 				alertWindow.setSize(700,500);
 				alertWindow.setVisible(true);
-				*/
-				
-				
+				 */
+
+
 			}
-			
+
 			if(event.getSource() == pat_HCU.btnSearch) //this is just for health condition and Allergies update
 			{
 				//somePatient.healthCondition = pat_HCU.textAreaMedicalHistory.getText();
-				
+
 				tc.activePatient = new Patient();
 				tc.activePatient.firstName = pat_HCU.textFieldFName.getText();
 				tc.activePatient.lastName = pat_HCU.textFieldLName.getText();
@@ -311,14 +313,14 @@ public class ApplicationGUI extends JFrame {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				
+
 				String nameLabel = "Name: ";
 				String addressLabel = "Address: ";
-				
+
 				pat_HCU.medicalHistoryDisplay.setText(tc.activePatient.healthCondition);
 				pat_HCU.lblName.setText(nameLabel.concat(tc.activePatient.firstName.concat(" ").concat(tc.activePatient.lastName)));
 				pat_HCU.lblAddress.setText(addressLabel.concat("NULL"));
-				
+
 			}
 
 			if (event.getSource() == reg_II.btnSave){
@@ -338,26 +340,27 @@ public class ApplicationGUI extends JFrame {
 				pat.setMH(info);
 			}
 			if(event.getSource() == hspGenStats.genStats){
-				if(source == "genStats"){
-					String[] statistics = {"healthOutcomes","trackAdmissions","PatientType", "Age", "Gender", "Ethnicity"};
-			  
-					for(int i=0; i<statistics.length;i++){
-						hspGenStats.chart.add(new BarChartDemo("Patient Statistics", statistics[i]+" Statistics", statistics[i]));
-						hspGenStats.chart.get(i).pack();        
-						hspGenStats.RefineryUtilities.centerFrameOnScreen( chart );        
-						hspGenStats.chart.get(i).setVisible( true );
-			  
-						Scanner nextStats = new Scanner(System.in);
-						if(nextStats.nextInt() != 1){
-							break;
-					}
+				String[] statistics = {"healthOutcomes","trackAdmissions","PatientType", "Age", "Gender", "Ethnicity"};
+
+				for(int i=0; i<statistics.length;i++){
+					hspGenStats.chart.add(new BarChartDemo("Patient Statistics", statistics[i]+" Statistics", statistics[i]));
+					hspGenStats.chart.get(i).pack();        
+					System.out.println(hspGenStats.chart.get(i).toString());
+					RefineryUtilities.centerFrameOnScreen(hspGenStats.chart.get(i));        
+					hspGenStats.chart.get(i).setVisible( true );
+
+					//Scanner nextStats = new Scanner(System.in);
+					//if(nextStats.nextInt() != 1){
+					//	break;
+
+					//}
+
 				}
-		
 			}
-			
-			
-			
-			
+
+
+
+
 			if (event.getSource() == H_tab2.search) {
 				Patient p = new Patient();
 				p.firstName = H_tab2.textFieldFName.getText();
@@ -368,19 +371,20 @@ public class ApplicationGUI extends JFrame {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				
+
 				String idLabel = "ID: ";
 				String labInfoLabel = "Lab Info: ";
-				
+
 				H_tab2.idNumber.setText(idLabel.concat(tc.activePatient.patientId));
 				H_tab2.labInfo.setText(labInfoLabel);
 				/*
 				pat_HCU.medicalHistoryDisplay.setText(tc.activePatient.healthCondition);
 				pat_HCU.lblName.setText(nameLabel.concat(tc.activePatient.firstName.concat(" ").concat(tc.activePatient.lastName)));
 				pat_HCU.lblAddress.setText(addressLabel.concat("NULL"));
-				*/
+				 */
 			}
 		}
 	}
 
 }
+

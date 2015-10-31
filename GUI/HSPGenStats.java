@@ -43,7 +43,7 @@ public class HSPGenStats extends JPanel implements ActionListener{
 			for(int i=0; i<statistics.length;i++){
 				chart.add(new BarChartDemo("Patient Statistics", statistics[i]+" Statistics", statistics[i]));
 				chart.get(i).pack();        
-				RefineryUtilities.centerFrameOnScreen( chart );        
+				RefineryUtilities.centerFrameOnScreen( chart.get(i));        
 				chart.get(i).setVisible( true );
 			  
 				Scanner nextStats = new Scanner(System.in);
