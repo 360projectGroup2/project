@@ -19,10 +19,10 @@ public class NursePanel extends JPanel  {
 	public JButton btnSearch;
 	public TextArea medicalHistoryDisplay;
 	
-	
 	/**
 	 * Create the panel.
-	 */
+	 **/
+	
 	@SuppressWarnings("unchecked")
 	public NursePanel(ActionListener b) {
 		

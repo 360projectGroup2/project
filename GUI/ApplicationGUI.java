@@ -58,7 +58,7 @@ public class ApplicationGUI extends JFrame {
 	Lab_Records lab_rec;
 	NursePanel nurse_panel;
 	HSPGenStats hspGenStats;
-
+	Pharmacist_Panel pharmacist_panel;
 
 	TestPatient_Registration1 RegistrationBase;
 	
@@ -106,6 +106,8 @@ public class ApplicationGUI extends JFrame {
 		lab_rec = new Lab_Records(b);
 		nurse_panel = new NursePanel(b);
 		hspGenStats = new HSPGenStats(b);
+		pharmacist_panel = new Pharmacist_Panel(b);
+
 		
 		RegistrationBase = new TestPatient_Registration1(e, b);
 		reg_PI = new Reg_PI(b);
@@ -169,11 +171,11 @@ public class ApplicationGUI extends JFrame {
 			if(event.getSource() == start.nurseBtn){
 				updateStart(nurse_panel);
 			}
-			
+
 			if(event.getSource() == start.hspStatsButton){
 				updateStart(hspGenStats);
 			}
-			
+
 			if(event.getSource() == start.sendAlertBtn){
 				updateStart(sendAlert);
 			}
@@ -187,6 +189,10 @@ public class ApplicationGUI extends JFrame {
 				updateStart(lab_rec);
 				
 			}  
+			if(event.getSource() == start.pharmacistBtn){
+				updateStart(pharmacist_panel);
+				
+			} 
 			
 			//----
 			if (event.getSource() == RegistrationBase.b1){
