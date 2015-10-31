@@ -375,7 +375,7 @@ public ArrayList get(String tableName, String[] attributes, String where) throws
 	}
 	
 	String sql = "select " + selected_cols + " from " + tableName + " where "+ where;
-System.out.println("sql:"+sql);
+//System.out.println("sql:"+sql);
 	PreparedStatement statement = connection.prepareStatement(sql);
 	ResultSet resultset = statement.executeQuery();
 	while(resultset.next()) {

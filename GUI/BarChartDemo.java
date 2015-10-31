@@ -147,17 +147,38 @@ public class BarChartDemo extends ApplicationFrame {
 			   }catch(SQLException se){
 				   se.printStackTrace();
 			   }
-			   System.out.println(count.get(i)+":month:"+mNames[i]);
+
 			   dataset.addValue( (int)count.get(i), mNames[i], "" );
+		   }
+	   }
+	   
+	   if(BarChartDemo.statType.equals("healthOutcomes")){
+		   try{
+			
+			   ArrayList count = new ArrayList();
+			   String[] attrs = {"count(*)"};
+			   
+			   count = stats.get("HasCondition", attrs, null);
+			   int totalRows = Integer.parseInt(count.get(0).toString());
+			   
+			   String[] healthOutcomeAttrs = {"Cured"};
+			   count = stats.get("HasCondition",healthOutcomeAttrs, "Cured=1");
+			   int curedRows = count.size();
+			   int notCuredRows = totalRows - curedRows;
+			   
+			   dataset.addValue( curedRows, "Cured Patients", "" );
+			   dataset.addValue( notCuredRows, "Not Cured Patients", "" );
+			 
+		   }catch(Exception e){
+			   e.printStackTrace();
 		   }
 	   }
 
       return dataset; 
    }
-   public static void main( String[ ] args ){
+   /*public static void main( String[ ] args ){
 	   
-	  //String[] statistics = {"Gender", "Ethnicity", "Age"};
-	  String[] statistics = {"trackAdmissions","PatientType", "Age", "Gender", "Ethnicity"};
+	  String[] statistics = {"healthOutcomes","trackAdmissions","PatientType", "Age", "Gender", "Ethnicity"};
 	  
 	  for(int i=0; i<statistics.length;i++){
 		  BarChartDemo chart = new BarChartDemo("Patient Statistics", statistics[i]+" Statistics", statistics[i]);
@@ -166,9 +187,9 @@ public class BarChartDemo extends ApplicationFrame {
 		  chart.setVisible( true );
 		  
 		  Scanner nextStats = new Scanner(System.in);
-		  if(nextStats.next() == null){
+		  if(nextStats.nextInt() != 1){
 			  break;
 		  }
 	  }
-   }
+   }*/
 }

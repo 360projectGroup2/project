@@ -23,9 +23,6 @@ public class ApplicationRunner {
 	static int labStaffId;
 	static int pharmacistId;
 	static String loggedInActor;
-	
-	
-	
 		  
 	public static void main(String[] args) throws SQLException {
 		//TestPatient_Registration1 a = new TestPatient_Registration1();

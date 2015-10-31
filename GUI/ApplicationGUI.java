@@ -57,6 +57,7 @@ public class ApplicationGUI extends JFrame {
 	Patient pat;
 	Lab_Records lab_rec;
 	NursePanel nurse_panel;
+	HSPGenStats hspGenStats;
 
 
 	TestPatient_Registration1 RegistrationBase;
@@ -75,6 +76,7 @@ public class ApplicationGUI extends JFrame {
 	HSPTab2 H_tab2;
 	HSPTab3 H_tab3;
 	HSPTab4 H_tab4;
+	
 	
 
 
@@ -103,6 +105,7 @@ public class ApplicationGUI extends JFrame {
 		sendAlert = new SendAlert(b);
 		lab_rec = new Lab_Records(b);
 		nurse_panel = new NursePanel(b);
+		hspGenStats = new HSPGenStats(b);
 		
 		RegistrationBase = new TestPatient_Registration1(e, b);
 		reg_PI = new Reg_PI(b);
@@ -116,6 +119,7 @@ public class ApplicationGUI extends JFrame {
 		H_tab2 = new HSPTab2(e);
 		H_tab3 = new HSPTab3(b);
 		H_tab4 = new HSPTab4();
+		
 		
 		h_Base = new HSPBase(H_tab1, H_tab2, H_tab3, H_tab4, -1);
 		
@@ -162,6 +166,10 @@ public class ApplicationGUI extends JFrame {
 			
 			if(event.getSource() == start.nurseBtn){
 				updateStart(nurse_panel);
+			}
+			
+			if(event.getSource() == start.hspStatsButton){
+				updateStart(hspGenStats);
 			}
 			
 			if(event.getSource() == start.sendAlertBtn){
