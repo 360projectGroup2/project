@@ -2,6 +2,7 @@ package GUI;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.util.Scanner;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
@@ -337,20 +338,21 @@ public class ApplicationGUI extends JFrame {
 				pat.setMH(info);
 			}
 			if(event.getSource() == hspGenStats.genStats){
-				if(source == "genStats"){String[] statistics = {"healthOutcomes","trackAdmissions","PatientType", "Age", "Gender", "Ethnicity"};
+				if(source == "genStats"){
+					String[] statistics = {"healthOutcomes","trackAdmissions","PatientType", "Age", "Gender", "Ethnicity"};
 			  
-				for(int i=0; i<statistics.length;i++){
-					hspGenStats.chart.add(new BarChartDemo("Patient Statistics", statistics[i]+" Statistics", statistics[i]));
-					hspGenStats.chart.get(i).pack();        
-					hspGenStats.RefineryUtilities.centerFrameOnScreen( chart );        
-					hspGenStats.chart.get(i).setVisible( true );
+					for(int i=0; i<statistics.length;i++){
+						hspGenStats.chart.add(new BarChartDemo("Patient Statistics", statistics[i]+" Statistics", statistics[i]));
+						hspGenStats.chart.get(i).pack();        
+						hspGenStats.RefineryUtilities.centerFrameOnScreen( chart );        
+						hspGenStats.chart.get(i).setVisible( true );
 			  
-					Scanner nextStats = new Scanner(System.in);
-					if(nextStats.nextInt() != 1){
-						break;
+						Scanner nextStats = new Scanner(System.in);
+						if(nextStats.nextInt() != 1){
+							break;
+					}
 				}
-			}
-		}
+		
 			}
 			
 			
