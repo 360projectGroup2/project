@@ -336,6 +336,26 @@ public class ApplicationGUI extends JFrame {
 				info[1] = reg_MH.medHis.getText();
 				pat.setMH(info);
 			}
+			if(event.getSource() == hspGenStats.genStats){
+				if(source == "genStats"){String[] statistics = {"healthOutcomes","trackAdmissions","PatientType", "Age", "Gender", "Ethnicity"};
+			  
+				for(int i=0; i<statistics.length;i++){
+					hspGenStats.chart.add(new BarChartDemo("Patient Statistics", statistics[i]+" Statistics", statistics[i]));
+					hspGenStats.chart.get(i).pack();        
+					hspGenStats.RefineryUtilities.centerFrameOnScreen( chart );        
+					hspGenStats.chart.get(i).setVisible( true );
+			  
+					Scanner nextStats = new Scanner(System.in);
+					if(nextStats.nextInt() != 1){
+						break;
+				}
+			}
+		}
+			}
+			
+			
+			
+			
 			if (event.getSource() == H_tab2.search) {
 				Patient p = new Patient();
 				p.firstName = H_tab2.textFieldFName.getText();
