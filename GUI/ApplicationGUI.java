@@ -114,7 +114,7 @@ public class ApplicationGUI extends JFrame {
 		
 	
 		H_tab1 = new HSPTab1(b);
-		H_tab2 = new HSPTab2(e);
+		H_tab2 = new HSPTab2(b);
 		H_tab3 = new HSPTab3(b);
 		H_tab4 = new HSPTab4();
 		
@@ -143,6 +143,8 @@ public class ApplicationGUI extends JFrame {
 		//pack();
 		setVisible(true);
 	}
+	
+	private TableController tc = new TableController();
 
 	//TAKES CARE OF CHANGING FROM ONE JPANEL TO ANOTHER
 	public class Event_Handler implements ActionListener{
@@ -199,6 +201,7 @@ public class ApplicationGUI extends JFrame {
 			if (event.getSource() == RegistrationBase.b5){
 				update(RegistrationBase.panel, reg_LI);
 			}
+			
 
 		}
 
@@ -215,7 +218,6 @@ public class ApplicationGUI extends JFrame {
 			repaint();
 		}
 
-
 	}
 	/*
 	 * Reg_PI reg_PI;
@@ -226,7 +228,7 @@ public class ApplicationGUI extends JFrame {
 	 * 
 	 */
 	//INSERT METHODS HERE
-	private TableController tc = new TableController();
+
 	public class Bridge implements ActionListener{
 		public void actionPerformed (ActionEvent event){
 			if (event.getSource() == RegistrationBase.b6){
@@ -324,6 +326,28 @@ public class ApplicationGUI extends JFrame {
 				info[0] = reg_MH.allergies.getText();
 				info[1] = reg_MH.medHis.getText();
 				pat.setMH(info);
+			}
+			if (event.getSource() == H_tab2.search) {
+				Patient p = new Patient();
+				p.firstName = H_tab2.textFieldFName.getText();
+				p.lastName = H_tab2.textFieldLName.getText();
+				try {
+					tc.searchUpdateHealthConditions(p);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				String idLabel = "ID: ";
+				String labInfoLabel = "Lab Info: ";
+				
+				H_tab2.idNumber.setText(idLabel.concat(tc.activePatient.patientId));
+				H_tab2.labInfo.setText(labInfoLabel);
+				/*
+				pat_HCU.medicalHistoryDisplay.setText(tc.activePatient.healthCondition);
+				pat_HCU.lblName.setText(nameLabel.concat(tc.activePatient.firstName.concat(" ").concat(tc.activePatient.lastName)));
+				pat_HCU.lblAddress.setText(addressLabel.concat("NULL"));
+				*/
 			}
 		}
 	}
