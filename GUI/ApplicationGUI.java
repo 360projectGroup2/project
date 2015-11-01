@@ -435,7 +435,7 @@ public class ApplicationGUI extends JFrame {
 					e.printStackTrace();
 				}
 				
-				}
+			}
 			if (event.getSource() == hspGenStats.genStats){      
 				System.out.println("got here");
 				for(int i=0; i<hspGenStats.statistics.length;i++){
@@ -479,7 +479,6 @@ public class ApplicationGUI extends JFrame {
 				pat_HCU.lblAddress.setText(addressLabel.concat("NULL"));
 				*/
 			}
-	
 		}
 	}
 
