@@ -338,7 +338,7 @@ public class ApplicationGUI extends JFrame {
 				info[0] = reg_MH.allergies.getText();
 				info[1] = reg_MH.medHis.getText();
 				pat.setMH(info);
-<<<<<<< HEAD
+
 			}
 			if (event.getSource() == H_tab2.search) {
 				Patient p = new Patient();
@@ -438,8 +438,8 @@ public class ApplicationGUI extends JFrame {
 				
 			}
 			
-=======
-			}
+
+			
 			if (event.getSource() == hspGenStats.genStats){      
 				System.out.println("got here");
 				for(int i=0; i<hspGenStats.statistics.length;i++){
@@ -484,7 +484,7 @@ public class ApplicationGUI extends JFrame {
 				pat_HCU.lblAddress.setText(addressLabel.concat("NULL"));
 				 */
 			}
->>>>>>> branch 'rlnsanz_branch' of git@github.com:360projectGroup2/project.git
+
 		}
 	}
 
