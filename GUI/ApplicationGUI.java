@@ -338,6 +338,107 @@ public class ApplicationGUI extends JFrame {
 				info[0] = reg_MH.allergies.getText();
 				info[1] = reg_MH.medHis.getText();
 				pat.setMH(info);
+<<<<<<< HEAD
+			}
+			if (event.getSource() == H_tab2.search) {
+				Patient p = new Patient();
+				p.firstName = H_tab2.textFieldFName.getText();
+				p.lastName = H_tab2.textFieldLName.getText();
+				try {
+					tc.searchUpdateHealthConditions(p);
+					tc.getLabRecords();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				String idLabel = "ID: ";
+				String labInfoLabel = "Lab Info: ";
+				
+				H_tab2.labInfoTextArea.setText(tc.activePatient.labTestResults);
+				
+				H_tab2.idNumber.setText(idLabel.concat(tc.activePatient.patientId));
+				H_tab2.labInfo.setText(labInfoLabel);
+				
+				
+				/*
+				pat_HCU.medicalHistoryDisplay.setText(tc.activePatient.healthCondition);
+				pat_HCU.lblName.setText(nameLabel.concat(tc.activePatient.firstName.concat(" ").concat(tc.activePatient.lastName)));
+				pat_HCU.lblAddress.setText(addressLabel.concat("NULL"));
+				*/
+			}
+			if (event.getSource() == H_tab2.search || event.getSource() == H_tab1.search) {
+				Patient p = new Patient();
+				if (event.getSource() == H_tab2.search)
+				{
+					p.firstName = H_tab2.textFieldFName.getText();
+					p.lastName = H_tab2.textFieldLName.getText();
+				}
+				else
+				{
+					p.firstName = H_tab1.textFieldFName.getText();
+					p.lastName = H_tab1.textFieldLName.getText();
+				}
+				try {
+					tc.searchUpdateHealthConditions(p);
+					tc.getLabRecords();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				String idLabel = "ID: ";
+				String labInfoLabel = "Lab Info: ";
+				
+				if (event.getSource() == H_tab2.search )
+				{
+					H_tab2.labInfoTextArea.setText(tc.activePatient.labTestResults);
+					
+					H_tab2.idNumber.setText(idLabel.concat(tc.activePatient.patientId));
+					H_tab2.labInfo.setText(labInfoLabel);
+					H_tab2.textConcern.setText(tc.activePatient.healthCondition);
+				}
+				else
+				{
+					try {
+						tc.getPrescriptionHistory();
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					
+					H_tab1.labInfoTextArea.setText(tc.activePatient.labTestResults);
+					H_tab1.idNumber.setText(idLabel.concat(tc.activePatient.patientId));
+					H_tab1.labInfo.setText(labInfoLabel);
+					H_tab1.textConcern.setText(tc.activePatient.healthCondition);
+					H_tab1.e_prescribe.setText(tc.activePatient.ePrescription);
+					
+				}
+				
+				/*
+				pat_HCU.medicalHistoryDisplay.setText(tc.activePatient.healthCondition);
+				pat_HCU.lblName.setText(nameLabel.concat(tc.activePatient.firstName.concat(" ").concat(tc.activePatient.lastName)));
+				pat_HCU.lblAddress.setText(addressLabel.concat("NULL"));
+				*/
+			}
+			if (event.getSource() == H_tab2.updateButton) {
+				tc.activePatient.ePrescription = H_tab2.e_prescribe.getText();
+				tc.activePatient.healthCondition = H_tab2.textConcern.getText();
+				
+				
+				try {
+					tc.sendAlert(tc.activePatient);
+					tc.ePrescribe(tc.activePatient);
+					JOptionPane.showMessageDialog(null, "Patient medical records have been updated successfully.");
+					
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+			}
+			
+=======
 			}
 			if (event.getSource() == hspGenStats.genStats){      
 				System.out.println("got here");
@@ -383,6 +484,7 @@ public class ApplicationGUI extends JFrame {
 				pat_HCU.lblAddress.setText(addressLabel.concat("NULL"));
 				 */
 			}
+>>>>>>> branch 'rlnsanz_branch' of git@github.com:360projectGroup2/project.git
 		}
 	}
 
