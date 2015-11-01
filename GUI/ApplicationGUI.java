@@ -338,7 +338,6 @@ public class ApplicationGUI extends JFrame {
 				info[0] = reg_MH.allergies.getText();
 				info[1] = reg_MH.medHis.getText();
 				pat.setMH(info);
-<<<<<<< HEAD
 			}
 			if (event.getSource() == H_tab2.search) {
 				Patient p = new Patient();
@@ -436,10 +435,7 @@ public class ApplicationGUI extends JFrame {
 					e.printStackTrace();
 				}
 				
-			}
-			
-=======
-			}
+				}
 			if (event.getSource() == hspGenStats.genStats){      
 				System.out.println("got here");
 				for(int i=0; i<hspGenStats.statistics.length;i++){
@@ -461,30 +457,29 @@ public class ApplicationGUI extends JFrame {
 					hspGenStats.buttons[i].setVisible(true);
 				}
 			}
-
-			if (event.getSource() == H_tab2.search) {
+			if (event.getSource() == lab_rec.save) {
 				Patient p = new Patient();
-				p.firstName = H_tab2.textFieldFName.getText();
-				p.lastName = H_tab2.textFieldLName.getText();
+				String name[] = lab_rec.name.getText().split(" ");
+				p.firstName = name[0];
+				p.lastName = name[1];
 				try {
 					tc.searchUpdateHealthConditions(p);
+					tc.getLabRecords();
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-
-				String idLabel = "ID: ";
-				String labInfoLabel = "Lab Info: ";
-
-				H_tab2.idNumber.setText(idLabel.concat(tc.activePatient.patientId));
-				H_tab2.labInfo.setText(labInfoLabel);
+				
+				lab_rec.pID.setText(tc.activePatient.patientId);
+				lab_rec.testIdent.setText(tc.activePatient.patientId);
+				
 				/*
 				pat_HCU.medicalHistoryDisplay.setText(tc.activePatient.healthCondition);
 				pat_HCU.lblName.setText(nameLabel.concat(tc.activePatient.firstName.concat(" ").concat(tc.activePatient.lastName)));
 				pat_HCU.lblAddress.setText(addressLabel.concat("NULL"));
-				 */
+				*/
 			}
->>>>>>> branch 'rlnsanz_branch' of git@github.com:360projectGroup2/project.git
+	
 		}
 	}
 
