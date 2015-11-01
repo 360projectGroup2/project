@@ -29,12 +29,12 @@ import model.Doctor;
 
 public class PAT_ScAp extends JPanel implements ActionListener{
 	// INSTANCE VARIABLES	
-	private int width, height;
-	private JLabel nameLabel, addressLabel, ssnLabel, doctorLabel,healthRank, healthConcern,dateLabel;
-	private JTextField name, address,ssn;
-	private JTextArea healthConcerns;
-	private JComboBox doctorDrop, healthRankDrop, date;
-	private JButton apply; 
+	public int width, height;
+	public JLabel nameLabel, addressLabel, ssnLabel, doctorLabel,healthRank, healthConcern,dateLabel;
+	public JTextField name, address,ssn;
+	public JTextArea healthConcerns;
+	public JComboBox doctorDrop, healthRankDrop, date;
+	public JButton apply; 
 	String storeName, storeAddress, storeSsn,storeDoctor, storeHealthRank,storeConcerns, storeDate;
 
 	ArrayList<Doctor> doctorList = new Doctor().getDoctor(0);

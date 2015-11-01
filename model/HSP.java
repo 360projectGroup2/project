@@ -41,16 +41,6 @@ public class HSP {
 		return null;
 	}
 	
-    //only hsp can view patient info
-    public void getPatientInfo(Patient p)
-    {
-        Patient temp;
-        temp = searchPatient[p];
-        if(found != false)
-        {
-            return temp;
-        }
-    }
     
    public String getFirstName()
    {
