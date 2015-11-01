@@ -342,6 +342,7 @@ public class ApplicationGUI extends JFrame {
 			if(event.getSource() == hspGenStats.genStats){
 				String[] statistics = {"healthOutcomes","trackAdmissions","PatientType", "Age", "Gender", "Ethnicity"};
 
+
 				for(int i=0; i<statistics.length;i++){
 					hspGenStats.chart.add(new BarChartDemo("Patient Statistics", statistics[i]+" Statistics", statistics[i]));
 					hspGenStats.chart.get(i).pack();        
