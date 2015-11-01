@@ -339,28 +339,27 @@ public class ApplicationGUI extends JFrame {
 				info[1] = reg_MH.medHis.getText();
 				pat.setMH(info);
 			}
-			if(event.getSource() == hspGenStats.genStats){
-				String[] statistics = {"healthOutcomes","trackAdmissions","PatientType", "Age", "Gender", "Ethnicity"};
-
-
-				for(int i=0; i<statistics.length;i++){
-					hspGenStats.chart.add(new BarChartDemo("Patient Statistics", statistics[i]+" Statistics", statistics[i]));
-					hspGenStats.chart.get(i).pack();        
-					System.out.println(hspGenStats.chart.get(i).toString());
-					RefineryUtilities.centerFrameOnScreen(hspGenStats.chart.get(i));        
+			if (event.getSource() == hspGenStats.genStats){      
+				System.out.println("got here");
+				for(int i=0; i<hspGenStats.statistics.length;i++){
+					hspGenStats.chart.add(new BarChartDemo("Patient Statistics", hspGenStats.statistics[i]+" Statistics", hspGenStats.statistics[i]));
+					hspGenStats.chart.get(i).pack();    
+					System.out.println(i);
+					RefineryUtilities.centerFrameOnScreen(hspGenStats.chart.get(i) );        
 					hspGenStats.chart.get(i).setVisible( true );
 
-					//Scanner nextStats = new Scanner(System.in);
-					//if(nextStats.nextInt() != 1){
-					//	break;
-
-					//}
-
+					/*Scanner nextStats = new Scanner(System.in);
+			     if(nextStats.nextInt() != 1){
+			      break;
+			     }
+					 */
+				}
+				hspGenStats.setLayout(null);
+				for(int i=0; i<hspGenStats.buttons.length; i++){
+					hspGenStats.add(hspGenStats.buttons[i]);
+					hspGenStats.buttons[i].setVisible(true);
 				}
 			}
-
-
-
 
 			if (event.getSource() == H_tab2.search) {
 				Patient p = new Patient();
