@@ -13,6 +13,7 @@ public class NursePanel extends JPanel  {
 	public JTextField textFieldLName;
 	public TextArea textAreaMedicalHistory;
 	public TextArea textAreaAllergies;
+	public TextArea textAreaAllergies2;
 	public JButton updateButton;
 	public JLabel lblName;
 	public JLabel lblAddress;
@@ -70,7 +71,7 @@ public class NursePanel extends JPanel  {
 		lblName.setBounds(49, 175, 65, 14);
 		add(lblName);
 		
-		lblAddress = new JLabel("Address: ???");
+		lblAddress = new JLabel("PatientID: ???");
 		lblAddress.setBounds(49, 200, 161, 14);
 		add(lblAddress);
 		
@@ -86,9 +87,9 @@ public class NursePanel extends JPanel  {
 		lblAllergies.setBounds(10, 339, 90, 14);
 		add(lblAllergies);
 		
-		TextArea textArea_1 = new TextArea();
-		textArea_1.setBounds(104, 340, 380, 75);
-		add(textArea_1);
+		textAreaAllergies = new TextArea();
+		textAreaAllergies.setBounds(104, 340, 380, 75);
+		add(textAreaAllergies);
 		
 		JLabel lblNewLabel = new JLabel("Add New Information");
 		lblNewLabel.setBounds(95, 443, 215, 14);
@@ -106,9 +107,9 @@ public class NursePanel extends JPanel  {
 		textAreaMedicalHistory.setBounds(104, 482, 380, 75);
 		add(textAreaMedicalHistory);
 		
-		textAreaAllergies = new TextArea();
-		textAreaAllergies.setBounds(104, 563, 380, 75);
-		add(textAreaAllergies);
+		textAreaAllergies2 = new TextArea();
+		textAreaAllergies2.setBounds(104, 563, 380, 75);
+		add(textAreaAllergies2);
 		
 		
 		updateButton = new JButton("Update");

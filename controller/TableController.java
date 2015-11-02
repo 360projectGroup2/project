@@ -152,20 +152,23 @@ public ArrayList<ArrayList<String>> searchUpdateHealthConditions(Patient p) thro
 				record.add(resultset.getString(i));		
 			result2.add(record);
 		}
-		String HCID = result2.get(0).get(0);
-		
-		result = new ArrayList<>();
-		sql = "select HealthCondition, Allergies from HealthConditions where HCID=" +HCID;
-		statement = connection.prepareStatement(sql);
-		resultset = statement.executeQuery();
-		while(resultset.next()) {
-			ArrayList<String> record = new ArrayList<>();
-			for (int i = 1; i <= resultset.getMetaData().getColumnCount(); i++)
-				record.add(resultset.getString(i));		
-			result.add(record);
+		if (result2.size() > 0)
+		{
+			String HCID = result2.get(0).get(0);
+			
+			result = new ArrayList<>();
+			sql = "select HealthCondition, Allergies from HealthConditions where HCID=" +HCID;
+			statement = connection.prepareStatement(sql);
+			resultset = statement.executeQuery();
+			while(resultset.next()) {
+				ArrayList<String> record = new ArrayList<>();
+				for (int i = 1; i <= resultset.getMetaData().getColumnCount(); i++)
+					record.add(resultset.getString(i));		
+				result.add(record);
+			}
+			p.healthCondition = result.get(0).get(0);
+			p.allergies = result.get(0).get(1);
 		}
-		p.healthCondition = result.get(0).get(0);
-		p.allergies = result.get(0).get(1);
 		activePatient = p;
 		resultset.close();
 		statement.close();
@@ -186,7 +189,10 @@ public void getLabRecords() throws SQLException {
 		throw new SQLException("cannot connect database");
 	}
 	String sql;
-	sql = "select Result from LabTests where Gkey=" + activePatient.patientId;
+	if (activePatient.labTestID == null || activePatient.labTestID.equals(""))
+		sql = "select Result, TestID from LabTests where Gkey=" + activePatient.patientId;
+	else
+		sql = "select Result, TestID from LabTests where Gkey=" + activePatient.patientId + " and TestId=" + activePatient.labTestID;
 	PreparedStatement statement = connection.prepareStatement(sql);
 	ResultSet resultset = statement.executeQuery();
 	while(resultset.next()) {
@@ -195,8 +201,12 @@ public void getLabRecords() throws SQLException {
 			record.add(resultset.getString(i));		
 		result.add(record);
 	}
-	String LabResults = result.get(0).get(0);
-	activePatient.labTestResults = LabResults;
+	if (result.size() > 0)
+	{
+		String LabResults = result.get(0).get(0);
+		activePatient.labTestResults = LabResults;
+		activePatient.labTestID = result.get(0).get(1);
+	}
 	
 	resultset.close();
 	statement.close();
@@ -359,6 +369,52 @@ public String sendAlert(Patient p) throws SQLException {
 	return "Success";
 }
 
+public void updHealthCondition() throws SQLException {
+	
+	ArrayList<ArrayList<String>> result = new ArrayList<>();
+	Connection connection = this.connectDatabase();
+	if(connection == null) {
+		// You can use other approaches for the connection issue.
+		// As the connection error generally comes from network errors or 
+		// user permissions, it should be taken care of individually
+		throw new SQLException("cannot connect database");
+	}
+	
+	String sql;
+	String Gkey;
+	//ResultSet resultset;
+	PreparedStatement statement;
+	
+	Gkey = activePatient.patientId;
+	
+	String HCID = Gkey;
+	String severityStr = "0";
+	int severity = 0;
+	
+	sql = "DELETE FROM `HasCondition` WHERE Gkey=" + Gkey;
+	statement = connection.prepareStatement(sql);
+	statement.executeUpdate();
+	
+	sql = "INSERT INTO `HasCondition`(`HCID`, `Gkey`) VALUES ("+HCID+","+Gkey+")";
+	statement = connection.prepareStatement(sql);
+	statement.executeUpdate();
+	
+	sql = "DELETE FROM `HealthConditions` WHERE HCID=" + Gkey;
+	statement = connection.prepareStatement(sql);
+	statement.executeUpdate();
+	
+	sql = "INSERT INTO `HealthConditions`(`HealthCondition`, `Severity`, `Allergies`, `HCID`) VALUES ('"+activePatient.healthCondition+"',"+severity+",'"+activePatient.allergies+"',"+Gkey+")";
+	statement = connection.prepareStatement(sql);
+	statement.executeUpdate();
+	
+	//resultset.close();
+	statement.close();
+	
+	// NEVER FORGET TO RELEASE THE CONNECTION!
+	connection.close();
+	return;
+}
+
 public void ePrescribe(Patient p) throws SQLException {
 	
 	Connection connection = this.connectDatabase();
@@ -377,6 +433,39 @@ public void ePrescribe(Patient p) throws SQLException {
 	Gkey = p.patientId;
 		
 	sql = "INSERT INTO `Script`(`Gkey`, `Medication`) VALUES ("+Gkey+",'"+p.ePrescription+"')";
+	statement = connection.prepareStatement(sql);
+	statement.executeUpdate();
+	
+	
+	//resultset.close();
+	statement.close();
+	
+	// NEVER FORGET TO RELEASE THE CONNECTION!
+	connection.close();
+	return;
+}
+
+public void addLabRecord(Patient p) throws SQLException {
+	
+	Connection connection = this.connectDatabase();
+	if(connection == null) {
+		// You can use other approaches for the connection issue.
+		// As the connection error generally comes from network errors or 
+		// user permissions, it should be taken care of individually
+		throw new SQLException("cannot connect database");
+	}
+	
+	String sql;
+	String Gkey;
+	//ResultSet resultset;
+	PreparedStatement statement;
+	
+	Gkey = p.patientId;
+		
+	if (p.labTestID.equals(""))
+		sql = "INSERT INTO `LabTests`(`Gkey`, `Result`) VALUES ("+Gkey+",'"+p.labTestResults+"')";
+	else
+		sql = "UPDATE `LabTests` SET `Result`='" + p.labTestResults + "' WHERE `TestID`=" + p.labTestID;
 	statement = connection.prepareStatement(sql);
 	statement.executeUpdate();
 	

@@ -51,20 +51,27 @@ public class Lab_Records extends JPanel implements ActionListener{
 		add(patientKey);
 		save 			= new JButton("Save");
 		save.setBounds(180, 211, 86, 20);
+		save.addActionListener(b);
 		add(save);
 
 		view 			= new JButton("View");
 		view.setBounds(180, 242, 86, 20);
+		view.addActionListener(b);
 		add(view);
-
+		
+		/*
 		edit 			= new JButton("Edit");
 		edit.setBounds(180, 273, 86, 20);
+		edit.addActionListener(b);
 		add(edit);
-
+		*/
+		
+		/*
 		save.addActionListener(this);
 		view.addActionListener(this);
 		edit.addActionListener(this);
-
+		*/
+	
 		//Text Field Initialization	
 		name = new JTextField();
 		name.setBounds(180, 56, 86, 20);
@@ -127,6 +134,7 @@ public class Lab_Records extends JPanel implements ActionListener{
 
 			}
 		}
+		/*
 		else if(source == edit)
 		{
 			pID.setText(storePatientID);
@@ -141,6 +149,7 @@ public class Lab_Records extends JPanel implements ActionListener{
 			pKey.setText(storePkey);
 			pKey.setEditable(true);
 		}
+		*/
 	} // End ActionListener
 } // End Class
 

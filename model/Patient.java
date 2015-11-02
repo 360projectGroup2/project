@@ -29,6 +29,7 @@ public class Patient
   public String InsuranceID;
   public int severity;
   public String labTestResults;
+  public String labTestID;
   public String ePrescription;
   public Lab labRecord = new Lab();						//lab record added
   

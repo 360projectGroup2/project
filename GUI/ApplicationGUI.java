@@ -457,11 +457,16 @@ public class ApplicationGUI extends JFrame {
 					hspGenStats.buttons[i].setVisible(true);
 				}
 			}
-			if (event.getSource() == lab_rec.save) {
+			if (event.getSource() == lab_rec.view || event.getSource() == lab_rec.save) {
+				
 				Patient p = new Patient();
 				String name[] = lab_rec.name.getText().split(" ");
 				p.firstName = name[0];
 				p.lastName = name[1];
+				
+				p.labTestID = lab_rec.testIdent.getText();
+				
+				
 				try {
 					tc.searchUpdateHealthConditions(p);
 					tc.getLabRecords();
@@ -471,13 +476,80 @@ public class ApplicationGUI extends JFrame {
 				}
 				
 				lab_rec.pID.setText(tc.activePatient.patientId);
-				lab_rec.testIdent.setText(tc.activePatient.patientId);
+				lab_rec.testIdent.setText(tc.activePatient.labTestID);
+				if (event.getSource() == lab_rec.view)
+				{
+					if (tc.activePatient.labTestResults == null)
+						lab_rec.LabInfo.setText("No lab records exist.");
+					else
+						lab_rec.LabInfo.setText(tc.activePatient.labTestResults);
+				}
 				
 				/*
 				pat_HCU.medicalHistoryDisplay.setText(tc.activePatient.healthCondition);
 				pat_HCU.lblName.setText(nameLabel.concat(tc.activePatient.firstName.concat(" ").concat(tc.activePatient.lastName)));
 				pat_HCU.lblAddress.setText(addressLabel.concat("NULL"));
 				*/
+			}
+			if (event.getSource() == lab_rec.save) {
+				tc.activePatient.labTestResults = lab_rec.LabInfo.getText();
+				try {
+					tc.addLabRecord(tc.activePatient);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				/*
+				pat_HCU.medicalHistoryDisplay.setText(tc.activePatient.healthCondition);
+				pat_HCU.lblName.setText(nameLabel.concat(tc.activePatient.firstName.concat(" ").concat(tc.activePatient.lastName)));
+				pat_HCU.lblAddress.setText(addressLabel.concat("NULL"));
+				*/
+				
+			}
+			if (event.getSource() == nurse_panel.btnSearch)
+			{
+				Patient p = new Patient();
+				p.firstName = nurse_panel.textFieldFName.getText();
+				p.lastName = nurse_panel.textFieldLName.getText();
+
+				try {
+					tc.searchUpdateHealthConditions(p);
+					tc.getLabRecords();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				String lblName = "Name: ";
+				String lblAddress = "PatientID: ";
+				
+				nurse_panel.lblName.setText(lblName + tc.activePatient.firstName + " " + tc.activePatient.lastName);
+				nurse_panel.lblAddress.setText(lblAddress + tc.activePatient.patientId);
+				
+				if (tc.activePatient.allergies != null && tc.activePatient.allergies.length() > 0)
+					nurse_panel.textAreaAllergies.setText(tc.activePatient.allergies);
+				else
+					nurse_panel.textAreaAllergies.setText("No allergies");
+				
+				if (tc.activePatient.healthCondition != null && tc.activePatient.healthCondition.length() > 0)
+					nurse_panel.medicalHistoryDisplay.setText(tc.activePatient.healthCondition);
+				else
+					nurse_panel.medicalHistoryDisplay.setText("No medical history to show.");
+				
+			}
+			if (event.getSource() == nurse_panel.updateButton)
+			{
+				tc.activePatient.healthCondition = nurse_panel.textAreaMedicalHistory.getText();
+				tc.activePatient.allergies = nurse_panel.textAreaAllergies2.getText();
+				
+				try {
+					tc.updHealthCondition();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
 			}
 		}
 	}
