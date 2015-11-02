@@ -251,7 +251,72 @@ public void getPrescriptionHistory() throws SQLException {
 	return;
 }
 
+public void getDoctor() throws SQLException {
+	
+	ArrayList<ArrayList<String>> result = new ArrayList<>();
+	Connection connection = this.connectDatabase();
+	if(connection == null) {
+		// You can use other approaches for the connection issue.
+		// As the connection error generally comes from network errors or 
+		// user permissions, it should be taken care of individually
+		throw new SQLException("cannot connect database");
+	}
+	String sql;
+	sql = "SELECT Doctor.FirstName, Doctor.LastName FROM Doctor_Of, Patient, Doctor where Doctor_Of.PGkey = Patient.Gkey and Doctor_Of.DGkey = Doctor.Gkey and Patient.Gkey =" + activePatient.patientId;
+	PreparedStatement statement = connection.prepareStatement(sql);
+	ResultSet resultset = statement.executeQuery();
+	while(resultset.next()) {
+		ArrayList<String> record = new ArrayList<>();
+		for (int i = 1; i <= resultset.getMetaData().getColumnCount(); i++)
+			record.add(resultset.getString(i));		
+		result.add(record);
+	}
+	if (result.size() > 0)
+	{
+		activePatient.doctorName = result.get(0).get(0) + " " + result.get(0).get(1);
+	}
+	
+	resultset.close();
+	statement.close();
+	
+	// NEVER FORGET TO RELEASE THE CONNECTION!
+	connection.close();
+	return;
+}
 
+public void getLabHistory() throws SQLException {
+	
+	ArrayList<ArrayList<String>> result = new ArrayList<>();
+	Connection connection = this.connectDatabase();
+	if(connection == null) {
+		// You can use other approaches for the connection issue.
+		// As the connection error generally comes from network errors or 
+		// user permissions, it should be taken care of individually
+		throw new SQLException("cannot connect database");
+	}
+	String sql;
+	sql = "select Name from Lab where Gkey=" + activePatient.patientId;
+	PreparedStatement statement = connection.prepareStatement(sql);
+	ResultSet resultset = statement.executeQuery();
+	while(resultset.next()) {
+		ArrayList<String> record = new ArrayList<>();
+		for (int i = 1; i <= resultset.getMetaData().getColumnCount(); i++)
+			record.add(resultset.getString(i));		
+		result.add(record);
+	}
+	if (result.size() > 0)
+	{
+		String hasLab = result.get(0).get(0);
+		activePatient.labName = hasLab;
+	}
+	
+	resultset.close();
+	statement.close();
+	
+	// NEVER FORGET TO RELEASE THE CONNECTION!
+	connection.close();
+	return;
+}
 
 public ArrayList<ArrayList<String>> registerPatient(Patient p) throws SQLException {
 	

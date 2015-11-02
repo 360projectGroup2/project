@@ -15,6 +15,7 @@ public class Patient
   public String patientId;
   public String firstName;
   public String lastName;
+  public String doctorName;
   public String age;
   public String ssn;
   public String contactNumber;
@@ -30,6 +31,7 @@ public class Patient
   public int severity;
   public String labTestResults;
   public String labTestID;
+  public String labName;
   public String ePrescription;
   public Lab labRecord = new Lab();						//lab record added
   

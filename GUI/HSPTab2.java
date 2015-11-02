@@ -65,11 +65,11 @@ public class HSPTab2 extends JPanel {
 	
 	
 	idNumber= new JLabel("ID: ???");
-	idNumber.setBounds(200, 59, 65, 14);
+	idNumber.setBounds(200, 59, 165, 14);
 	add(idNumber);
 	
 	labInfo= new JLabel("Lab Info: ???");
-	labInfo.setBounds(200, 80, 100, 20);
+	labInfo.setBounds(200, 80, 200, 20);
 	add(labInfo);
 	
 	labInfoTextArea = new TextArea();

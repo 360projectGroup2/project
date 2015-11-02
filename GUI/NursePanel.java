@@ -68,11 +68,11 @@ public class NursePanel extends JPanel  {
 		add(lblPatientInfo);
 		
 		lblName = new JLabel("Name: ???");
-		lblName.setBounds(49, 175, 65, 14);
+		lblName.setBounds(49, 175, 165, 14);
 		add(lblName);
 		
 		lblAddress = new JLabel("PatientID: ???");
-		lblAddress.setBounds(49, 200, 161, 14);
+		lblAddress.setBounds(49, 200, 261, 14);
 		add(lblAddress);
 		
 		JLabel lblMedicalHistory = new JLabel("Medical History:");

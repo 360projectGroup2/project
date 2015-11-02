@@ -551,6 +551,30 @@ public class ApplicationGUI extends JFrame {
 				}
 				
 			}
+			if (event.getSource() == pharmacist_panel.search)
+			{
+				Patient p = new Patient();
+				tc.activePatient = p;
+				tc.activePatient.firstName = pharmacist_panel.textFieldFName.getText();
+				tc.activePatient.lastName = pharmacist_panel.textFieldLName.getText();
+							
+				try {
+					tc.searchUpdateHealthConditions(p);
+					tc.getPrescriptionHistory();
+					tc.getLabHistory();
+					tc.getDoctor();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				String st1 = "ID: ", st2 = "Lab Info: ", st3 = "Doctor Name: ";
+				
+				pharmacist_panel.idNumber.setText(st1 + tc.activePatient.patientId);
+				pharmacist_panel.labInfo.setText(st2 + tc.activePatient.labName);
+				pharmacist_panel.drInfo.setText(st3 + tc.activePatient.doctorName);
+				pharmacist_panel.e_prescribe.setText(tc.activePatient.ePrescription);
+			}
 		}
 	}
 

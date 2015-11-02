@@ -19,8 +19,9 @@ public class Pharmacist_Panel extends JPanel {
 	public JTextField SearchInfo;
 	public TextArea textConcern;
 	public JLabel concernLabel;
-	public JTextField idNumber;
-	public JTextField labInfo;
+	public JLabel idNumber;
+	public JLabel labInfo;
+	public JLabel drInfo;
 	public TextArea labInfoTextArea;
 	public JLabel eprescribeLable;
 	public TextArea e_prescribe;
@@ -61,16 +62,17 @@ public class Pharmacist_Panel extends JPanel {
 	add(textFieldLName);
 	
 	
-	JLabel idNumber= new JLabel("ID: ???");
-	idNumber.setBounds(200, 59, 65, 14);
+	idNumber= new JLabel("ID: ");
+	idNumber.setBounds(200, 59, 140, 14);
 	add(idNumber);
 	
-	JLabel labInfo= new JLabel("Lab Info: ???");
-	labInfo.setBounds(200, 80, 100, 20);
+	labInfo= new JLabel("Lab Info: ");
+	labInfo.setBounds(200, 80, 200, 20);
 	add(labInfo);
 	
-	JLabel drInfo= new JLabel("Doctor Name: ???");
-	drInfo.setBounds(200, 100, 145, 20);
+	
+	drInfo= new JLabel("Doctor Name: ");
+	drInfo.setBounds(200, 100, 245, 20);
 	add(drInfo);
 	
 	search = new JButton("Search"); 
@@ -90,7 +92,5 @@ public class Pharmacist_Panel extends JPanel {
 	updateButton.setBounds(300, 460, 90, 23);
 	add(updateButton );
 	updateButton.addActionListener(b);
-	
-	
 	}
 }
