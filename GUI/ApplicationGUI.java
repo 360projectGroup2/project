@@ -16,7 +16,7 @@ import javax.swing.border.EmptyBorder;
 
 import org.jfree.ui.RefineryUtilities;
 
-import model.Patient;
+import model.*;
 import controller.TableController;
 
 /**EDIT TEST
