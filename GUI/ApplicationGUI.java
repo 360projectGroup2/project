@@ -51,6 +51,14 @@ public class ApplicationGUI extends JFrame {
 	private JPanel contentPane;
 	//Reg_PI reg_PI;
 	//JPanel RegistrationBase, reg_II, reg_CI, reg_MH, reg_LI;
+	//login panels
+	LoginScreen loginS;
+	ForgotPW forgotPanel;
+	TestPatient_Registration1 RegistrationBase;
+
+
+	TestStandardScreen general2;
+	
 	TestP1 start;
 	//patient schedule appt
 	PAT_ScAp pat_ScAp;
@@ -63,7 +71,6 @@ public class ApplicationGUI extends JFrame {
 	HSPGenStats hspGenStats;
 	Pharmacist_Panel pharmacist_panel;
 
-	TestPatient_Registration1 RegistrationBase;
 
 	//Controller test_app;
 	Reg_PI reg_PI;
@@ -104,12 +111,9 @@ public class ApplicationGUI extends JFrame {
 			// TODO Auto-generated catch block
 			e2.printStackTrace();
 		}
-		pat_HCU = new PAT_HCU(b);
-		sendAlert = new SendAlert(b);
-		lab_rec = new Lab_Records(b);
-		nurse_panel = new NursePanel(b);
-		hspGenStats = new HSPGenStats(b);
-		pharmacist_panel = new Pharmacist_Panel(b);
+		//login panels
+		loginS = new LoginScreen();	
+		forgotPanel = new ForgotPW(e,b);
 
 
 		RegistrationBase = new TestPatient_Registration1(e, b);
@@ -118,17 +122,33 @@ public class ApplicationGUI extends JFrame {
 		reg_LI = new Reg_LI(b);
 		reg_CI = new Reg_CI(b);
 		reg_MH = new Reg_MH(b);
+		
+		//total base panel
+		general2 = new TestStandardScreen(e);
+
+		
+		
+		
+		pat_HCU = new PAT_HCU(b);
+		sendAlert = new SendAlert(b);
+		lab_rec = new Lab_Records(b);
+		nurse_panel = new NursePanel(b);
+		//hsp generate statistics
+		hspGenStats = new HSPGenStats(b);
+		//pharmacist panel
+		pharmacist_panel = new Pharmacist_Panel(b);
 
 
+		
+
+		//HSP Panels
 		H_tab1 = new HSPTab1(b);
 		H_tab2 = new HSPTab2(b);
 		H_tab3 = new HSPTab3(b);
 		H_tab4 = new HSPTab4();
-
-
 		h_Base = new HSPBase(H_tab1, H_tab2, H_tab3, H_tab4, -1);
 
-
+		//final
 		contentPane = new JPanel();
 		//contentPane.setLayout(null);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -144,7 +164,7 @@ public class ApplicationGUI extends JFrame {
 			e1.printStackTrace();
 		}
 
-		setContentPane(start);
+		setContentPane(loginS);
 	}
 	public void display(){
 		setSize(700,500);
@@ -157,7 +177,38 @@ public class ApplicationGUI extends JFrame {
 	//TAKES CARE OF CHANGING FROM ONE JPANEL TO ANOTHER
 	public class Event_Handler implements ActionListener{
 		public void actionPerformed (ActionEvent event){
-
+			if(event.getSource() == loginS.btnForgotPassword){
+				updateStart(forgotPanel);
+			}
+			if(event.getSource() == loginS.btnRegister){
+				updateStart(RegistrationBase);
+			}			
+			
+			if(event.getSource() == loginS.btnExitApplication){
+				dispose();
+			}
+			// LOGIN LOGIN LOGIN LOGIN LOGIN LOGIN LOGIN LOGIN LOGIN LOGIN LOGIN LOGIN LOGIN LOGIN LOGIN LOGIN LOGIN LOGIN
+			if(event.getSource() == loginS.btnLogin){
+				user = new HSP();
+				if (user instanceof Patient){
+					updateStart(general2);
+					switch1(general2, general2.switchPanel, pat_HCU);
+				}
+				else if(user instanceof Staff){
+					
+				}
+				else if(user instanceof HSP){
+					updateStart(general2);
+					switch1(general2, general2.switchPanel, h_Base);
+				}
+				
+			}
+			
+			if(event.getSource() == general2.btnLogout){
+				updateStart(loginS);
+				
+			}
+						
 			//---
 			if(event.getSource() == start.savebutton){
 				updateStart(RegistrationBase);
@@ -213,6 +264,9 @@ public class ApplicationGUI extends JFrame {
 			if (event.getSource() == RegistrationBase.b5){
 				update(RegistrationBase.panel, reg_LI);
 			}
+			if (event.getSource() == RegistrationBase.b6){
+				updateStart(loginS);
+			}			
 
 
 		}
@@ -224,6 +278,15 @@ public class ApplicationGUI extends JFrame {
 			base.repaint();
 			//base.pack();
 		}
+		void switch1(JPanel base, JPanel remove, JPanel add){
+			base.remove(remove);
+			add.setSize(remove.getSize());
+			add.setBounds(remove.getBounds());
+			base.add(add);
+			base.revalidate();
+			base.repaint();
+			//base.pack();
+		}		
 		void updateStart(JPanel base){
 			setContentPane(base);
 			revalidate();
