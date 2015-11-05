@@ -52,6 +52,9 @@ public class ApplicationGUI extends JFrame {
 	//Reg_PI reg_PI;
 	//JPanel RegistrationBase, reg_II, reg_CI, reg_MH, reg_LI;
 	//login panels
+	//THIS IS THE THINGY THAT GETS UPDATED
+	Object user;	
+	
 	LoginScreen loginS;
 	ForgotPW forgotPanel;
 	TestPatient_Registration1 RegistrationBase;
