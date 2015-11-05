@@ -115,7 +115,7 @@ public class ApplicationGUI extends JFrame {
 			e2.printStackTrace();
 		}
 		//login panels
-		loginS = new LoginScreen();	
+		loginS = new LoginScreen(e,b);	
 		forgotPanel = new ForgotPW(e,b);
 
 
