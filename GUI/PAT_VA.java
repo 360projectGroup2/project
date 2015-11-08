@@ -56,7 +56,7 @@ public class PAT_VA extends JPanel {
 	}
 
 	public void loadAppts(ArrayList<String> a, ArrayList<String> b, ArrayList<String> c){
-		System.out.println("Test2");
+		//System.out.println("Test2");
 		docN = b;
 		dates = c;
 
@@ -68,11 +68,11 @@ public class PAT_VA extends JPanel {
 			add(buttons.get(i));
 			
 		}
-		System.out.println("Test2");
+		//System.out.println("Test2");
 		add(label1);
 		add(label2);
 		add(label3);
-		System.out.println(label1.isDisplayable());
+		//System.out.println(label1.isDisplayable());
 		//now show them
 		revalidate();
 		repaint();
