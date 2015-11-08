@@ -13,7 +13,7 @@ import java.util.Random;
 import model.Doctor;
 import model.Patient;
 import model.Doctor;
-
+import model.Appointment;
 
 public class TableController implements DBQuery{
 	/**
@@ -316,6 +316,35 @@ public void getLabHistory() throws SQLException {
 	// NEVER FORGET TO RELEASE THE CONNECTION!
 	connection.close();
 	return;
+}
+
+public ArrayList<Appointment> getAppointments(Patient p) throws SQLException {
+	ArrayList<Appointment> result = new ArrayList<>();
+	Connection connection = this.connectDatabase();
+	if(connection == null) {
+		// You can use other approaches for the connection issue.
+		// As the connection error generally comes from network errors or 
+		// user permissions, it should be taken care of individually
+		throw new SQLException("cannot connect database");
+	}
+	String sql;
+	sql = "SELECT Concerns, Concat(FirstName, ' ', LastName), ScheduledOn FROM `Appointments` INNER JOIN Doctor on DoctorGkey = Doctor.Gkey where Appointments.PatientGkey = " + p.patientId;
+	PreparedStatement statement = connection.prepareStatement(sql);
+	ResultSet resultset = statement.executeQuery();
+	while(resultset.next()) {
+		Appointment record = new Appointment();
+		record.Concerns = resultset.getString(1);
+		record.DoctorName = resultset.getString(2);
+		record.ScheduledOn = resultset.getString(3);
+		result.add(record);
+	}
+	
+	resultset.close();
+	statement.close();
+	
+	// NEVER FORGET TO RELEASE THE CONNECTION!
+	connection.close();
+	return result;
 }
 
 public ArrayList<ArrayList<String>> registerPatient(Patient p) throws SQLException {
