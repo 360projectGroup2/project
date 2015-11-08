@@ -168,7 +168,7 @@ public class ApplicationGUI extends JFrame {
 			e1.printStackTrace();
 		}
 
-		setContentPane(loginS);
+		setContentPane(pat_VA);
 	}
 	public void display(){
 		setSize(700,500);
