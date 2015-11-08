@@ -65,6 +65,7 @@ public class ApplicationGUI extends JFrame {
 	TestP1 start;
 	//patient schedule appt
 	PAT_ScAp pat_ScAp;
+	PAT_VA pat_VA;
 	//patient update health condition
 	PAT_HCU pat_HCU;
 	SendAlert sendAlert;
@@ -131,7 +132,7 @@ public class ApplicationGUI extends JFrame {
 
 		
 		
-		
+		pat_VA = new PAT_VA(e,b);
 		pat_HCU = new PAT_HCU(b);
 		sendAlert = new SendAlert(b);
 		lab_rec = new Lab_Records(b);
@@ -309,6 +310,19 @@ public class ApplicationGUI extends JFrame {
 
 	public class Bridge implements ActionListener{
 		public void actionPerformed (ActionEvent event){
+			if(event.getSource() == panel2.btnViewAppointments){
+				System.out.println("Test");
+				ArrayList<String> a = new ArrayList<String>();
+				ArrayList<String> b = new ArrayList<String>();
+				ArrayList<String> c = new ArrayList<String>();
+				a.add("a"); a.add("b"); a.add("c");
+				b.add("a"); b.add("b"); b.add("c");
+				c.add("a"); c.add("b"); c.add("c");
+				
+				panel2.loadAppts(a,b,c);
+			}
+			
+			
 			if (event.getSource() == RegistrationBase.b6){
 				//INSERT CODE HERE
 				try {
