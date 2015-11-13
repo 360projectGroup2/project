@@ -168,7 +168,7 @@ public class ApplicationGUI extends JFrame {
 			e1.printStackTrace();
 		}
 
-		setContentPane(pat_VA);
+		setContentPane(loginS);
 	}
 	public void display(){
 		setSize(700,500);
@@ -310,7 +310,7 @@ public class ApplicationGUI extends JFrame {
 
 	public class Bridge implements ActionListener{
 		public void actionPerformed (ActionEvent event){
-			if(event.getSource() == panel2.btnViewAppointments){
+			if(event.getSource() == pat_VA.btnViewAppointments){
 				System.out.println("Test");
 				ArrayList<String> a = new ArrayList<String>();
 				ArrayList<String> b = new ArrayList<String>();
@@ -319,7 +319,7 @@ public class ApplicationGUI extends JFrame {
 				b.add("a"); b.add("b"); b.add("c");
 				c.add("a"); c.add("b"); c.add("c");
 				
-				panel2.loadAppts(a,b,c);
+				pat_VA.loadAppts(a,b,c);
 			}
 			
 			
