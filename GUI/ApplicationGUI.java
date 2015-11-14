@@ -193,6 +193,7 @@ public class ApplicationGUI extends JFrame {
 			}
 			// LOGIN LOGIN LOGIN LOGIN LOGIN LOGIN LOGIN LOGIN LOGIN LOGIN LOGIN LOGIN LOGIN LOGIN LOGIN LOGIN LOGIN LOGIN
 			if(event.getSource() == loginS.btnLogin){
+				
 				user = new HSP();
 				if (user instanceof Patient){
 					updateStart(general2);
@@ -310,6 +311,11 @@ public class ApplicationGUI extends JFrame {
 
 	public class Bridge implements ActionListener{
 		public void actionPerformed (ActionEvent event){
+			
+			if (event.getSource() == loginS.btnLogin) {
+				System.out.println("Login button clicked.");
+			}
+			
 			if(event.getSource() == pat_VA.btnViewAppointments){
 				System.out.println("Test");
 				ArrayList<String> a = new ArrayList<String>();

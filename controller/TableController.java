@@ -11,6 +11,7 @@ import java.util.Map;
 import java.util.Random;
 
 import model.Doctor;
+import model.HSP;
 import model.Patient;
 import model.Doctor;
 import model.Appointment;
@@ -22,6 +23,8 @@ public class TableController implements DBQuery{
 	 */
 	
 	public static Patient activePatient = null;
+	public static Doctor activeDoctor = null;
+	public static HSP activeHSP = null;
 	
 	public Connection connectDatabase() {
 		Connection connection = null;
@@ -669,6 +672,36 @@ public ArrayList get(String tableName, String[] attributes, String where) throws
 			result.add(resultset.getString(columnName));
 		}
 	}
+	resultset.close();
+	statement.close();
+	
+	// NEVER FORGET TO RELEASE THE CONNECTION!
+	connection.close();
+	return result;
+}
+
+public String callLogin(String username, String password) 
+{
+	ArrayList<Appointment> result = new ArrayList<>();
+	Connection connection = this.connectDatabase();
+	if(connection == null) {
+		// You can use other approaches for the connection issue.
+		// As the connection error generally comes from network errors or 
+		// user permissions, it should be taken care of individually
+		throw new SQLException("cannot connect database");
+	}
+	String sql;
+	sql = "SELECT * from Doctor where Username='" + username + "'";
+	PreparedStatement statement = connection.prepareStatement(sql);
+	ResultSet resultset = statement.executeQuery(); 
+	while(resultset.next()) {
+		Appointment record = new Appointment();
+		record.Concerns = resultset.getString(1);
+		record.DoctorName = resultset.getString(2);
+		record.ScheduledOn = resultset.getString(3);
+		result.add(record);
+	}
+	
 	resultset.close();
 	statement.close();
 	
