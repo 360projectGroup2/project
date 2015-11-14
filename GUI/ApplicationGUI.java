@@ -656,6 +656,15 @@ public class ApplicationGUI extends JFrame {
 				pharmacist_panel.e_prescribe.setText(tc.activePatient.ePrescription);
 			}
 		}
+		void switch1(JPanel base, JPanel remove, JPanel add){
+			base.remove(remove);
+			add.setSize(remove.getSize());
+			add.setBounds(remove.getBounds());
+			base.add(add);
+			base.revalidate();
+			base.repaint();
+			//base.pack();
+		}
 	}
 
 }
