@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTable;
 
+
 import org.jfree.ui.RefineryUtilities;
 
 public class HSPGenStats extends JPanel implements ActionListener{
@@ -25,6 +26,8 @@ public class HSPGenStats extends JPanel implements ActionListener{
 	public String[] statistics = {"healthOutcomes","trackAdmissions","PatientType", "Age", "Gender", "Ethnicity"};
 	public JRadioButton[] buttons;
 	public ButtonGroup asdf;
+	public JPanel chartPanel;
+
 
 	public HSPGenStats(ActionListener b){
 		setLayout(null);
@@ -37,7 +40,10 @@ public class HSPGenStats extends JPanel implements ActionListener{
 		genStats.addActionListener(b);
 		genStats.addActionListener(this);
 		this.add(genStats);
-
+		
+		chartPanel = new JPanel();
+		chartPanel.setBounds(10, 34, 430, 324);
+		add(chartPanel);
 
 		buttons = new JRadioButton[6];
 		asdf = new ButtonGroup();
