@@ -680,7 +680,7 @@ public ArrayList get(String tableName, String[] attributes, String where) throws
 	return result;
 }
 
-public String callLogin(String username, String password) 
+public String callLogin(String username, String password) throws SQLException
 {
 	ArrayList<Appointment> result = new ArrayList<>();
 	Connection connection = this.connectDatabase();
@@ -694,12 +694,51 @@ public String callLogin(String username, String password)
 	sql = "SELECT * from Doctor where Username='" + username + "'";
 	PreparedStatement statement = connection.prepareStatement(sql);
 	ResultSet resultset = statement.executeQuery(); 
-	while(resultset.next()) {
-		Appointment record = new Appointment();
-		record.Concerns = resultset.getString(1);
-		record.DoctorName = resultset.getString(2);
-		record.ScheduledOn = resultset.getString(3);
-		result.add(record);
+	if (resultset.next()) {
+		activeDoctor = new Doctor();
+		activeDoctor.firstName = resultset.getString(1);
+		activeDoctor.docId = Integer.parseInt(resultset.getString(2));
+		activeDoctor.lastName = resultset.getString(3);
+		activeDoctor.userName = username;
+		resultset.close();
+		statement.close();
+		
+		// NEVER FORGET TO RELEASE THE CONNECTION!
+		connection.close();
+		return "Doctor";
+	}
+	sql = "SELECT * from Patient where Username='" + username + "'";
+	statement = connection.prepareStatement(sql);
+	resultset = statement.executeQuery(); 
+	if (resultset.next()) {
+		activePatient = new Patient();
+		activePatient.firstName = resultset.getString(3);
+		activePatient.patientId = resultset.getString(4);
+		activePatient.lastName = resultset.getString(5);
+		activePatient.userName = username;
+		activePatient.ssn = resultset.getString(8);
+		resultset.close();
+		statement.close();
+		
+		// NEVER FORGET TO RELEASE THE CONNECTION!
+		connection.close();
+		return "Patient";
+	}
+	sql = "SELECT * from HSP_Staff where Username='" + username + "'";
+	statement = connection.prepareStatement(sql);
+	resultset = statement.executeQuery(); 
+	if (resultset.next()) {
+		activeHSP = new HSP();
+		activeHSP.firstName = resultset.getString(1);
+		activeHSP.hspID = Integer.parseInt(resultset.getString(2));
+		activeHSP.lastName = resultset.getString(3);
+		activeHSP.userName = username;
+		resultset.close();
+		statement.close();
+		
+		// NEVER FORGET TO RELEASE THE CONNECTION!
+		connection.close();
+		return "HSP";
 	}
 	
 	resultset.close();
@@ -707,7 +746,7 @@ public String callLogin(String username, String password)
 	
 	// NEVER FORGET TO RELEASE THE CONNECTION!
 	connection.close();
-	return result;
+	return "ERROR";
 }
 
 }

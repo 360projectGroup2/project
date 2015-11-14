@@ -10,7 +10,7 @@ public class Doctor {
 	public String firstName;
 	public String lastName;
 	public String userName;
-    private int docId;
+    public int docId;
 	public BusinessHours availble;
 	public String specialty;
 	

@@ -4,7 +4,7 @@ public class HSP {
 	public String firstName;
 	public String lastName;
 	public String userName;
-    private int hspID;
+    public int hspID;
 	public BusinessHours availble;
 	boolean found = false;
 	

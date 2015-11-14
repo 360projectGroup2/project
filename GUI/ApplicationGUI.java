@@ -53,7 +53,7 @@ public class ApplicationGUI extends JFrame {
 	//JPanel RegistrationBase, reg_II, reg_CI, reg_MH, reg_LI;
 	//login panels
 	//THIS IS THE THINGY THAT GETS UPDATED
-	Object user;	
+	String user;	
 	
 	LoginScreen loginS;
 	ForgotPW forgotPanel;
@@ -194,15 +194,23 @@ public class ApplicationGUI extends JFrame {
 			// LOGIN LOGIN LOGIN LOGIN LOGIN LOGIN LOGIN LOGIN LOGIN LOGIN LOGIN LOGIN LOGIN LOGIN LOGIN LOGIN LOGIN LOGIN
 			if(event.getSource() == loginS.btnLogin){
 				
-				user = new HSP();
-				if (user instanceof Patient){
+				char pass[] = loginS.passField.getPassword();
+				String passw = new String(pass);
+				try {
+					user = tc.callLogin(loginS.userField.getText(), passw);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					return;
+				}
+				if (user.equals("Patient")){
 					updateStart(general2);
 					switch1(general2, general2.switchPanel, pat_HCU);
 				}
-				else if(user instanceof Staff){
+				else if(user.equals("Doctor")){
 					
 				}
-				else if(user instanceof HSP){
+				else if(user.equals("HSP")){
 					updateStart(general2);
 					switch1(general2, general2.switchPanel, h_Base);
 				}
