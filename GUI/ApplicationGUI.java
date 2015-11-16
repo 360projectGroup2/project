@@ -223,6 +223,13 @@ public class ApplicationGUI extends JFrame {
 				updateStart(loginS);
 				
 			}
+			
+			if(event.getSource() == hspPanel.btn1){
+				switch1(general2,general2.switchPanel, hspGenStats);
+			}
+			if(event.getSource() == hspPanel.btn2){
+				switch1(general2, general2.switchPanel, RegistrationBase);
+			}
 						
 			//---
 			if(event.getSource() == start.savebutton){
