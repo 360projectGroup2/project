@@ -85,6 +85,7 @@ public class ApplicationGUI extends JFrame {
 
 	//add in the tabs
 	HSPBase h_Base;
+	HSP2_Base hspPanel;
 
 	HSPTab1 H_tab1;
 	HSPTab2 H_tab2;
@@ -141,7 +142,7 @@ public class ApplicationGUI extends JFrame {
 		hspGenStats = new HSPGenStats(b);
 		//pharmacist panel
 		pharmacist_panel = new Pharmacist_Panel(b);
-
+		hspPanel = new HSP2_Base(e);
 
 		
 
@@ -208,11 +209,12 @@ public class ApplicationGUI extends JFrame {
 					switch1(general2, general2.switchPanel, pat_HCU);
 				}
 				else if(user.equals("Doctor")){
-					
+					updateStart(general2);
+					switch1(general2, general2.switchPanel, h_Base);
 				}
 				else if(user.equals("HSP")){
 					updateStart(general2);
-					switch1(general2, general2.switchPanel, h_Base);
+					switch1(general2, general2.switchPanel, hspPanel);
 				}
 				
 			}
