@@ -279,7 +279,10 @@ public class ApplicationGUI extends JFrame {
 			}
 			if (event.getSource() == RegistrationBase.b6){
 				updateStart(loginS);
-			}			
+			}
+			if (event.getSource() == RegistrationBase.btnBack){
+				updateStart(loginPanel);
+			}
 
 
 		}
