@@ -42,7 +42,7 @@ public class HSPGenStats extends JPanel implements ActionListener{
 		this.add(genStats);
 		
 		chartPanel = new JPanel();
-		chartPanel.setBounds(10, 34, 430, 324);
+		chartPanel.setBounds(124, 53, 468, 410);
 		add(chartPanel);
 
 		buttons = new JRadioButton[6];
@@ -54,7 +54,7 @@ public class HSPGenStats extends JPanel implements ActionListener{
 
 		chart = new ArrayList<BarChartDemo>();
 		for(int i=0; i<buttons.length; i++){
-			buttons[i].setBounds(200, 200+30*i, 200, 20);
+			buttons[i].setBounds(0, 50+30*i, 200, 20);
 		}
 
 
@@ -63,8 +63,10 @@ public class HSPGenStats extends JPanel implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		Object source = e.getSource();
 		if(source == genStats){
-			System.out.println("asdf");
-			
+			for(int i=0; i<buttons.length; i++){
+				add(buttons[i]);
+				buttons[i].setVisible(true);
+			}
 		}
 
 
