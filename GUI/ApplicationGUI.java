@@ -568,6 +568,12 @@ public class ApplicationGUI extends JFrame {
 				}
 				
 			}
+			if(event.getSource() == H_tab2.print){
+				if(H_tab2.e_prescribe.getText() != null){
+					Prescription.printPrescription(H_tab2.e_prescribe.getText());
+				}
+				
+			}
 			if (event.getSource() == hspGenStats.genStats){      
 				System.out.println("got here");
 				hspGenStats.add(hsp)

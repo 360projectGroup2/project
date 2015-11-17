@@ -4,6 +4,19 @@ package model;
 
 import java.text.*;
 
+import javax.print.Doc;
+import javax.print.DocFlavor;
+import javax.print.DocPrintJob;
+import javax.print.PrintException;
+import javax.print.PrintService;
+import javax.print.PrintServiceLookup;
+import javax.print.SimpleDoc;
+import javax.print.attribute.HashPrintRequestAttributeSet;
+import javax.print.attribute.PrintRequestAttributeSet;
+import javax.print.attribute.standard.Copies;
+
+import controller.TableController;
+
 public class Prescription {
     private int doctorId;
     private String doctorName;//last name
@@ -46,4 +59,44 @@ public class Prescription {
     return pInfo;
    }
 
+  public static void printPrescription(String prescription){
+	  DocFlavor flavor = DocFlavor.STRING.TEXT_PLAIN;
+	  Doc mydoc = new SimpleDoc(prescription, flavor, null);
+
+	 //    PrintService[] services = PrintServiceLookup.lookupPrintServices(flavor, aset);
+	     PrintService defaultService = PrintServiceLookup.lookupDefaultPrintService();
+
+	     PrintRequestAttributeSet  aset = new HashPrintRequestAttributeSet();
+	     aset.add(new Copies(1));
+	     
+	//     if(services.length == 0) {
+	         if(defaultService == null) {
+	               //no printer found
+
+	         } else {
+	              //print using default
+	              DocPrintJob job = defaultService.createPrintJob();
+	              try{
+	            	  job.print(mydoc, aset);
+	              }catch(PrintException pe){
+	            	  System.out.println("Print Exception");
+	              }
+
+	         }
+/*
+	      } else {
+
+	         //built in UI for printing you may not use this
+	         PrintService service = ServiceUI.printDialog(null, 200, 200, services, defaultService, flavor, aset);
+
+
+	          if (service != null)
+	          {
+	             DocPrintJob job = service.createPrintJob();
+	             job.print(mydoc, aset);
+	          }
+
+	      }*/
+  }
+  
 }
