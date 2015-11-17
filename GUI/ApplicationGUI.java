@@ -456,6 +456,9 @@ public class ApplicationGUI extends JFrame {
 				info[2] = reg_II.t3.getText();
 				pat.setII(info);
 			}
+			if (event.getSource() == reg_CI.save){
+				//??????????????????????????????
+			}
 			if (event.getSource() == reg_MH.save){
 				String[] info = new String[2];
 				info[0] = reg_MH.allergies.getText();
