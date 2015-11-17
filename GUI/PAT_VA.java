@@ -46,6 +46,7 @@ public class PAT_VA extends JPanel {
 		btnSave = new JButton("Save");
 		btnSave.setBounds(262, 266, 79, 23);
 		btnSave.addActionListener(b);
+		btnSave.addActionListener(action);
 		//add(btnSave);
 
 		JRadioButton rdbtnNewRadioButton = new JRadioButton("New radio button");
@@ -111,6 +112,27 @@ public class PAT_VA extends JPanel {
 				remove(label1);
 				remove(label2);
 				remove(label3);
+				revalidate();
+				repaint();
+			}
+			
+			if(event.getSource()==btnSave&&txtBox1.isShowing()){
+				remove(txtBox1);
+				remove(txtBox2);
+				remove(txtBox3);
+				add(label1);
+				label1.setText(txtBox1.getText());
+				add(label2);
+				label2.setText(txtBox2.getText());
+				add(label3);
+				label3.setText(txtBox3.getText());
+				for(int i=0; i<buttons.size(); i++)
+					if(buttons.get(i).isSelected()){
+						buttons.get(i).setText(label1.getText());
+						docN.set(i, label2.getText());
+						dates.set(i, label3.getText());
+					}
+						
 				revalidate();
 				repaint();
 			}
