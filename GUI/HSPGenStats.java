@@ -23,9 +23,10 @@ public class HSPGenStats extends JPanel implements ActionListener{
 	public JRadioButton[] buttons;
 	public ButtonGroup asdf;
 	public JPanel chartPanel;
+	public JButton btnBack;
 
 
-	public HSPGenStats(ActionListener b){
+	public HSPGenStats(ActionListener e, ActionListener b){
 		setLayout(null);
 		generateStats = new JLabel("Press 1 to generate next statistics");
 		generateStats.setBounds(78, 9, 165, 14);
@@ -52,6 +53,13 @@ public class HSPGenStats extends JPanel implements ActionListener{
 		for(int i=0; i<buttons.length; i++){
 			buttons[i].setBounds(0, 50+30*i, 200, 20);
 		}
+		
+				
+		btnBack = new JButton("Back");
+		btnBack.setBounds(10, 440, 89, 23);
+		btnBack.addActionListener(e);
+		add(btnBack);
+
 
 
 
