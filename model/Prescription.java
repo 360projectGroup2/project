@@ -2,6 +2,9 @@ package model;
 
 
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.text.*;
 
 import javax.print.Doc;
@@ -60,8 +63,10 @@ public class Prescription {
    }
 
   public static void printPrescription(String prescription){
-	  DocFlavor flavor = DocFlavor.STRING.TEXT_PLAIN;
-	  Doc mydoc = new SimpleDoc(prescription, flavor, null);
+	  InputStream stream = new ByteArrayInputStream(prescription.getBytes(StandardCharsets.UTF_8));
+	  
+	  DocFlavor flavor = DocFlavor.INPUT_STREAM.AUTOSENSE;
+	  Doc mydoc = new SimpleDoc(stream, flavor, null);
 
 	 //    PrintService[] services = PrintServiceLookup.lookupPrintServices(flavor, aset);
 	     PrintService defaultService = PrintServiceLookup.lookupDefaultPrintService();
