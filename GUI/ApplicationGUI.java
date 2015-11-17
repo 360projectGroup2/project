@@ -139,7 +139,7 @@ public class ApplicationGUI extends JFrame {
 		lab_rec = new Lab_Records(b);
 		nurse_panel = new NursePanel(b);
 		//hsp generate statistics
-		hspGenStats = new HSPGenStats(b);
+		hspGenStats = new HSPGenStats(e,b);
 		//pharmacist panel
 		pharmacist_panel = new Pharmacist_Panel(b);
 		hspPanel = new HSP2_Base(e);
@@ -570,20 +570,24 @@ public class ApplicationGUI extends JFrame {
 			}
 			if (event.getSource() == hspGenStats.genStats){      
 				System.out.println("got here");
-				for(int i=0; i<hspGenStats.statistics.length;i++){
+				hspGenStats.add(hsp)
+				/*for(int i=0; i<hspGenStats.statistics.length;i++){
 					hspGenStats.chart.add(new BarChartDemo("Patient Statistics", hspGenStats.statistics[i]+" Statistics", hspGenStats.statistics[i]));
 					hspGenStats.chart.get(i).pack();    
 					System.out.println(i);
 					RefineryUtilities.centerFrameOnScreen(hspGenStats.chart.get(i) );        
 					hspGenStats.chart.get(i).setVisible( true );
-
+				*/
 					/*Scanner nextStats = new Scanner(System.in);
 			     if(nextStats.nextInt() != 1){
 			      break;
 			     }
 					 */
-				}
-				hspGenStats.setLayout(null);
+				BarChartDemo a = new BarChartDemo("Patient Statistics", hspGenStats.statistics[0]+" Statistics", hspGenStats.statistics[0]);
+				hspGenStats.chartPanel.add(a.chartPanel);
+				hspGenStats.revalidate();
+				hspGenStats.repaint();
+			
 				for(int i=0; i<hspGenStats.buttons.length; i++){
 					hspGenStats.add(hspGenStats.buttons[i]);
 					hspGenStats.buttons[i].setVisible(true);
