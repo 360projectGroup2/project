@@ -2,6 +2,8 @@ package GUI;
 
 import java.awt.event.ActionListener;
 
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -11,10 +13,11 @@ import javax.swing.JButton;
 
 public class Reg_CI extends JPanel {
 	public JTextField textField_0;
-	public JTextField textField;
 	public JTextField textField_1;
 	public JTextField textField_2;
 	public JTextField textField_3;
+	public DefaultComboBoxModel model;
+	public JComboBox comboBox;
 	public JButton btnSave;
 
 	/**
@@ -57,10 +60,15 @@ public class Reg_CI extends JPanel {
 		add(textField_0);
 		textField_0.setColumns(10);
 		
-		textField = new JTextField();
-		textField.setBounds(247, 82, 39, 20);
-		add(textField);
-		textField.setColumns(10);
+		String states = "ALAKAZARCACOCTDEFLGAHIIDILINIAKSKYLAMEMDMAMIMNMSMOMTNENVNHNJNMNYNCNDOHOKORPARISCSDTNTXUTVTVAWAWVWIWY";
+		model = new DefaultComboBoxModel();
+		for(int i=0;i<states.length();i+=2){
+			model.addElement(states.substring(i,i+2));
+		}
+		comboBox = new JComboBox(model);
+		comboBox.setBounds(236, 82, 50, 20);
+		add(comboBox);
+		comboBox.getSelectedItem();
 		
 		textField_1 = new JTextField();
 		textField_1.setColumns(10);
