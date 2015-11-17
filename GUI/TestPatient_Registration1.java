@@ -72,7 +72,7 @@ public class TestPatient_Registration1 extends JPanel{
 		btnBack = new JButton("Back");
 		btnBack.setBounds(97, 325, 89, 23);
 		btnBack.addActionListener(e);
-		p1.add(btnBack);
+		add(btnBack);
 		
 	}
 

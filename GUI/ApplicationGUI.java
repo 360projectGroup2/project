@@ -290,7 +290,7 @@ public class ApplicationGUI extends JFrame {
 				updateStart(loginS);
 			}
 			if (event.getSource() == RegistrationBase.btnBack){
-				updateStart(loginPanel);
+				updateStart(loginS);
 			}
 
 
