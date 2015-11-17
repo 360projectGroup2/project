@@ -9,6 +9,8 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+import java.awt.BorderLayout;
+
 
 
 import org.jfree.ui.RefineryUtilities;
@@ -40,6 +42,7 @@ public class HSPGenStats extends JPanel implements ActionListener{
 		
 		chartPanel = new JPanel();
 		chartPanel.setBounds(124, 53, 468, 410);
+		chartPanel.setLayout(new BorderLayout(0, 0));
 		add(chartPanel);
 
 		buttons = new JRadioButton[6];
