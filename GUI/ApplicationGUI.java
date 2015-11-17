@@ -347,6 +347,7 @@ public class ApplicationGUI extends JFrame {
 				}
 			}
 			if (event.getSource() == reg_PI.save){
+				System.out.println("PI Save clicked. Hello Jason.\n");
 				if (tc.activePatient == null)
 					tc.activePatient = new Patient();
 				tc.activePatient.ssn = reg_PI.ssnTextField.getText();
