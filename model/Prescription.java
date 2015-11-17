@@ -5,7 +5,6 @@ package model;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
-import java.text.*;
 
 import javax.print.Doc;
 import javax.print.DocFlavor;
@@ -13,12 +12,11 @@ import javax.print.DocPrintJob;
 import javax.print.PrintException;
 import javax.print.PrintService;
 import javax.print.PrintServiceLookup;
+import javax.print.ServiceUI;
 import javax.print.SimpleDoc;
 import javax.print.attribute.HashPrintRequestAttributeSet;
 import javax.print.attribute.PrintRequestAttributeSet;
 import javax.print.attribute.standard.Copies;
-
-import controller.TableController;
 
 public class Prescription {
     private int doctorId;
@@ -63,18 +61,18 @@ public class Prescription {
    }
 
   public static void printPrescription(String prescription){
+	  PrintRequestAttributeSet  aset = new HashPrintRequestAttributeSet();
+	  aset.add(new Copies(1));
+	  
 	  InputStream stream = new ByteArrayInputStream(prescription.getBytes(StandardCharsets.UTF_8));
 	  
 	  DocFlavor flavor = DocFlavor.INPUT_STREAM.AUTOSENSE;
 	  Doc mydoc = new SimpleDoc(stream, flavor, null);
 
-	 //    PrintService[] services = PrintServiceLookup.lookupPrintServices(flavor, aset);
-	     PrintService defaultService = PrintServiceLookup.lookupDefaultPrintService();
-
-	     PrintRequestAttributeSet  aset = new HashPrintRequestAttributeSet();
-	     aset.add(new Copies(1));
+	  PrintService[] services = PrintServiceLookup.lookupPrintServices(flavor, aset);
+	  PrintService defaultService = PrintServiceLookup.lookupDefaultPrintService();
 	     
-	//     if(services.length == 0) {
+	     if(services.length == 0) {
 	         if(defaultService == null) {
 	               //no printer found
 
@@ -84,11 +82,12 @@ public class Prescription {
 	              try{
 	            	  job.print(mydoc, aset);
 	              }catch(PrintException pe){
-	            	  System.out.println("Print Exception");
+	            	  pe.printStackTrace();
+	            	 // System.out.println("Print Exception");
 	              }
 
 	         }
-/*
+
 	      } else {
 
 	         //built in UI for printing you may not use this
@@ -98,10 +97,14 @@ public class Prescription {
 	          if (service != null)
 	          {
 	             DocPrintJob job = service.createPrintJob();
-	             job.print(mydoc, aset);
+	             try{
+	            	 job.print(mydoc, aset);
+	             }catch(PrintException pe){
+	            	 pe.printStackTrace();
+	             }
 	          }
 
-	      }*/
+	      }
   }
   
 }
