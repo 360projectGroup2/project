@@ -9,9 +9,10 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 
 public class Reg_LI extends JPanel {
-	public JTextField textField;
-	public JTextField textField_1;
-	public JTextField textField_2;
+	public JTextField userNameTF;
+	public JTextField passwordTF;
+	public JTextField repeatTF;
+	
 	public JButton save;
 
 	/**
@@ -37,20 +38,20 @@ public class Reg_LI extends JPanel {
 		lblReenterPassword.setBounds(10, 137, 111, 14);
 		add(lblReenterPassword);
 		
-		textField = new JTextField();
-		textField.setColumns(10);
-		textField.setBounds(136, 36, 144, 20);
-		add(textField);
+		userNameTF = new JTextField();
+		userNameTF.setColumns(10);
+		userNameTF.setBounds(136, 36, 144, 20);
+		add(userNameTF);
 		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
-		textField_1.setBounds(136, 80, 144, 20);
-		add(textField_1);
+		passwordTF = new JTextField();
+		passwordTF.setColumns(10);
+		passwordTF.setBounds(136, 80, 144, 20);
+		add(passwordTF);
 		
-		textField_2 = new JTextField();
-		textField_2.setColumns(10);
-		textField_2.setBounds(136, 134, 144, 20);
-		add(textField_2);
+		repeatTF = new JTextField();
+		repeatTF.setColumns(10);
+		repeatTF.setBounds(136, 134, 144, 20);
+		add(repeatTF);
 		
 		save = new JButton("Save");
 		save.setBounds(112, 176, 89, 23);

@@ -34,6 +34,7 @@ public class Patient
   public String labName;
   public String ePrescription;
   public String userName;
+  public String password;
   public Lab labRecord = new Lab();						//lab record added
   
   public Patient() {}

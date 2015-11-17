@@ -312,13 +312,14 @@ public class ApplicationGUI extends JFrame {
 			base.repaint();
 			//base.pack();
 		}		
-		void updateStart(JPanel base){
-			setContentPane(base);
-			revalidate();
-			repaint();
-		}
+
 
 	}
+	void updateStart(JPanel base){
+		setContentPane(base);
+		revalidate();
+		repaint();
+	} 
 	/*
 	 * Reg_PI reg_PI;
 	Reg_II reg_II;
@@ -357,9 +358,10 @@ public class ApplicationGUI extends JFrame {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+				updateStart(loginS);
 			}
 			if (event.getSource() == reg_PI.save){
-				System.out.println("PI Save clicked. Hello Jason.\n");
+				System.out.println("PI Save clicked.");
 				if (tc.activePatient == null)
 					tc.activePatient = new Patient();
 				tc.activePatient.ssn = reg_PI.ssnTextField.getText();
@@ -373,6 +375,20 @@ public class ApplicationGUI extends JFrame {
 				}
 				else
 					tc.activePatient.sex="F";
+			}
+			if (event.getSource() == reg_LI.save){
+				System.out.println("LI Save clicked.");
+				if (!reg_LI.passwordTF.getText().equals(reg_LI.repeatTF.getText())){
+					JOptionPane.showMessageDialog(null,
+							"Passwords do not match. Re-enter.",
+							"Password Mismatch",
+							JOptionPane.WARNING_MESSAGE);
+					return;
+				}
+				tc.activePatient.userName = reg_LI.userNameTF.getText();
+				tc.activePatient.password = reg_LI.passwordTF.getText();
+				//sex
+
 			}
 
 			if (event.getSource() == sendAlert.updateButton) {

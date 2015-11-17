@@ -18,7 +18,6 @@ public class LoginS extends JPanel {
 			setBounds(100, 100, 450, 300);
 			setLayout(null);
 
-
 			passField = new JPasswordField();
 			passField.setBounds(217, 139, 107, 20);
 			add(passField);

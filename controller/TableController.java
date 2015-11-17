@@ -389,6 +389,10 @@ public ArrayList<ArrayList<String>> registerPatient(Patient p) throws SQLExcepti
 	statement = connection.prepareStatement(sql);
 	statement.executeUpdate();
 	
+	sql = "INSERT INTO `Registry`(`AccessLevel`, `Password`, `Username`, `Gkey`) VALUES ("+1+",'"+p.password+"','"+p.userName+"',"+Gkey+")";
+	statement = connection.prepareStatement(sql);
+	statement.executeUpdate();
+	
 	resultset.close();
 	statement.close();
 	
