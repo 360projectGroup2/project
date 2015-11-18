@@ -229,45 +229,53 @@ public class ApplicationGUI extends JFrame {
 			}
 
 			// LOGIN LOGIN LOGIN LOGIN LOGIN LOGIN LOGIN LOGIN LOGIN LOGIN LOGIN LOGIN LOGIN LOGIN LOGIN LOGIN LOGIN LOGIN
-			if(event.getSource() == loginS.btnLogin){
-				
-				char pass[] = loginS.passField.getPassword();
-				String passw = new String(pass);
-				try {
-					user = tc.callLogin(loginS.userField.getText(), passw);
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+			if(event.getSource() == loginS.btnLogin && loginS.userField.getText().length()>0 && loginS.passField.getPassword().length>0){
+				if(security.typeCheck(loginS.userField.getText(), "username")>0){
+					char pass[] = loginS.passField.getPassword();
+					String passw = new String(pass);
+					try {
+						user = tc.callLogin(loginS.userField.getText(), passw);
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+						return;
+					}
+					//System.out.println("LoginS got here");
+					if (user.equals("Patient")){
+						//System.out.println("gothere");
+						updateStart(patBase);
+					}
+					else if(user.equals("Doctor")){
+						updateStart(general2);
+						switch1(general2, general2.switchPanel, h_Base);
+					}
+					else if(user.equals("HSP")){
+						updateStart(general2);
+						switch1(general2, general2.switchPanel, hspPanel);
+					}
+					else if(user.equals("Nurse")){
+						updateStart(general2);
+						switch1(general2, general2.switchPanel, nurse_panel);
+					}
+					else if(user.equals("Pharmacist")){
+						updateStart(general2);
+						switch1(general2, general2.switchPanel, pharmacist_panel);
+					}
+					else if(user.equals("LabStaff")){
+						updateStart(general2);
+						switch1(general2, general2.switchPanel, lab_rec);
+					}
+				}
+				else{
+					JOptionPane.showMessageDialog(null,
+							"Usernames may only be made of letters and numbers",
+							"NAUGHTY NAUGHTY",
+							JOptionPane.WARNING_MESSAGE);
 					return;
 				}
-				System.out.println("LoginS got here");
-				if (user.equals("Patient")){
-					System.out.println("gothere");
-					updateStart(patBase);
-				}
-				else if(user.equals("Doctor")){
-					updateStart(general2);
-					switch1(general2, general2.switchPanel, h_Base);
-				}
-				else if(user.equals("HSP")){
-					updateStart(general2);
-					switch1(general2, general2.switchPanel, hspPanel);
-				}
-				else if(user.equals("Nurse")){
-					updateStart(general2);
-					switch1(general2, general2.switchPanel, nurse_panel);
-				}
-				else if(user.equals("Pharmacist")){
-					updateStart(general2);
-					switch1(general2, general2.switchPanel, pharmacist_panel);
-				}
-				else if(user.equals("LabStaff")){
-					updateStart(general2);
-					switch1(general2, general2.switchPanel, lab_rec);
-				}
-				
-			}
-			
+
+
+			}			
 			if(event.getSource() == general2.btnLogout){
 				switch1(general2, Changedpanel, general2.switchPanel);
 				updateStart(loginS);
