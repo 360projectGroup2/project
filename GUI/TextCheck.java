@@ -203,34 +203,34 @@ public class TextCheck {
 
 
 	//returns 1 if true, 0 if false, -1 if incorrect input, -2 if crashed
-	public int typeCheck(String text, String type){
+	public int typeCheck(String type, String text){
 		try{
-			if(text.equalsIgnoreCase("email")){
-				if(emailCheck(text))
+			if(type.equalsIgnoreCase("email")){
+				if(emailCheck(type))
 					return 1;
 				else return 0;
 			}
-			else if(text.equalsIgnoreCase("pass")){
-				if(passCheck(text,pMin,pMax))
+			else if(type.equalsIgnoreCase("pass")){
+				if(passCheck(type,pMin,pMax))
 					return 1;
 				else return 0;
 
 			}
-			else if(text.equalsIgnoreCase("date")){
-				if(dateCheck(text))
+			else if(type.equalsIgnoreCase("date")){
+				if(dateCheck(type))
 					return 1;
 				else return 0;
 			}
-			else if(text.equalsIgnoreCase("string")){
-				if(check("1100",text,0,text.length()))
+			else if(type.equalsIgnoreCase("string")){
+				if(check("1100",type,0,type.length()))
 					return 0;
 				return 1;
 			}
-			else if(text.equalsIgnoreCase("username")){
-				if(check("0100",text,0,text.length()))
+			else if(type.equalsIgnoreCase("username")){
+				if(check("0100",type,0,type.length()))
 					return 0;
 				return 1;
-			}			
+			}
 			return -1;
 		}
 		catch(Exception e){
