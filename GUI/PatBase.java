@@ -1,4 +1,4 @@
-package Pat;
+package GUI;
 
 import java.awt.BorderLayout;
 import java.awt.event.ActionListener;
