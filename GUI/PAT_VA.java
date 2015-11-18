@@ -2,14 +2,27 @@ package GUI;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Enumeration;
 
+import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import javax.swing.JRadioButton;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
+
+import model.Doctor;
+
+import controller.TableController;
 
 public class PAT_VA extends JPanel {
 	public JButton btnViewAppointments, btnEdit, btnSave;
@@ -20,6 +33,8 @@ public class PAT_VA extends JPanel {
 	public JLabel label1, label2, label3;
 	public JTextField txtBox1, txtBox2, txtBox3; 
 	private JButton btnDelete;
+	public JComboBox doctorDrop,date;
+	
 	/**
 	 * Create the panel.
 	 */
@@ -82,25 +97,54 @@ public class PAT_VA extends JPanel {
 	}
 
 	public void loadAppts(ArrayList<String> a, ArrayList<String> b, ArrayList<String> c){
-		System.out.println("Test2");
 		docN = b;
 		dates = c;
 
-		for(int i=0; i<a.size(); i++){
+		TableController tc = new TableController();
+		String[] attributes = {"DoctorGkey","ScheduledOn"};
+		ArrayList appts=null;
+		try{
+			appts = tc.get("Appointments", attributes, "Status='Scheduled' and PatientGkey="+TableController.activePatient.patientId);
+		}catch(SQLException se){
+			System.out.println("Exception in get Appointments");
+		}
+		
+		for(int i=0 ; i < appts.size();i++){
+			System.out.println(appts.get(i));
+			System.out.println(appts.get(i+1));
+			String[] attrs = {"FirstName", "LastName"};
+			ArrayList doc=null;
+			try{
+				doc = tc.get("Doctor", attrs, "Gkey="+appts.get(i));
+			}catch(SQLException se){
+				System.out.println("Exception in : Get Appointments - Doctor name");
+			}
+			String buttonName = appts.get(++i).toString();
+			buttonName = buttonName.substring(0,buttonName.lastIndexOf("."));
+			buttonName = doc.get(0)+" "+doc.get(1)+" "+ buttonName;
+			System.out.println(buttonName);
+			JRadioButton button = new JRadioButton(buttonName);
+			b2.add(button);
+			button.setBounds(130, 112+(10*(i+1)), 260, 14);
+			add(button);
+		
+		}
+		
+	/*	for(int i=0; i<a.size(); i++){
 			buttons.add(new JRadioButton(a.get(i)));
 			buttons.get(i).setBounds(6,83+i*26, 109, 23);
 			buttons.get(i).addActionListener(action);
 			b2.add(buttons.get(i));
 			add(buttons.get(i));
 
-		}
-		System.out.println("Test2");
-		add(label1);
+		}*/
+	
+	/*	add(label1);
 		add(label2);
-		add(label3);
+		add(label3);*/
 		add(btnEdit);
 		add(btnSave);
-		System.out.println(label1.isDisplayable());
+		
 		//now show them
 		revalidate();
 		repaint();
@@ -108,7 +152,47 @@ public class PAT_VA extends JPanel {
 	}
 	public class inHouse implements ActionListener{
 		public void actionPerformed (ActionEvent event){
+			ArrayList<Doctor> doctorList=null;
 			if(event.getSource()==btnEdit){
+				String apptInfo="";
+				for (Enumeration<AbstractButton> buttons = b2.getElements(); buttons.hasMoreElements();) {
+		            AbstractButton button = buttons.nextElement();
+
+		            if (button.isSelected()) {
+		                apptInfo = button.getText();
+		            }
+		        }
+			//	ArrayList<Doctor> doctorList=null;
+				try{
+					doctorList = new Doctor().getDoctor(0);
+				}catch(SQLException se){
+					System.out.println("Exception edit APPOINTMENTS");
+				}
+				
+				ArrayList<String> doctorNames= new ArrayList<String>();
+				for(int i=0; i < doctorList.size(); i++){
+					doctorNames.add("Dr. "+doctorList.get(i).getFirstName() +" "+doctorList.get(i).getLastName() + " - " + doctorList.get(i).specialty);
+				}
+				String[] doctors = doctorNames.toArray(new String[doctorNames.size()]);
+				
+			//	String [] problems = {"1","2","3","4","5","6","7","8","9","10"};
+				
+				doctorDrop     = new JComboBox<String>(doctors);
+				doctorDrop.addActionListener(this);
+				//JComboBox healthRankDrop = new JComboBox<String>(problems);
+			//	healthRankDrop.addActionListener(this);
+				date = new JComboBox<String>();
+				
+				
+				// Text Area
+				JTextArea healthConcerns = new JTextArea();
+				healthConcerns.setColumns(10);
+				healthConcerns.setRows(2);
+				healthConcerns.setLineWrap(true);
+				healthConcerns.setWrapStyleWord(true);
+				
+				
+				
 				add(txtBox1);
 				txtBox1.setText(label1.getText());
 				add(txtBox2);
@@ -122,6 +206,69 @@ public class PAT_VA extends JPanel {
 				repaint();
 			}
 
+			if (event.getSource()== doctorDrop)
+			{
+				JComboBox cb = (JComboBox)event.getSource();
+				String storeDoctor  = (String)cb.getSelectedItem();
+				
+				storeDoctor = storeDoctor.substring(storeDoctor.indexOf(".")+2);
+				String speciality = storeDoctor.substring(storeDoctor.lastIndexOf("-")+2);
+				storeDoctor = storeDoctor.substring(0, storeDoctor.lastIndexOf(" -"));
+				String lName = storeDoctor.substring(storeDoctor.lastIndexOf(" ")+1);
+				String fName = storeDoctor.substring(0,storeDoctor.indexOf(" "));
+				
+				String[] days = new String[] {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
+				
+				
+				for(int i=0; i<doctorList.size();i++){
+					
+					if(doctorList.get(i).lastName.equals(lName) && doctorList.get(i).firstName.equals(fName) && doctorList.get(i).specialty.equals(speciality)){
+						
+						ArrayList<String> timings=new ArrayList<String>();
+						
+						Calendar cal = Calendar.getInstance();
+						
+						for(int j=0; j<3; j++){
+							
+							cal.add(Calendar.DATE, 1);
+							
+							String day = days[cal.get(Calendar.DAY_OF_WEEK) - 1];
+							
+							if(doctorList.get(i).availble.getWeekday().contains(day)){
+									String start_hour = doctorList.get(i).availble.getStartHour();
+									int start_mins = Integer.parseInt(start_hour.substring(start_hour.indexOf(":")+1));
+									
+									int start_hours = Integer.parseInt(start_hour.substring(0,start_hour.indexOf(":")));
+									
+									String end_hour = doctorList.get(i).availble.getEndHour();
+									int end_mins = Integer.parseInt(end_hour.substring(end_hour.indexOf(":")+1));
+									int end_hours = Integer.parseInt(end_hour.substring(0,end_hour.indexOf(":")));
+									
+									cal.set(Calendar.HOUR_OF_DAY, end_hours);
+									cal.set(Calendar.MINUTE, end_mins);
+									Date endTime = cal.getTime();
+									
+									cal.set(Calendar.HOUR_OF_DAY, start_hours);
+									cal.set(Calendar.MINUTE, start_mins);
+									Date startTime = cal.getTime();
+									
+									while(startTime.before(endTime)){
+										String time = new SimpleDateFormat("yyyy-MM-dd HH:mm").format(startTime);
+										timings.add(time);
+									//	System.out.println("time:"+time);
+										cal.set(Calendar.HOUR_OF_DAY, ++start_hours);
+										startTime = cal.getTime();
+									}
+									
+							}
+						}
+						date.setModel(new DefaultComboBoxModel(timings.toArray()));
+						ApplicationRunner.docId = doctorList.get(i).getID();
+						break;
+					}
+				}
+			}
+			
 			if(event.getSource() == btnDelete){
 				for(int i=0; i<buttons.size(); i++){
 					if(buttons.get(i).isSelected()){
@@ -189,9 +336,7 @@ public class PAT_VA extends JPanel {
 							remove(txtBox2);
 							remove(txtBox3);
 						}
-						add(label1);
-						add(label2);
-						add(label3);
+			
 						revalidate();
 						repaint();
 						
