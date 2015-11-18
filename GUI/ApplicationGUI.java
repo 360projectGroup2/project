@@ -93,7 +93,8 @@ public class ApplicationGUI extends JFrame {
 	HSPTab2 H_tab2;
 	HSPTab3 H_tab3;
 	HSPTab4 H_tab4;
-
+	//sec class
+	TextCheck security;
 
 
 
@@ -104,7 +105,7 @@ public class ApplicationGUI extends JFrame {
 	public ApplicationGUI() throws SQLException{
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
-
+		security= new TextCheck(5,32);
 		Event_Handler e = new  Event_Handler();
 		Bridge b = new Bridge();
 
