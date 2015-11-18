@@ -238,8 +238,7 @@ public class ApplicationGUI extends JFrame {
 					return;
 				}
 				if (user.equals("Patient")){
-					updateStart(general2);
-					switch1(general2, general2.switchPanel, patBase);
+					updateStart(patBase);
 				}
 				else if(user.equals("Doctor")){
 					updateStart(general2);
