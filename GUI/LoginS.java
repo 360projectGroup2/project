@@ -50,12 +50,12 @@ public class LoginS extends JPanel {
 
 			btnRegister = new JButton("Register");
 			btnRegister.setBounds(47, 227, 89, 23);
-			add(btnRegister);
+			//add(btnRegister);
 			btnRegister.addActionListener(e);
 
 			btnForgotPassword = new JButton("Forgot Password?");
 			btnForgotPassword.setBounds(257, 227, 119, 23);
-			add(btnForgotPassword);
+			//add(btnForgotPassword);
 			btnForgotPassword.addActionListener(e);
 
 		}
