@@ -1,4 +1,4 @@
-package controller;
+package GUI;
 
 public class TextCheck {
 	//WARNING THERE IS A CONSIDERABLE AMOUNT OF OVERLOADING DONE
@@ -11,12 +11,12 @@ public class TextCheck {
 
 	private static int pMin;
 	private static int pMax;
-	public static void main(String[] args){
+	/*public static void main(String[] args){
 		System.out.println(check("101","asdf",1,20));
 		System.out.println(phoneCheck("(916) 817-1234"));
 		System.out.println(dateCheck("1995/12/42"));
 		System.out.println(emailCheck("w@w.com"));                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
-	}
+	}*/
 
 	public TextCheck(int n1, int n2){
 		pMin=n1;
