@@ -64,6 +64,7 @@ public class ApplicationGUI extends JFrame {
 	
 	TestP1 start;
 	//patient schedule appt
+	PatBase patBase;
 	PAT_ScAp pat_ScAp;
 	PAT_VA pat_VA;
 	//patient update health condition
@@ -132,7 +133,7 @@ public class ApplicationGUI extends JFrame {
 		general2 = new TestStandardScreen(e);
 
 		
-		
+		patBase = new PatBase(e);
 		pat_VA = new PAT_VA(e,b);
 		pat_HCU = new PAT_HCU(b);
 		sendAlert = new SendAlert(b);
@@ -192,6 +193,38 @@ public class ApplicationGUI extends JFrame {
 			if(event.getSource() == loginS.btnExitApplication){
 				dispose();
 			}
+			if(event.getSource() == patBase.btnSApp){
+				patBase.panel.setBounds(190,11, (171+500), (378+500));
+				update(patBase.panel, pat_ScAp);
+			}
+			if(event.getSource() == patBase.btnVA){
+				update(patBase.panel, pat_VA);
+			}
+			if(event.getSource() == pat_VA.btnViewAppointments){
+				System.out.println("Test");
+				ArrayList<String> a = new ArrayList<String>();
+				ArrayList<String> b = new ArrayList<String>();
+				ArrayList<String> c = new ArrayList<String>();
+				a.add("a"); a.add("b"); a.add("c");
+				b.add("a"); b.add("b"); b.add("c");
+				c.add("a"); c.add("b"); c.add("c");
+				
+				pat_VA.loadAppts(a,b,c);
+			}
+			if(event.getSource() == patBase.btnSAl){
+				update(patBase.panel, pat_Alert);
+			}
+			if(event.getSource() == patBase.btnHCU){
+				
+				patBase.setSize(800,1000);
+				patBase.panel.setBounds(171, 11, (171+680), (378+653));
+				setSize(900,1100);
+				update(patBase.panel, pat_HCU);
+			}
+			if(event.getSource() == patBase.btnLogout){
+				updateStart(loginPanel);
+			}
+
 			// LOGIN LOGIN LOGIN LOGIN LOGIN LOGIN LOGIN LOGIN LOGIN LOGIN LOGIN LOGIN LOGIN LOGIN LOGIN LOGIN LOGIN LOGIN
 			if(event.getSource() == loginS.btnLogin){
 				
