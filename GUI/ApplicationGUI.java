@@ -54,6 +54,7 @@ public class ApplicationGUI extends JFrame {
 	//login panels
 	//THIS IS THE THINGY THAT GETS UPDATED
 	String user;	
+	JPanel Changedpanel;
 	
 	LoginScreen loginS;
 	ForgotPW forgotPanel;
@@ -222,6 +223,7 @@ public class ApplicationGUI extends JFrame {
 				update(patBase.panel, pat_HCU);
 			}
 			if(event.getSource() == patBase.btnLogout){
+				switch1(general2, Changedpanel, general2.switchPanel);
 				updateStart(loginS);
 			}
 
@@ -266,15 +268,16 @@ public class ApplicationGUI extends JFrame {
 			}
 			
 			if(event.getSource() == general2.btnLogout){
+				switch1(general2, Changedpanel, general2.switchPanel);
 				updateStart(loginS);
 				
 			}
 			
 			if(event.getSource() == hspPanel.btn1){
-				switch1(general2,general2.switchPanel, hspGenStats);
+				switch1(general2, Changedpanel, hspGenStats);
 			}
 			if(event.getSource() == hspPanel.btn2){
-				switch1(general2, general2.switchPanel, RegistrationBase);
+				switch1(general2, Changedpanel, RegistrationBase);
 			}
 						
 			//---
@@ -333,9 +336,11 @@ public class ApplicationGUI extends JFrame {
 				update(RegistrationBase.panel, reg_LI);
 			}
 			if (event.getSource() == RegistrationBase.b6){
+				switch1(general2, Changedpanel, general2.switchPanel);
 				updateStart(loginS);
 			}
 			if (event.getSource() == RegistrationBase.btnBack){
+				switch1(general2, Changedpanel, general2.switchPanel);
 				updateStart(loginS);
 			}
 
@@ -350,6 +355,7 @@ public class ApplicationGUI extends JFrame {
 			//base.pack();
 		}
 		void switch1(JPanel base, JPanel remove, JPanel add){
+			Changedpanel=add;
 			base.remove(remove);
 			add.setSize(remove.getSize());
 			add.setBounds(remove.getBounds());
