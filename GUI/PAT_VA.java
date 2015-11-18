@@ -19,6 +19,7 @@ public class PAT_VA extends JPanel {
 	public ArrayList<String> docN, dates;
 	public JLabel label1, label2, label3;
 	public JTextField txtBox1, txtBox2, txtBox3; 
+	private JButton btnDelete;
 	/**
 	 * Create the panel.
 	 */
@@ -37,17 +38,22 @@ public class PAT_VA extends JPanel {
 		add(btnViewAppointments);
 		btnViewAppointments.addActionListener(e);
 
-		
+
 		btnEdit = new JButton("Edit");
-		btnEdit.setBounds(109, 266, 79, 23);
+		btnEdit.setBounds(116, 266, 79, 23);
 		btnEdit.addActionListener(action);
-		//add(btnEdit);
-		
+		add(btnEdit);
+
 		btnSave = new JButton("Save");
-		btnSave.setBounds(262, 266, 79, 23);
+		btnSave.setBounds(294, 266, 79, 23);
 		btnSave.addActionListener(b);
 		btnSave.addActionListener(action);
-		//add(btnSave);
+		add(btnSave);
+
+		btnDelete = new JButton("Delete");
+		btnDelete.setBounds(205, 266, 79, 23);
+		btnDelete.addActionListener(action);
+		add(btnDelete);
 
 		JRadioButton rdbtnNewRadioButton = new JRadioButton("New radio button");
 		rdbtnNewRadioButton.setBounds(6, 80, 109, 23);
@@ -64,10 +70,10 @@ public class PAT_VA extends JPanel {
 		label3 = new JLabel("New label");
 		label3.setBounds(189, 163, 232, 14);
 		//add(label3);
-		
+
 		txtBox1 = new JTextField();
 		txtBox1.setBounds(189, 112, 232, 14);
-		
+
 		txtBox2 = new JTextField();
 		txtBox2.setBounds(189, 137, 232, 14);
 
@@ -86,7 +92,7 @@ public class PAT_VA extends JPanel {
 			buttons.get(i).addActionListener(action);
 			b2.add(buttons.get(i));
 			add(buttons.get(i));
-			
+
 		}
 		System.out.println("Test2");
 		add(label1);
@@ -98,7 +104,7 @@ public class PAT_VA extends JPanel {
 		//now show them
 		revalidate();
 		repaint();
-		
+
 	}
 	public class inHouse implements ActionListener{
 		public void actionPerformed (ActionEvent event){
@@ -115,8 +121,47 @@ public class PAT_VA extends JPanel {
 				revalidate();
 				repaint();
 			}
-			
-			if(event.getSource()==btnSave&&txtBox1.isShowing()){
+
+			if(event.getSource() == btnDelete){
+				for(int i=0; i<buttons.size(); i++){
+					if(buttons.get(i).isSelected()){
+						/*
+						//buttons.remove(i);
+						//docN.remove(i);
+						for(int j=i;j<buttons.size()-1; j++){
+							buttons.get(j).setText(buttons.get(j+1).getText());
+							label1.setText(buttons.get(j+1).getText());
+							docN.set(j, docN.get(j+1));
+							label2.setText(docN.get(j));
+							dates.set(j, dates.get(j+1));
+							label3.setText(dates.get(j));
+						}
+						buttons.remove(buttons.size()-1);
+						docN.remove(docN.size()-1);
+						dates.remove(dates.size()-1);
+						b2.remove(buttons.get(buttons.size()-1));
+						remove(buttons.get(buttons.size()-1));
+						revalidate();
+						repaint();
+						 */
+						remove(buttons.get(i));
+						if(label1.isDisplayable()){
+							remove(label1);
+							remove(label2);
+							remove(label3);
+						}
+						else{
+							remove(txtBox1);
+							remove(txtBox2);
+							remove(txtBox3);
+						}
+						revalidate();
+						repaint();
+					}
+				}
+			}
+
+			else if(event.getSource()==btnSave&&txtBox1.isShowing()){
 				remove(txtBox1);
 				remove(txtBox2);
 				remove(txtBox3);
@@ -132,28 +177,31 @@ public class PAT_VA extends JPanel {
 						docN.set(i, label2.getText());
 						dates.set(i, label3.getText());
 					}
-						
+
 				revalidate();
 				repaint();
 			}
-			for(int i=0; i<buttons.size(); i++){
-				if(event.getSource() == buttons.get(i)){
-					if(txtBox1.isShowing()){
-						remove(txtBox1);
-						remove(txtBox2);
-						remove(txtBox3);
+			else{
+				for(int i=0; i<buttons.size(); i++){
+					if(event.getSource() == buttons.get(i)){
+						if(txtBox1.isShowing()){
+							remove(txtBox1);
+							remove(txtBox2);
+							remove(txtBox3);
+						}
 						add(label1);
 						add(label2);
 						add(label3);
 						revalidate();
 						repaint();
+						
+						label1.setText(buttons.get(i).getText());
+						label2.setText(docN.get(i));
+						label3.setText(dates.get(i));
 					}
-					label1.setText(buttons.get(i).getText());
-					label2.setText(docN.get(i));
-					label3.setText(dates.get(i));
 				}
 			}
-			
+
 		}
 	}
 }
