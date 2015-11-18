@@ -230,7 +230,7 @@ public class ApplicationGUI extends JFrame {
 
 			// LOGIN LOGIN LOGIN LOGIN LOGIN LOGIN LOGIN LOGIN LOGIN LOGIN LOGIN LOGIN LOGIN LOGIN LOGIN LOGIN LOGIN LOGIN
 			if(event.getSource() == loginS.btnLogin && loginS.userField.getText().length()>0 && loginS.passField.getPassword().length>0){
-				//if(security.typeCheck(loginS.userField.getText(), "username")>0){
+				if(security.typeCheck("username", loginS.userField.getText())>0){
 					char pass[] = loginS.passField.getPassword();
 					String passw = new String(pass);
 					try {
@@ -265,14 +265,14 @@ public class ApplicationGUI extends JFrame {
 						updateStart(general2);
 						switch1(general2, general2.switchPanel, lab_rec);
 					}
-				//}
-				//else{
-				//	JOptionPane.showMessageDialog(null,
-				//			"Usernames may only be made of letters and numbers",
-				//			"NAUGHTY NAUGHTY",
-				//			JOptionPane.WARNING_MESSAGE);
-				//	return;
-				//}
+				}
+				else{
+					JOptionPane.showMessageDialog(null,
+							"Usernames may only be made of letters and numbers",
+							"NAUGHTY NAUGHTY",
+							JOptionPane.WARNING_MESSAGE);
+					return;
+				}
 
 
 			}			
