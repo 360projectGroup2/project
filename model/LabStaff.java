@@ -4,7 +4,7 @@ public class LabStaff {
 	public String firstName;
 	public String lastName;
 	public String userName;
-    private int staffID;
+    public int staffID;
 	public BusinessHours availble;
 	boolean found = false;
 	

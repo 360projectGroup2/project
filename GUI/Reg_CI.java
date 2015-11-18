@@ -85,7 +85,7 @@ public class Reg_CI extends JPanel {
 		textField_3.setBounds(212, 156, 74, 20);
 		add(textField_3);
 		
-		JButton btnSave = new JButton("Save");
+		btnSave = new JButton("Save");
 		btnSave.setBounds(114, 187, 89, 23);
 		btnSave.addActionListener(b);
 		add(btnSave);

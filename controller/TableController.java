@@ -12,9 +12,12 @@ import java.util.Random;
 
 import model.Doctor;
 import model.HSP;
+import model.LabStaff;
+import model.Nurse;
 import model.Patient;
 import model.Doctor;
 import model.Appointment;
+import model.Pharmacist;
 
 public class TableController implements DBQuery{
 	/**
@@ -25,6 +28,9 @@ public class TableController implements DBQuery{
 	public static Patient activePatient = null;
 	public static Doctor activeDoctor = null;
 	public static HSP activeHSP = null;
+	public static LabStaff activeLabStaff = null;
+	public static Pharmacist activePharmacist = null;
+	public static Nurse activeNurse = null;
 	
 	public Connection connectDatabase() {
 		Connection connection = null;
@@ -743,6 +749,54 @@ public String callLogin(String username, String password) throws SQLException
 		// NEVER FORGET TO RELEASE THE CONNECTION!
 		connection.close();
 		return "HSP";
+	}
+	sql = "SELECT * from LabStaff where Username='" + username + "'";
+	statement = connection.prepareStatement(sql);
+	resultset = statement.executeQuery(); 
+	if (resultset.next()) {
+		activeLabStaff = new LabStaff();
+		activeLabStaff.firstName = resultset.getString(1);
+		activeLabStaff.staffID = Integer.parseInt(resultset.getString(2));
+		activeLabStaff.lastName = resultset.getString(3);
+		activeLabStaff.userName = username;
+		resultset.close();
+		statement.close();
+		
+		// NEVER FORGET TO RELEASE THE CONNECTION!
+		connection.close();
+		return "LabStaff";
+	}
+	sql = "SELECT * from Nurse where Username='" + username + "'";
+	statement = connection.prepareStatement(sql);
+	resultset = statement.executeQuery(); 
+	if (resultset.next()) {
+		activeNurse = new Nurse();
+		activeNurse.firstName = resultset.getString(1);
+		activeNurse.nurseID = Integer.parseInt(resultset.getString(2));
+		activeNurse.lastName = resultset.getString(3);
+		activeNurse.userName = username;
+		resultset.close();
+		statement.close();
+		
+		// NEVER FORGET TO RELEASE THE CONNECTION!
+		connection.close();
+		return "Nurse";
+	}
+	sql = "SELECT * from Pharmacist where Username='" + username + "'";
+	statement = connection.prepareStatement(sql);
+	resultset = statement.executeQuery(); 
+	if (resultset.next()) {
+		activePharmacist = new Pharmacist();
+		activePharmacist.firstName = resultset.getString(1);
+		activePharmacist.pharmID = Integer.parseInt(resultset.getString(2));
+		activePharmacist.lastName = resultset.getString(3);
+		activePharmacist.userName = username;
+		resultset.close();
+		statement.close();
+		
+		// NEVER FORGET TO RELEASE THE CONNECTION!
+		connection.close();
+		return "Pharmacist";
 	}
 	
 	resultset.close();

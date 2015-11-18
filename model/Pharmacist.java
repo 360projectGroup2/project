@@ -4,7 +4,7 @@ public class Pharmacist{
 	public String firstName;
 	public String lastName;
 	public String userName;
-    private int ID;
+    public int pharmID;
 	public BusinessHours availble;
 	boolean found = false;
 	
@@ -12,7 +12,7 @@ public class Pharmacist{
    {
     firstName = new String("");
     lastName = new String("");
-    ID = 0;
+    pharmID = 0;
     userName = new String("");
    }
 
@@ -20,7 +20,7 @@ public class Pharmacist{
    {
         firstName = first;
 		lastName = last;
-        ID = id;
+        pharmID = id;
    
    }
 	
@@ -58,7 +58,7 @@ public class Pharmacist{
 
   public int getID()
    {
-    return ID;
+    return pharmID;
    }
    
    public String getUserName()

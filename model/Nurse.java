@@ -4,7 +4,7 @@ public class Nurse {
 	public String firstName;
 	public String lastName;
 	public String userName;
-    private int nurseID;
+    public int nurseID;
 	public BusinessHours availble;
 	String specialty;
 	boolean found = false;

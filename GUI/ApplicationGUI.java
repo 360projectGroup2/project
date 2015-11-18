@@ -212,7 +212,7 @@ public class ApplicationGUI extends JFrame {
 				pat_VA.loadAppts(a,b,c);
 			}
 			if(event.getSource() == patBase.btnSAl){
-				update(patBase.panel, pat_Alert);
+				update(patBase.panel, sendAlert);
 			}
 			if(event.getSource() == patBase.btnHCU){
 				
@@ -222,7 +222,7 @@ public class ApplicationGUI extends JFrame {
 				update(patBase.panel, pat_HCU);
 			}
 			if(event.getSource() == patBase.btnLogout){
-				updateStart(loginPanel);
+				updateStart(loginS);
 			}
 
 			// LOGIN LOGIN LOGIN LOGIN LOGIN LOGIN LOGIN LOGIN LOGIN LOGIN LOGIN LOGIN LOGIN LOGIN LOGIN LOGIN LOGIN LOGIN
@@ -495,7 +495,7 @@ public class ApplicationGUI extends JFrame {
 				info[2] = reg_II.t3.getText();
 				pat.setII(info);
 			}
-			if (event.getSource() == reg_CI.save){
+			if (event.getSource() == reg_CI.btnSave){
 				//??????????????????????????????
 			}
 			if (event.getSource() == reg_MH.save){
@@ -609,7 +609,7 @@ public class ApplicationGUI extends JFrame {
 			}
 			if (event.getSource() == hspGenStats.genStats){      
 				System.out.println("got here");
-				hspGenStats.add(hsp)
+				//hspGenStats.add(hsp)
 				/*for(int i=0; i<hspGenStats.statistics.length;i++){
 					hspGenStats.chart.add(new BarChartDemo("Patient Statistics", hspGenStats.statistics[i]+" Statistics", hspGenStats.statistics[i]));
 					hspGenStats.chart.get(i).pack();    
@@ -623,7 +623,7 @@ public class ApplicationGUI extends JFrame {
 			     }
 					 */
 				BarChartDemo a = new BarChartDemo("Patient Statistics", hspGenStats.statistics[0]+" Statistics", hspGenStats.statistics[0]);
-				hspGenStats.chartPanel.add(a.chartPanel);
+				//hspGenStats.chartPanel.add(a.chartPanel);
 				hspGenStats.revalidate();
 				hspGenStats.repaint();
 			
