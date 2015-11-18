@@ -226,6 +226,11 @@ public class TextCheck {
 					return 0;
 				return 1;
 			}
+			else if(text.equalsIgnoreCase("username")){
+				if(check("0100",text,0,text.length()))
+					return 0;
+				return 1;
+			}			
 			return -1;
 		}
 		catch(Exception e){
