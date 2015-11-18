@@ -237,7 +237,9 @@ public class ApplicationGUI extends JFrame {
 					e.printStackTrace();
 					return;
 				}
+				System.out.println("LoginS got here");
 				if (user.equals("Patient")){
+					System.out.println("gothere");
 					updateStart(patBase);
 				}
 				else if(user.equals("Doctor")){
@@ -250,6 +252,7 @@ public class ApplicationGUI extends JFrame {
 				}
 				else if(user.equals("Nurse")){
 					updateStart(general2);
+					switch1(general2, general2.switchPanel, nurse_panel);
 				}
 				else if(user.equals("Pharmacist")){
 					updateStart(general2);

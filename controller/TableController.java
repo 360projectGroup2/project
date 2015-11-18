@@ -391,7 +391,7 @@ public ArrayList<ArrayList<String>> registerPatient(Patient p) throws SQLExcepti
 	statement = connection.prepareStatement(sql);
 	statement.executeUpdate();
 	
-	sql = "INSERT INTO `Patient`(`row_create`, `DateOfBirth`, `FirstName`, `Gkey`, `LastName`, `Sex`, `Ethnicity`, `SSN`, `Username`) VALUES (now(),'"+p.birthdate+"','"+p.firstName+"',"+Gkey+",'"+p.lastName+"','"+p.sex+"','"+p.ethnicity+"','"+p.ssn+"','"+"temp"+Gkey+"')";
+	sql = "INSERT INTO `Patient`(`row_create`, `DateOfBirth`, `FirstName`, `Gkey`, `LastName`, `Sex`, `Ethnicity`, `SSN`, `Username`) VALUES (now(),'"+p.birthdate+"','"+p.firstName+"',"+Gkey+",'"+p.lastName+"','"+p.sex+"','"+p.ethnicity+"','"+p.ssn+"','"+p.userName+"')";
 	statement = connection.prepareStatement(sql);
 	statement.executeUpdate();
 	
