@@ -8,9 +8,11 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class HSPTab1 extends JPanel {
-
-
+public class Pharmacist_Panel extends JPanel {
+	/**
+	 * Create the panel.
+	 */
+	
 	
 	public JTextField textFieldFName;
 	public JTextField textFieldLName;
@@ -19,6 +21,7 @@ public class HSPTab1 extends JPanel {
 	public JLabel concernLabel;
 	public JLabel idNumber;
 	public JLabel labInfo;
+	public JLabel drInfo;
 	public TextArea labInfoTextArea;
 	public JLabel eprescribeLable;
 	public TextArea e_prescribe;
@@ -26,14 +29,16 @@ public class HSPTab1 extends JPanel {
 	public JButton updateButton;
 	public JButton cancel;
 	public JButton print;
-	//public JComboBox healthRankDrop;
-
-	/**
-	 * Create the panel.
-	 */
 	
-	//layout is not completed
-	public HSPTab1(ActionListener b) {
+	
+	
+	@SuppressWarnings("unchecked")
+	public Pharmacist_Panel(ActionListener b) {
+
+		setLayout(null);
+		setSize(680,653);
+		
+		
 		setLayout(null);
 		setSize(500,300);
 		
@@ -57,44 +62,35 @@ public class HSPTab1 extends JPanel {
 	add(textFieldLName);
 	
 	
-	idNumber = new JLabel("ID: ???");
-	idNumber.setBounds(200, 59, 165, 14);
+	idNumber= new JLabel("ID: ");
+	idNumber.setBounds(200, 59, 140, 14);
 	add(idNumber);
 	
-	labInfo= new JLabel("Lab Info: ???");
+	labInfo= new JLabel("Lab Info: ");
 	labInfo.setBounds(200, 80, 200, 20);
 	add(labInfo);
 	
-	labInfoTextArea = new TextArea();
-	labInfoTextArea.setBounds(200, 100, 290, 40);
-	add(labInfoTextArea);
-
+	
+	drInfo= new JLabel("Doctor Name: ");
+	drInfo.setBounds(200, 100, 245, 20);
+	add(drInfo);
+	
 	search = new JButton("Search"); 
 	search.setBounds(98, 120, 86, 20);
 	add(search );
 	search.addActionListener(b);
 
-	
-	eprescribeLable = new JLabel("medicine:");
-	eprescribeLable.setBounds(30, 160, 100, 20);
+	eprescribeLable = new JLabel("Prescription Details:");
+	eprescribeLable.setBounds(30, 160, 180, 20);
 	add(eprescribeLable);
 	
 	e_prescribe = new TextArea();
 	e_prescribe.setBounds(30, 190, 300, 100);
 	add(e_prescribe);
-	
-	concernLabel = new JLabel("Health condition or concern:");
-	concernLabel.setBounds(30, 300, 250, 20);
-	add(concernLabel);
-	
-	textConcern = new TextArea();
-	textConcern.setBounds(30, 340, 300, 100);
-	add(textConcern);
-	
+
 	updateButton = new JButton("Cancel"); 
-	updateButton.setBounds(400, 460, 90, 23);
+	updateButton.setBounds(300, 460, 90, 23);
 	add(updateButton );
 	updateButton.addActionListener(b);
-
-}
+	}
 }

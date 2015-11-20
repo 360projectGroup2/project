@@ -15,6 +15,7 @@ public class Patient
   public String patientId;
   public String firstName;
   public String lastName;
+  public String doctorName;
   public String age;
   public String ssn;
   public String contactNumber;
@@ -23,10 +24,18 @@ public class Patient
   public String allergies;
   public String birthdate;
   public String sex;
+  public String ethnicity;
   public String healthCondition;
   public String InsuranceComp;
   public String InsuranceID;
   public int severity;
+  public String labTestResults;
+  public String labTestID;
+  public String labName;
+  public String ePrescription;
+  public String userName;
+  public String password;
+  public Lab labRecord = new Lab();						//lab record added
   
   public Patient() {}
   
@@ -67,18 +76,31 @@ public class Patient
 	  this.ssn = a[2];
 	  this.sex = "" + a[3].charAt(0);
   }
+  
+  
+  //set patients lab record
+  public void setLabRecord(Lab n)
+  {
+    labRecord = n;
+  }
+  
+  
   //set patient insurance information screen
-  public void setII(String[] a){
-	  this.InsuranceComp = a[0];
-	  this.InsuranceID = a[2];
+  public void setII(String a, String b, String c){
+	  this.InsuranceComp = a;
+	  this.InsuranceID = c;
   }
   
   //set patient medical history screen
-  public void setMH(String[] a){
-	  this.allergies = a[0];
-	  this.healthCondition = a[1];
+  public void setMH(String a, String b){
+	  this.allergies = a;
+	  this.healthCondition = b;
   }
  
+  public void setCI(String[] a){
+	  
+  }
+  
   /*
   public void setPatientDetails(int patientId, String name, int age, int ssn, int contactNumber, 
     String address, ArrayList<String> healthCondition, ArrayList<String> healthRecord) {

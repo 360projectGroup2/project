@@ -22,6 +22,8 @@ public class TestPatient_Registration1 extends JPanel{
 	 */
 	public JButton b1, b2, b3, b4, b5, b6;
 	public JPanel panel;
+	public JButton btnBack;
+	
 	public TestPatient_Registration1(ActionListener e, ActionListener b) {
 		setLayout(null);
 		
@@ -66,6 +68,11 @@ public class TestPatient_Registration1 extends JPanel{
 		b6.addActionListener(b);
 		add(b6);
 		
+				
+		btnBack = new JButton("Back");
+		btnBack.setBounds(97, 325, 89, 23);
+		btnBack.addActionListener(e);
+		add(btnBack);
 		
 	}
 

@@ -1,25 +1,25 @@
 package model;
 
 public class BusinessHours {
-	private int weekday;
-	private int startHour;
-	private int endHour;
+	private String weekday;
+	private String startHour;
+	private String endHour;
 	
-	public BusinessHours(int day, int start, int end){
+	public BusinessHours(String day, String start, String end){
 		weekday = day;
 		startHour = start;
 		endHour = end;
 	}
 	
-	public int getWeekday(){
+	public String getWeekday(){
 		return weekday;
 	}
 	
-	public int getStartHour(){
+	public String getStartHour(){
 		return startHour;
 	}
 	
-	public int getEndHour(){
+	public String getEndHour(){
 		return endHour;
 	}
 }

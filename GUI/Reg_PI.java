@@ -18,13 +18,14 @@ public class Reg_PI extends JPanel {
 	public JRadioButton maleCheck, femaleCheck;
 	public JButton save;
 	public ButtonGroup sex;
+	public JTextField raceTextField;
 	
 	/**
 	 * Create the panel.
 	 */
 	public Reg_PI(ActionListener b) {
 		setLayout(null);
-		setSize(343,210);
+		setSize(375,230);
 		
 		JLabel lblNewLabel = new JLabel("Personal Information");
 		lblNewLabel.setBounds(108, 11, 137, 14);
@@ -69,24 +70,31 @@ public class Reg_PI extends JPanel {
 		add(ssnTextField);
 		ssnTextField.setColumns(10);
 		
+		JLabel raceLabel = new JLabel("Ethnicity");
+		raceLabel.setBounds(10, 135, 70, 14);
+		add(raceLabel);
 		
+		raceTextField = new JTextField();
+		raceTextField.setBounds(137, 135, 126, 20);
+		add(raceTextField);
+		raceTextField.setColumns(10);
 		
 		JLabel lblSex = new JLabel("Sex:");
-		lblSex.setBounds(10, 139, 70, 14);
+		lblSex.setBounds(10, 160, 70, 14);
 		add(lblSex);
 		
 		save = new JButton("Save");
-		save.setBounds(125, 176, 89, 23);
+		save.setBounds(125, 180, 89, 23);
 		save.addActionListener(b);
 		add(save);
 		sex = new ButtonGroup();
 		maleCheck = new JRadioButton("Male");
-		maleCheck.setBounds(100, 135, 70, 23);
+		maleCheck.setBounds(100, 160, 70, 23);
 		add(maleCheck);
 		
 		
 		femaleCheck = new JRadioButton("Female");
-		femaleCheck.setBounds(188, 135, 70, 23);
+		femaleCheck.setBounds(188, 160, 70, 23);
 		add(femaleCheck);
 		sex.add(maleCheck);
 		sex.add(femaleCheck);
