@@ -206,7 +206,7 @@ public class TextCheck {
 	public int typeCheck(String type, String text){
 		try{
 			if(type.equalsIgnoreCase("email")){
-				if(emailCheck(type))
+				if(emailCheck(text))
 					return 1;
 				else return 0;
 			}
@@ -227,7 +227,7 @@ public class TextCheck {
 				return 1;
 			}
 			else if(type.equalsIgnoreCase("username")){
-				if(check("0100",type,0,type.length()))
+				if(check("0100",text,0,text.length()))
 					return 0;
 				return 1;
 			}

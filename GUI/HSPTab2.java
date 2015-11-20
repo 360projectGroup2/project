@@ -111,7 +111,7 @@ public class HSPTab2 extends JPanel {
 	
 	
 	updateButton = new JButton("Update"); 
-	updateButton.setBounds(300, 460, 90, 23);
+	updateButton.setBounds(360, 300, 90, 23);
 	add(updateButton );
 	updateButton.addActionListener(e);
 

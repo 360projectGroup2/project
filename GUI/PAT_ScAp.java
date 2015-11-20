@@ -213,10 +213,10 @@ public class PAT_ScAp extends JPanel implements ActionListener{
 			//store these values
 			TableController tb = new TableController();
 			HashMap attributes = new HashMap();
-			ApplicationRunner.patientId = 518;
+		//	ApplicationRunner.patientId = ;
 			attributes.put("DoctorGkey", ApplicationRunner.docId);
 			attributes.put("ScheduledOn", storeDate);
-			attributes.put("PatientGkey", ApplicationRunner.patientId);
+			attributes.put("PatientGkey", TableController.activePatient.patientId);
 		//	attributes.put("address", storeAddress);
 			attributes.put("Concerns", storeConcerns);
 			attributes.put("Status", "Scheduled");

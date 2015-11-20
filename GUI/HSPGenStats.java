@@ -1,4 +1,4 @@
-package HSP;
+package GUI;
 
 import java.awt.GridLayout;
 import java.util.ArrayList;
@@ -91,6 +91,8 @@ public class HSPGenStats extends JPanel implements ActionListener{
 		else{
 			for(int i=0;i<buttons.length; i++)
 				if(buttons[i].isSelected()){
+					System.out.println(buttons[i].getText());
+					System.out.println("asdf");
 					chartPanel.remove(currentChart);
 					currentChart=chart.get(i).chartPanel;
 					chartPanel.add(currentChart, BorderLayout.CENTER);

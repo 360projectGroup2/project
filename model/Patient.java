@@ -86,17 +86,21 @@ public class Patient
   
   
   //set patient insurance information screen
-  public void setII(String[] a){
-	  this.InsuranceComp = a[0];
-	  this.InsuranceID = a[2];
+  public void setII(String a, String b, String c){
+	  this.InsuranceComp = a;
+	  this.InsuranceID = c;
   }
   
   //set patient medical history screen
-  public void setMH(String[] a){
-	  this.allergies = a[0];
-	  this.healthCondition = a[1];
+  public void setMH(String a, String b){
+	  this.allergies = a;
+	  this.healthCondition = b;
   }
  
+  public void setCI(String[] a){
+	  
+  }
+  
   /*
   public void setPatientDetails(int patientId, String name, int age, int ssn, int contactNumber, 
     String address, ArrayList<String> healthCondition, ArrayList<String> healthRecord) {

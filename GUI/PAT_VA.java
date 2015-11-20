@@ -8,8 +8,10 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Enumeration;
+import java.util.HashMap;
 
 import javax.swing.AbstractButton;
+import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
@@ -33,7 +35,12 @@ public class PAT_VA extends JPanel {
 	public JLabel label1, label2, label3;
 	public JTextField txtBox1, txtBox2, txtBox3; 
 	private JButton btnDelete;
-	public JComboBox doctorDrop,date;
+	JComboBox doctorDrop,date;
+	String speciality;
+	JTextArea healthConcerns;
+	
+	String docNam="";
+	String apptInfo="";
 	
 	/**
 	 * Create the panel.
@@ -70,7 +77,7 @@ public class PAT_VA extends JPanel {
 		btnDelete.addActionListener(action);
 		add(btnDelete);
 
-		JRadioButton rdbtnNewRadioButton = new JRadioButton("New radio button");
+	/*	JRadioButton rdbtnNewRadioButton = new JRadioButton("New radio button");
 		rdbtnNewRadioButton.setBounds(6, 80, 109, 23);
 		//add(rdbtnNewRadioButton);
 
@@ -93,7 +100,7 @@ public class PAT_VA extends JPanel {
 		txtBox2.setBounds(189, 137, 232, 14);
 
 		txtBox3 = new JTextField();
-		txtBox3.setBounds(189, 163, 232, 14);
+		txtBox3.setBounds(189, 163, 232, 14);*/
 	}
 
 	public void loadAppts(ArrayList<String> a, ArrayList<String> b, ArrayList<String> c){
@@ -116,18 +123,22 @@ public class PAT_VA extends JPanel {
 			ArrayList doc=null;
 			try{
 				doc = tc.get("Doctor", attrs, "Gkey="+appts.get(i));
+				String[] attrs1 = {"Specialty"};
+				ArrayList specializesIn = tc.get("SpecializesIn", attrs1,"Gkey="+appts.get(i));
+				speciality = specializesIn.get(0).toString();
 			}catch(SQLException se){
 				System.out.println("Exception in : Get Appointments - Doctor name");
 			}
 			String buttonName = appts.get(++i).toString();
-			buttonName = buttonName.substring(0,buttonName.lastIndexOf("."));
+			if(buttonName.contains(".")){
+				buttonName = buttonName.substring(0,buttonName.lastIndexOf("."));
+			}		
 			buttonName = doc.get(0)+" "+doc.get(1)+" "+ buttonName;
 			System.out.println(buttonName);
 			JRadioButton button = new JRadioButton(buttonName);
 			b2.add(button);
 			button.setBounds(130, 112+(10*(i+1)), 260, 14);
 			add(button);
-		
 		}
 		
 	/*	for(int i=0; i<a.size(); i++){
@@ -152,9 +163,15 @@ public class PAT_VA extends JPanel {
 	}
 	public class inHouse implements ActionListener{
 		public void actionPerformed (ActionEvent event){
-			ArrayList<Doctor> doctorList=null;
+
+			ArrayList<Doctor> doctorList = null;
+			try{
+				doctorList = new Doctor().getDoctor(0);
+			}catch(SQLException se){
+				System.out.println("Excepton in getting doctor list");
+			}
 			if(event.getSource()==btnEdit){
-				String apptInfo="";
+				
 				for (Enumeration<AbstractButton> buttons = b2.getElements(); buttons.hasMoreElements();) {
 		            AbstractButton button = buttons.nextElement();
 
@@ -162,6 +179,7 @@ public class PAT_VA extends JPanel {
 		                apptInfo = button.getText();
 		            }
 		        }
+				
 			//	ArrayList<Doctor> doctorList=null;
 				try{
 					doctorList = new Doctor().getDoctor(0);
@@ -183,17 +201,56 @@ public class PAT_VA extends JPanel {
 			//	healthRankDrop.addActionListener(this);
 				date = new JComboBox<String>();
 				
-				
 				// Text Area
-				JTextArea healthConcerns = new JTextArea();
-				healthConcerns.setColumns(10);
+				healthConcerns = new JTextArea();
+				healthConcerns.setColumns(5);
 				healthConcerns.setRows(2);
 				healthConcerns.setLineWrap(true);
 				healthConcerns.setWrapStyleWord(true);
 				
+				for (Enumeration<AbstractButton> buttons = b2.getElements(); buttons.hasMoreElements();) {
+		            AbstractButton button = buttons.nextElement();
+		            remove(button);
+		           // if (button.isSelected()) {
+		               // apptInfo = button.getText();
+		           // }
+		        }
 				
+				JPanel editPanel = new JPanel();
+				editPanel.setLayout(new BoxLayout(editPanel, BoxLayout.Y_AXIS));
 				
-				add(txtBox1);
+			/*	editPanel.add(doctorDrop);
+				editPanel.add(date);
+				editPanel.add(healthConcerns);
+				
+				ApplicationGUI.patBase.panel.add(editPanel);
+				
+				editPanel.setBounds(130, 112, 260, 14);*/
+				doctorDrop.setBounds(130, 112, 260, 24);
+				add(doctorDrop);
+				docNam = apptInfo.substring(0,apptInfo.indexOf("-")-5);
+				System.out.println("Test name:"+"Dr. "+docNam+" - "+speciality);
+				
+				doctorDrop.setSelectedItem("Dr. "+docNam+" - "+speciality);
+				
+				date.setBounds(130,140,260,24);
+				add(date);
+				System.out.println("Date test:"+apptInfo.substring(apptInfo.indexOf("-")-4,apptInfo.lastIndexOf(":")));
+				date.setSelectedItem(apptInfo.substring(apptInfo.indexOf("-")-4,apptInfo.lastIndexOf(":")));
+				apptInfo = apptInfo.substring(apptInfo.indexOf("-")-4,apptInfo.lastIndexOf(":"))+":00";
+				healthConcerns.setBounds(130,165,260,50);
+				add(healthConcerns);
+				
+				try{
+					TableController tc = new TableController();
+					String[] attrs = {"Concerns"};
+					ArrayList concerns = tc.get("Appointments", attrs, "PatientGkey="+TableController.activePatient.patientId+" and status='Scheduled' and ScheduledOn like '%"+apptInfo.substring(apptInfo.indexOf("-")-4,apptInfo.lastIndexOf(":"))+"%'");
+					healthConcerns.setText(concerns.get(0).toString());
+				}catch(SQLException se){
+					System.out.println("Exception in getting concerns");
+				}
+				
+		/*		add(txtBox1);
 				txtBox1.setText(label1.getText());
 				add(txtBox2);
 				txtBox2.setText(label2.getText());
@@ -201,7 +258,7 @@ public class PAT_VA extends JPanel {
 				txtBox3.setText(label3.getText());
 				remove(label1);
 				remove(label2);
-				remove(label3);
+				remove(label3);*/
 				revalidate();
 				repaint();
 			}
@@ -270,9 +327,24 @@ public class PAT_VA extends JPanel {
 			}
 			
 			if(event.getSource() == btnDelete){
-				for(int i=0; i<buttons.size(); i++){
+				
+				for (Enumeration<AbstractButton> buttons = b2.getElements(); buttons.hasMoreElements();) {
+		            AbstractButton button = buttons.nextElement();
+
+		            if (button.isSelected()) {
+		                apptInfo = button.getText();
+		            }
+		        }
+				
+				try{
+					TableController tc = new TableController();
+					tc.delete("Appointments","Status='Scheduled' and ScheduledOn='"+apptInfo.substring(apptInfo.indexOf("-")-4)+"' and PatientGkey="+TableController.activePatient.patientId);
+				}catch(SQLException se){
+					System.out.println("Exception in delete appointments");
+				}
+				/*	for(int i=0; i<buttons.size(); i++){
 					if(buttons.get(i).isSelected()){
-						/*
+						
 						//buttons.remove(i);
 						//docN.remove(i);
 						for(int j=i;j<buttons.size()-1; j++){
@@ -290,7 +362,7 @@ public class PAT_VA extends JPanel {
 						remove(buttons.get(buttons.size()-1));
 						revalidate();
 						repaint();
-						 */
+						 
 						remove(buttons.get(i));
 						if(label1.isDisplayable()){
 							remove(label1);
@@ -305,11 +377,52 @@ public class PAT_VA extends JPanel {
 						revalidate();
 						repaint();
 					}
-				}
+				}*/
 			}
 
-			else if(event.getSource()==btnSave&&txtBox1.isShowing()){
-				remove(txtBox1);
+			else if(event.getSource()==btnSave/*&&txtBox1.isShowing()*/){
+				
+				TableController tc = new TableController();
+				HashMap attrs = new HashMap();
+				
+				attrs.put("PatientGkey", TableController.activePatient.patientId);
+				attrs.put("ScheduledOn", date.getSelectedItem().toString()+":00");
+				attrs.put("Status", "Scheduled");
+				String doctorVal = doctorDrop.getSelectedItem().toString();
+				String firstName = doctorVal.substring(doctorVal.indexOf(" ")+1, doctorVal.indexOf("-")-1);
+				System.out.println("first:"+firstName);
+				String lastName = firstName.substring(firstName.lastIndexOf(" ")+1);
+				firstName = firstName.substring(0,firstName.indexOf(" "));
+				System.out.println("first last:"+firstName+":"+lastName);
+				String docId="";
+				try{
+					String[] attr = {"Gkey"};
+					ArrayList ids = tc.get("Doctor", attr, "FirstName='"+firstName+"' and lastName='"+lastName+"'");
+					for(int i=0;i<ids.size();i++){
+						String[] attrs2 = {"Specialty"};
+						ArrayList temp = tc.get("SpecializesIn",attrs2,"Gkey="+ids.get(i));
+						System.out.println("val:"+doctorVal.substring(doctorVal.indexOf("- ")+2));
+						if(temp.get(0).toString().equals(doctorVal.substring(doctorVal.indexOf("- ")+2))){
+							docId = ids.get(i).toString();
+							System.out.println(docId);
+							break;
+						}
+					}
+				}catch(SQLException se){
+					System.out.println("exception");
+				}
+				attrs.put("DoctorGkey", docId);
+				attrs.put("Concerns", healthConcerns.getText());
+				System.out.println("aapt info:"+apptInfo.substring(apptInfo.indexOf("-")-4));
+				System.out.println(TableController.activePatient.patientId+date.getSelectedItem().toString()+docId+healthConcerns.getText());
+				try{
+					tc.set("Appointments", attrs, null, "insert");
+					tc.delete("Appointments","Status='Scheduled' and ScheduledOn='"+apptInfo.substring(apptInfo.indexOf("-")-4)+"' and PatientGkey="+TableController.activePatient.patientId);
+				}catch(SQLException se){
+					System.out.println("SQl exception in insert appoinments-edits");
+				}
+				
+			/*	remove(txtBox1);
 				remove(txtBox2);
 				remove(txtBox3);
 				add(label1);
@@ -324,7 +437,7 @@ public class PAT_VA extends JPanel {
 						docN.set(i, label2.getText());
 						dates.set(i, label3.getText());
 					}
-
+				*/
 				revalidate();
 				repaint();
 			}

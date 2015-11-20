@@ -14,7 +14,7 @@ public class NursePanel extends JPanel  {
 	public TextArea textAreaMedicalHistory;
 	public TextArea textAreaAllergies;
 	public TextArea textAreaAllergies2;
-	public JButton updateButton;
+	public JButton updateButton, btnLogout;
 	public JLabel lblName;
 	public JLabel lblAddress;
 	public JButton btnSearch;
@@ -28,7 +28,7 @@ public class NursePanel extends JPanel  {
 	public NursePanel(ActionListener b) {
 		
 		setLayout(null);
-		setSize(680,653);
+		setSize(680,800);
 		
 		JLabel lblScheduleAppt = new JLabel("Health Condition Update");
 		lblScheduleAppt.setBounds(95, 11, 128, 14);
@@ -116,6 +116,12 @@ public class NursePanel extends JPanel  {
 		updateButton.setBounds(545, 559, 89, 23);
 		add(updateButton );
 		updateButton.addActionListener(b);
+
+		
+		btnLogout = new JButton("Logout");
+		btnLogout.setBounds(545, 746, 89, 23);
+		add(btnLogout);
+		btnLogout.addActionListener(b);
 		
 		
 		

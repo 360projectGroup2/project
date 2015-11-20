@@ -65,13 +65,12 @@ public class ApplicationGUI extends JFrame {
 	
 	TestP1 start;
 	//patient schedule appt
-	PatBase patBase;
+	public static PatBase patBase;
 	PAT_ScAp pat_ScAp;
 	PAT_VA pat_VA;
 	//patient update health condition
 	PAT_HCU pat_HCU;
 	SendAlert sendAlert;
-	Patient pat;
 	Lab_Records lab_rec;
 	NursePanel nurse_panel;
 	HSPGenStats hspGenStats;
@@ -110,6 +109,7 @@ public class ApplicationGUI extends JFrame {
 		Bridge b = new Bridge();
 
 		start = new TestP1(e);
+		
 
 		//test_app = new Controller(500,500);
 		//pat_SeAl = new PAT_SeAl();
@@ -162,7 +162,7 @@ public class ApplicationGUI extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));	
 		//contentPane.add(start);
-
+		Changedpanel=general2.switchPanel;
 
 		try{ 
 			UIManager.setLookAndFeel(
@@ -247,6 +247,7 @@ public class ApplicationGUI extends JFrame {
 					}
 					else if(user.equals("Doctor")){
 						updateStart(general2);
+						Changedpanel=general2.switchPanel;
 						switch1(general2, general2.switchPanel, h_Base);
 					}
 					else if(user.equals("HSP")){
@@ -254,8 +255,8 @@ public class ApplicationGUI extends JFrame {
 						switch1(general2, general2.switchPanel, hspPanel);
 					}
 					else if(user.equals("Nurse")){
-						updateStart(general2);
-						switch1(general2, general2.switchPanel, nurse_panel);
+						updateStart(nurse_panel);
+						//switch1(general2, general2.switchPanel, nurse_panel);
 					}
 					else if(user.equals("Pharmacist")){
 						updateStart(general2);
@@ -292,7 +293,7 @@ public class ApplicationGUI extends JFrame {
 			//---
 			if(event.getSource() == start.savebutton){
 				updateStart(RegistrationBase);
-				pat = new Patient(true);
+				tc.activePatient = new Patient(true);
 			}
 			if(event.getSource() == start.ScheduleAppBtn){
 				updateStart(pat_ScAp);
@@ -364,8 +365,8 @@ public class ApplicationGUI extends JFrame {
 			//base.pack();
 		}
 		void switch1(JPanel base, JPanel remove, JPanel add){
+			base.remove(Changedpanel);
 			Changedpanel=add;
-			base.remove(remove);
 			add.setSize(remove.getSize());
 			add.setBounds(remove.getBounds());
 			base.add(add);
@@ -508,23 +509,50 @@ public class ApplicationGUI extends JFrame {
 			}
 
 			if (event.getSource() == reg_II.btnSave){
-				String[] info = new String[3];
+		/*		ArrayList<String> info1= new ArrayList<String>(); 
+				//String[] info = new String[3];
 				//Insurance Name
-				info[0] = reg_II.t1.getText();
+				info1.add(reg_II.t1.getText());
+			//	info[0] = reg_II.t1.getText();
+				System.out.println("Text fields:"+reg_II.t1.getText()+"::"+reg_II.t1.getText()+"::"+reg_II.t1.getText());
 				//Member Name
-				info[1] = reg_II.t2.getText();
+				info1.add(reg_II.t2.getText());
+			//	info[1] = reg_II.t2.getText();
 				//Insurance ID
-				info[2] = reg_II.t3.getText();
-				pat.setII(info);
+				info1.add(reg_II.t3.getText());
+			//	info[2] = reg_II.t3.getText();
+				
+				String[] info = new String[info1.size()];
+				info = info1.toArray(info);*/
+			//	info = (String[])info1.toArray();
+				tc.activePatient.setII(reg_II.t1.getText(),reg_II.t2.getText(),reg_II.t3.getText());
 			}
 			if (event.getSource() == reg_CI.btnSave){
 				//??????????????????????????????
+				// ***EDIT HERE***
+				tc.activePatient.contactNumber = reg_CI.textField_0.getText();
+				// street
+				String csv = reg_CI.textField_2.getText();
+				csv += ",";
+				// city
+				csv += reg_CI.textField_1.getText();
+				csv += ",";
+				// state
+				csv += reg_CI.model.getElementAt(reg_CI.model.getIndexOf(reg_CI.model.getSelectedItem())).toString();
+				csv += ",";
+				//zip code
+				csv += reg_CI.textField_3.getText();
+				tc.activePatient.address = csv;
+				
+			//	System.out.println(csv);
 			}
 			if (event.getSource() == reg_MH.save){
+			//	System.out.println("Enteed here");
 				String[] info = new String[2];
-				info[0] = reg_MH.allergies.getText();
-				info[1] = reg_MH.medHis.getText();
-				pat.setMH(info);
+				tc.activePatient.allergies = reg_MH.allergies.getText();
+				tc.activePatient.healthCondition = reg_MH.medHis.getText();
+				//System.out.println("Allergies healthcond:"+tc.activePatient.allergies+"::"+tc.activePatient.healthCondition);
+				tc.activePatient.setMH(reg_MH.allergies.getText(), reg_MH.medHis.getText());
 			}
 			if (event.getSource() == H_tab2.search) {
 				Patient p = new Patient();
@@ -684,7 +712,7 @@ public class ApplicationGUI extends JFrame {
 				
 				/*
 				pat_HCU.medicalHistoryDisplay.setText(tc.activePatient.healthCondition);
-				pat_HCU.lblName.setText(nameLabel.concat(tc.activePatient.firstName.concat(" ").concat(tc.activePatient.lastName)));
+				pat_HCU.lblName.setText(nameLabel.contemtecat(tc.activePatient.firstName.concat(" ").concat(tc.activePatient.lastName)));
 				pat_HCU.lblAddress.setText(addressLabel.concat("NULL"));
 				*/
 			}

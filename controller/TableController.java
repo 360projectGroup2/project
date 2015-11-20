@@ -355,7 +355,7 @@ public ArrayList<Appointment> getAppointments(Patient p) throws SQLException {
 	connection.close();
 	return result;
 }
-
+/*
 public ArrayList<ArrayList<String>> registerPatient(Patient p) throws SQLException {
 	
 	Random rand = new Random();
@@ -406,7 +406,7 @@ public ArrayList<ArrayList<String>> registerPatient(Patient p) throws SQLExcepti
 	connection.close();
 	return result;
 }
-
+*/
 public String sendAlert(Patient p) throws SQLException {
 	
 	ArrayList<ArrayList<String>> result = new ArrayList<>();
@@ -805,6 +805,104 @@ public String callLogin(String username, String password) throws SQLException
 	// NEVER FORGET TO RELEASE THE CONNECTION!
 	connection.close();
 	return "ERROR";
+}
+
+public void delete(String tableName, String where) throws SQLException{
+	
+	Connection connection = this.connectDatabase();
+	if(connection == null) {
+		// You can use other approaches for the connection issue.
+		// As the connection error generally comes from network errors or 
+		// user permissions, it should be taken care of individually
+		throw new SQLException("cannot connect database");
+	}
+	
+	if(tableName == null){
+		throw new SQLException("Table name can't be empty");
+	}
+	
+	if(where == null){
+		where = "1=1";
+	}
+	
+	String sql = "delete from " + tableName + " where "+ where;
+
+	PreparedStatement statement = connection.prepareStatement(sql);
+	statement.executeUpdate();
+
+	statement.close();
+	
+	// NEVER FORGET TO RELEASE THE CONNECTION!
+	connection.close();
+}
+
+public ArrayList<ArrayList<String>> registerPatient(Patient p) throws SQLException {
+	
+	Random rand = new Random();
+	
+	ArrayList<ArrayList<String>> result = new ArrayList<>();
+	Connection connection = this.connectDatabase();
+	if(connection == null) {
+		// You can use other approaches for the connection issue.
+		// As the connection error generally comes from network errors or 
+		// user permissions, it should be taken care of individually
+		throw new SQLException("cannot connect database");
+	}
+	
+	String sql;
+	int Gkey;
+	ResultSet resultset;
+	PreparedStatement statement;
+	
+	do {
+		Gkey = rand.nextInt(10000);
+		sql = "select * from GlobalKey where Gkey = " + Gkey;
+		statement = connection.prepareStatement(sql);
+		resultset = statement.executeQuery();
+		while(resultset.next()) {
+			ArrayList<String> record = new ArrayList<>();
+			for (int i = 1; i <= resultset.getMetaData().getColumnCount(); i++)
+				record.add(resultset.getString(i));		
+			result.add(record);
+		}
+	} while(result.size() != 0);
+	
+	sql = "INSERT INTO `GlobalKey`(`Gkey`) VALUES (" + Gkey + ")";
+	statement = connection.prepareStatement(sql);
+	statement.executeUpdate();
+	
+	sql = "INSERT INTO `Patient`(`row_create`, `DateOfBirth`, `FirstName`, `Gkey`, `LastName`, `Sex`, `Ethnicity`, `SSN`, `Username`) VALUES (now(),'"+p.birthdate+"','"+p.firstName+"',"+Gkey+",'"+p.lastName+"','"+p.sex+"','"+p.ethnicity+"','"+p.ssn+"','"+p.userName+"')";
+	statement = connection.prepareStatement(sql);
+	statement.executeUpdate();
+	
+	sql = "INSERT INTO `Registry`(`AccessLevel`, `Password`, `Username`, `Gkey`) VALUES ("+1+",'"+p.password+"','"+p.userName+"',"+Gkey+")";
+	statement = connection.prepareStatement(sql);
+	statement.executeUpdate();
+	
+	String[] address = p.address.split(",");
+	
+	sql = "INSERT INTO `AddressBook`(`Gkey`, `Street`, `City`, `State`, `ZipCode`) VALUES (" + Gkey + ",'" + address[0] + "','" + address[1]+ "','" + address[2] +"','" + address[3] + "')";
+	statement = connection.prepareStatement(sql);
+	statement.executeUpdate();
+	
+	sql = "INSERT INTO `PhoneBook`(`AreaCode`, `Gkey`, `PhoneNumber`, `Type`) VALUES ('"+p.contactNumber.substring(0, 2)+"',"+Gkey+",'"+p.contactNumber.substring(3,8)+"','Default'"+")";
+	statement = connection.prepareStatement(sql);
+	statement.executeUpdate();
+	
+	sql = "INSERT INTO `InsurerOf`(`GroupNo`,`Insurer`,`PatientGkey`,`Policy`) VALUES (1,'"+p.InsuranceComp+"',"+Gkey+",'"+p.InsuranceID+"')";
+	statement = connection.prepareStatement(sql);
+	statement.executeUpdate();
+	
+	sql = "INSERT INTO `HealthConditions`(`HCID`,`HealthCondition`,`Allergies`,`Severity`) VALUES ("+Gkey+",'"+p.healthCondition+"','"+p.allergies+"',0)";
+	statement = connection.prepareStatement(sql);
+	statement.executeUpdate();
+	
+	resultset.close();
+	statement.close();
+	
+	// NEVER FORGET TO RELEASE THE CONNECTION!
+	connection.close();
+	return result;
 }
 
 }

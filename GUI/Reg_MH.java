@@ -34,10 +34,6 @@ public class Reg_MH extends JPanel {
 		lblPastMedicalHistory.setBounds(10, 108, 130, 38);
 		add(lblPastMedicalHistory);
 		
-		save = new JButton("Save");
-		save.setBounds(125, 176, 89, 23);
-		add(save);
-		
 		allergies = new JTextField();
 		allergies.setBounds(172, 36, 130, 20);
 		add(allergies);
@@ -46,5 +42,10 @@ public class Reg_MH extends JPanel {
 		medHis = new JTextArea();
 		medHis.setBounds(172, 84, 130, 81);
 		add(medHis);
+		
+		save = new JButton("Save");
+		save.setBounds(125, 176, 89, 23);
+		save.addActionListener(b);
+		add(save);
 	}
 }

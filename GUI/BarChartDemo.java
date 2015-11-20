@@ -21,12 +21,13 @@ import org.jfree.ui.RefineryUtilities;
 
 import controller.TableController;
 
-public class BarChartDemo extends ApplicationFrame {
+public class BarChartDemo {
 	
 	static String statType;
+	public ChartPanel chartPanel;
 	
 	public BarChartDemo( String applicationTitle , String chartTitle, String statType ){
-      super( applicationTitle );  
+  //    super( applicationTitle );  
       BarChartDemo.statType = statType;
       JFreeChart barChart = ChartFactory.createBarChart(
          chartTitle,           
@@ -36,9 +37,9 @@ public class BarChartDemo extends ApplicationFrame {
          PlotOrientation.VERTICAL,           
          true, true, false);
          
-      ChartPanel chartPanel = new ChartPanel( barChart );        
+      chartPanel = new ChartPanel( barChart );        
       chartPanel.setPreferredSize(new java.awt.Dimension( 560 , 367 ) );        
-      setContentPane( chartPanel ); 
+  //    setContentPane( chartPanel ); 
    }
 	
    private CategoryDataset createDataset( ){
