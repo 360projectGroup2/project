@@ -176,6 +176,16 @@ public class TextCheck {
 		return multCheck(numSeq, locs, date, 10, 10);
 
 	}
+	boolean ssnCheck(String ssn){
+		//333 / 33 / 3333
+		//0-- 3 4- 6 7-
+		Integer[] locs = {0,3,4,6,7};
+		String[] numSeq = {"100","010","100","010","100"};
+
+		return multCheck(numSeq, locs, ssn, 10, 10);
+
+	}
+
 
 	boolean emailCheck(String txt){
 		if(txt.length()<7||!txt.contains("@"))
@@ -211,18 +221,23 @@ public class TextCheck {
 				else return 0;
 			}
 			else if(type.equalsIgnoreCase("pass")){
-				if(passCheck(type,pMin,pMax))
+				if(passCheck(text,pMin,pMax))
 					return 1;
 				else return 0;
 
 			}
 			else if(type.equalsIgnoreCase("date")){
-				if(dateCheck(type))
+				if(dateCheck(text))
 					return 1;
 				else return 0;
 			}
 			else if(type.equalsIgnoreCase("string")){
-				if(check("1100",type,0,type.length()))
+				if(check("1100",text,0,text.length()))
+					return 0;
+				return 1;
+			}
+			else if(type.equalsIgnoreCase("number")){
+				if(check("0111",text,0,text.length()))
 					return 0;
 				return 1;
 			}
@@ -230,6 +245,11 @@ public class TextCheck {
 				if(check("0100",text,0,text.length()))
 					return 0;
 				return 1;
+			}
+			else if(type.equalsIgnoreCase("ssn")){
+				if(ssnCheck(text))
+					return 1;
+				return 0;
 			}
 			return -1;
 		}
